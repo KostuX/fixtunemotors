@@ -5,6 +5,8 @@ export const cfg_site = {
   email: [""],
   address: "Latt, Co. Cavan",
   postCode: "H12 X938",
+  googleMap:
+    "https://www.google.com/maps/dir/H12+X938,+Latt,+Co.+Cavan/@54.011154,-7.4430384,12z",
   slogan: [
     "From Tune-ups to Repairs, We Keep You Moving.",
     "Providing Expert Maintenance, Reliable Fixes, and Unmatched Customer Care for Every Mile You Drive!",
