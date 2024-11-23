@@ -1,17 +1,18 @@
 export const cfg_site = {
-  title: "Template",
+  title: "test",
   year: "2024",
+  phone: ["111422244, 999888744"],
+  email: ["test@test.com"],
+  address: "here",
+  postCode: "H58 LK897",
   theme_secondary_light: "#1e00ff",
   theme_secondary_dark: "#ff0000",
+
   navItems: [
     {
       label: "Home",
       href: "/",
-    },
-    {
-      label: "API",
-      href: "/api/hello",
-    },
+    },  
     {
       label: "About",
       href: "/about",
