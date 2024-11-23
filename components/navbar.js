@@ -12,6 +12,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
+import Image from "next/image";
 
 import NextLink from "next/link";
 
@@ -21,13 +22,16 @@ export const Navbar = () => {
   return (
     <>
       {/** Logo | top left */}
-      <NextUINavbar
-        maxWidth="xl "
-        className=" "
-      >
+      <NextUINavbar maxWidth="xl " className=" ">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-            <Logo />
+            <Image
+              src="/favicon.ico"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+
             <NextLink
               className="flex justify-start items-center hidden sm:flex "
               href="/"

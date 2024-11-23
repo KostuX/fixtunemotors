@@ -23,30 +23,29 @@ export const Navbar_contact = () => {
       {/** Logo | top left */}
       <NextUINavbar
         maxWidth="xl "
-        height ="	2rem"
-      
-     
+        height="	2rem"
         className="border-b border-black dark:border-white "
       >
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-           
             <NextLink
               className="flex justify-start items-center hidden sm:flex "
               href="/"
             >
-            {cfg.phone.map((phone)=>(
-              <>{phone}</>
-            ))}
+              {cfg.phone.map((phone, i) => (
+                <p>
+                  {i > 0 ? <> ,</> : <></>} <a href={`tel:${phone}`}>{phone}</a>
+                </p>
+              ))}
             </NextLink>
           </NavbarBrand>
         </NavbarContent>
 
         {/** Links | center | large */}
         <NavbarContent className="hidden sm:flex" justify="center">
-        {cfg.email.map((email)=>(
-              <>{email}</>
-            ))}
+          {cfg.email.map((email) => (
+            <>{email}</>
+          ))}
         </NavbarContent>
 
         {/** Links | end | large */}
@@ -55,7 +54,8 @@ export const Navbar_contact = () => {
           justify="end"
         >
           <NavbarItem className="hidden sm:flex gap-2">
-            {cfg.address}{", "}
+            {cfg.address}
+            {", "}
             {cfg.postCode}
           </NavbarItem>
         </NavbarContent>
