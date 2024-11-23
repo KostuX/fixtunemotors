@@ -12,7 +12,7 @@ export default function DefaultLayout({ children }) {
       
       
       <main className=" h-screen">{children}</main>
-      <Foot />
+      {/*<Foot /> */}
     </div>
   );
 }

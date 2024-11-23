@@ -5,6 +5,7 @@ export const cfg_site = {
   email: ["test@test.com"],
   address: "here",
   postCode: "H58 LK897",
+  slogan: ["From Tune-ups to Repairs, We Keep You Moving.", "Providing Expert Maintenance, Reliable Fixes, and Unmatched Customer Care for Every Mile You Drive!"],
   theme_secondary_light: "#1e00ff",
   theme_secondary_dark: "#ff0000",
 
