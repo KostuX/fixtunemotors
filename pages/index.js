@@ -10,6 +10,13 @@ const roboto = Permanent_Marker({
 });
 
 export default function Home() {
+  function handleCallBtn() {
+    window.location.href = `tel:${cfg_site.phone[0]}`;
+  }
+
+  function handleLocationButton() {
+    window.open(cfg_site.googleMap, "_blank");
+  }
   return (
     <DefaultLayout>
       <div className="justify-between h-full  ">
@@ -20,9 +27,19 @@ export default function Home() {
             <span className="text-5xl sm:text-6xl font-bold font-mono text-white">
               <div className={roboto.className}>
                 <p className="mt-48 ">From Tune-ups to Repairs</p>
-                <p className="text-xl">We Keep You Moving</p>
+                <p className="text-xl">We Keep You Moving ... fast!</p>
 
-                <Button>Call Us Now</Button>
+                <div className="grid grid-cols-1  content-right">
+                  <Button
+                    className="mx-2 inline sm:hidden mt-5"
+                    onClick={handleCallBtn}
+                  >
+                    Call Us
+                  </Button>
+                  <Button className="mx-2 mt-5" onClick={handleLocationButton}>
+                    Find Us
+                  </Button>
+                </div>
               </div>
             </span>
             <span></span>
