@@ -26,9 +26,14 @@ export const cfg_site = {
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "#",
+      label: "Home",
+      href: "/",
     },
+    {
+      label: "Home",
+      href: "/",
+    },
+
     {
       label: "About",
       href: "#",

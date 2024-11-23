@@ -29,16 +29,16 @@ export const Navbar_contact = () => {
       >
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-            <NextLink
-              className="flex justify-start items-center flex "
-              href="/"
-            >
-              {cfg.phone.map((phone, i) => (
-                <p>
-                  {i > 0 ? <> ,</> : <></>} <a href={`tel:${phone}`}>{phone}</a>
-                </p>
-              ))}
-            </NextLink>
+            {cfg.phone.map((phone, i) => (
+              <NextLink
+                className="flex justify-start items-center flex "
+                key={i}
+                href={`tel:${phone}`}
+              >
+                {" "}
+                {phone}
+              </NextLink>
+            ))}
           </NavbarBrand>
         </NavbarContent>
 
