@@ -28,7 +28,7 @@ export const Navbar = () => {
             <Image
               src="/favicon.ico"
               width={50}
-              height={50}
+              height={20}
               alt="Picture of the author"
             />
 

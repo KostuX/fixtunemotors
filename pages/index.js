@@ -24,19 +24,24 @@ export default function Home() {
         <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover "}>
           <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center">
             <span></span>
-            <span className="text-5xl sm:text-6xl font-bold font-mono text-white">
+            <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
               <div className={roboto.className}>
                 <p className="mt-48 ">From Tune-ups to Repairs</p>
                 <p className="text-xl">We Keep You Moving ... fast!</p>
 
-                <div className="grid grid-cols-1  content-right">
+                <div className="grid grid-cols-1  content-right w-56">
                   <Button
+                    size="sm"
                     className="mx-2 inline sm:hidden mt-5"
                     onClick={handleCallBtn}
                   >
                     Call Us
                   </Button>
-                  <Button className="mx-2 mt-5" onClick={handleLocationButton}>
+                  <Button
+                    size="sm"
+                    className="mx-2 mt-5 w-56 "
+                    onClick={handleLocationButton}
+                  >
                     Find Us
                   </Button>
                 </div>
@@ -49,17 +54,19 @@ export default function Home() {
       {/** END of intro */}
       {/** Services */}
       <div className="mt-10">
-        <div>
+        <div className={roboto.className}>
           {" "}
-          <p className="text-3xl justify-between h-full text-center font-bold m-48 ">
-            "{cfg_site.slogan[1]}"
+          <p className="text-xl justify-between h-full text-center  m-5 ">
+            {cfg_site.slogan[1]}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 ">
           {cfg_services.services.map((service) => (
-            <div className="border" key={service}>
+            <div className="border mx-10" key={service}>
               {service.title}
+              {service.description}
+              {service.price}
             </div>
           ))}
         </div>
