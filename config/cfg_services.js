@@ -11,7 +11,7 @@ export const cfg_services = {
     },
     // title 2
     {
-      title: "DPF, EGR",
+      title: "DPF, EGR reprogramming ",
       description:
         "Improved Engine Performance Reduced Backpressure: DPF reprogramming often removes or reduces restrictions, which decreases exhaust backpressure, improving engine efficiency and performance. Improved Airflow: Disabling or reprogramming the EGR reduces the amount of exhaust gas recirculated into the intake, enhancing airflow and increasing power. Enhanced Throttle Response: With less restriction from emissions systems, throttle response can become sharper, providing a more dynamic driving experience.",
       price: "250",

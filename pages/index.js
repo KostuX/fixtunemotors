@@ -22,41 +22,43 @@ export default function Home() {
   }
   return (
     <DefaultLayout>
-      <div className="justify-between h-full  ">
+      <div className="justify-between h-full   ">
         {/** intro */}
-        <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover "}>
-          <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center">
-            <span></span>
-            <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
-              <div className={marker.className}>
-                <p className="mt-48 ">From Tune-ups to Repairs</p>
-                <p className="text-xl">We Keep You Moving ... fast!</p>
+        <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover"}>
+          <span className=" w-screen bg-black bg-opacity-50">
+            <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center ">
+              <span></span>
+              <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
+                <div className={marker.className}>
+                  <p className="mt-48 ">From Tune-ups to Repairs</p>
+                  <p className="text-xl">We Keep You Moving ... fast!</p>
 
-                <div className="grid grid-cols-2 content-ends w-56">
-                  <Button
-                    size="sm"
-                    className="mx-2 inline sm:hidden mt-5"
-                    onClick={handleCallBtn}
-                  >
-                    Call Us
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="mx-2 mt-5 w-56 "
-                    onClick={handleLocationButton}
-                  >
-                    Find Us
-                  </Button>
+                  <div className="grid grid-cols-2 content-ends w-56">
+                    <Button
+                      size="sm"
+                      className="mx-2 inline sm:hidden mt-5"
+                      onClick={handleCallBtn}
+                    >
+                      Call Us
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="mx-2 mt-5 w-56 "
+                      onClick={handleLocationButton}
+                    >
+                      Find Us
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </span>
-            <span></span>
-          </div>
+              </span>
+              <span></span>
+            </div>
+          </span>
         </div>
       </div>
       {/** END of intro */}
       {/** Services */}
-      <div className="my-10 text-xl justify-between ">
+      <div className="m-10 text-xl justify-between ">
         <div>
           {" "}
           <p className="font-bold text-center">{cfg_site.slogan[1]}</p>
@@ -72,22 +74,27 @@ export default function Home() {
       </div>
 
       {/** end of up  start of func */}
+
       <div className="grid grid-cols-1 ">
         {cfg_services.services.map((service, index) => (
-          <div className=" mt-5 ">
-            <p className={`font-bold text-center text-3xl ${marker.className}`}>
-              {service.title}
-            </p>
-            <div className={`grid grid-cols-2 mt-10 ${lora.className} `}>
-              <span className="flex">
+          <div className="  mt-10">
+            <span
+              className={`grid grid-cols-1  content-center  ${lora.className} `}
+            >
+              <div className=" flex justify-center items-center ">
                 <img
-                  class="h-auto max-w-full rounded-lg"
+                  className="w-2/3 rounded-xl"
                   src={service.image}
                   alt="image cannot be loaded"
                 ></img>
-              </span>
-              <span className={`${lora} mx-5`}> {service.description}</span>
-            </div>
+              </div>
+              <p
+                className={`font-bold text-center text-3xl ${marker.className} mb-5`}
+              >
+                {service.title}
+              </p>
+            </span>
+            <div className="mx-10">{service.description}</div>
           </div>
         ))}
       </div>
