@@ -2,13 +2,16 @@ import { Button } from "@nextui-org/react";
 import { cfg_services } from "../config/cfg_services";
 import { cfg_site } from "../config/cfg_site";
 import DefaultLayout from "../layouts/default";
-import { Permanent_Marker } from "@next/font/google";
+import { Permanent_Marker, Lora, EB_Garamond } from "@next/font/google";
 
-const roboto = Permanent_Marker({
+const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
 });
-
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 export default function Home() {
   function handleCallBtn() {
     window.location.href = `tel:${cfg_site.phone[0]}`;
@@ -25,7 +28,7 @@ export default function Home() {
           <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center">
             <span></span>
             <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
-              <div className={roboto.className}>
+              <div className={marker.className}>
                 <p className="mt-48 ">From Tune-ups to Repairs</p>
                 <p className="text-xl">We Keep You Moving ... fast!</p>
 
@@ -53,23 +56,40 @@ export default function Home() {
       </div>
       {/** END of intro */}
       {/** Services */}
-      <div className="mt-10">
-        <div className={roboto.className}>
+      <div className="my-10 text-xl justify-between ">
+        <div>
           {" "}
-          <p className="text-xl justify-between h-full text-center  m-5 ">
-            {cfg_site.slogan[1]}
+          <p className="font-bold text-center">{cfg_site.slogan[1]}</p>
+          <p className={`text-sm text-center m-5 ${lora.className}`}>
+            Repairing your car on time ensures safety, prevents costly
+            breakdowns, and enhances performance. Timely maintenance extends the
+            vehicle's lifespan, improves fuel efficiency, and reduces
+            environmental impact. Neglecting repairs can compromise safety
+            features and lead to expensive damages. Stay proactive to ensure
+            reliability, save money, and maintain your car’s value.
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 ">
-          {cfg_services.services.map((service) => (
-            <div className="border mx-10" key={service}>
+      {/** end of up  start of func */}
+      <div className="grid grid-cols-1 ">
+        {cfg_services.services.map((service, index) => (
+          <div className=" mt-5 ">
+            <p className={`font-bold text-center text-3xl ${marker.className}`}>
               {service.title}
-              {service.description}
-              {service.price}
+            </p>
+            <div className={`grid grid-cols-2 mt-10 ${lora.className} `}>
+              <span className="hidden sm:flex">
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  src={service.image}
+                  alt="image cannot be loaded"
+                ></img>
+              </span>
+              <span className={`${lora} mx-5`}> {service.description}</span>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/** END of Services */}
