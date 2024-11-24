@@ -47,11 +47,15 @@ export const Navbar_contact = () => {
 
         {/** Links | end | large */}
         <NavbarContent className="flex basis-1/5 sm:basis-full" justify="end">
-          <NavbarItem className=" gap-2">
+          <NavbarItem className=" gap-2 ">
             <Link target="_blank" href={cfg_site.googleMap}>
-              {cfg.address}
-              {", "}
-              {cfg.postCode}
+              <span className=" hidden sm:flex">
+                {" "}
+                {cfg.address}
+                {", "}
+                {cfg.postCode}
+              </span>
+              <span className="sm:hidden">Find Us</span>
             </Link>
           </NavbarItem>
         </NavbarContent>

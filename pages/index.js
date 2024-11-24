@@ -32,7 +32,7 @@ export default function Home() {
                 <p className="mt-48 ">From Tune-ups to Repairs</p>
                 <p className="text-xl">We Keep You Moving ... fast!</p>
 
-                <div className="grid grid-cols-1  content-right w-56">
+                <div className="grid grid-cols-2 content-ends w-56">
                   <Button
                     size="sm"
                     className="mx-2 inline sm:hidden mt-5"
@@ -79,7 +79,7 @@ export default function Home() {
               {service.title}
             </p>
             <div className={`grid grid-cols-2 mt-10 ${lora.className} `}>
-              <span className="hidden sm:flex">
+              <span className="flex">
                 <img
                   class="h-auto max-w-full rounded-lg"
                   src={service.image}
