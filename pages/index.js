@@ -3,8 +3,8 @@ import { cfg_services } from "../config/cfg_services";
 import { cfg_site } from "../config/cfg_site";
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
-import {Divider} from "@nextui-org/divider";
-import { useState, useEffect } from 'react'
+import { Divider } from "@nextui-org/divider";
+import { useState, useEffect } from "react";
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -15,8 +15,8 @@ const lora = Lora({
   weight: ["400"],
 });
 export default function Home() {
-  const [data, setData] = useState([])
-  const [isLoading, setLoading] = useState(true)
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   function handleCallBtn() {
     window.location.href = `tel:${cfg_site.phone[0]}`;
   }
@@ -24,37 +24,35 @@ export default function Home() {
   function handleLocationButton() {
     window.open(cfg_site.googleMap, "_blank");
   }
-// RESTRICT API
- 
+  // RESTRICT API
+
   const fetchReviws = async () => {
-    let endpoint ="http://localhost:3000/api/reviews"
-  
+    let endpoint = "http://localhost:3000/api/reviews";
+
     try {
       const response = await fetch(endpoint);
       if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error("Failed to fetch data");
       }
-      
-      const res  = await response.json();
-      setData(res.reviews)
-      console.log(res.reviews)
 
+      const res = await response.json();
+      setData(res.reviews);
+      console.log(res.reviews);
     } catch (error) {
       console.error(error);
     }
   };
-  
- 
+
   useEffect(() => {
-    let endpoint ="/api/reviews"
+    let endpoint = "/api/reviews";
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setData(data.reviews)
-        setLoading(false)
-        console.log(data.reviews)
-      })
-  }, [])
+        setData(data.reviews);
+        setLoading(false);
+        console.log(data.reviews);
+      });
+  }, []);
   return (
     <DefaultLayout>
       <div className="justify-between h-full   ">
@@ -111,10 +109,12 @@ export default function Home() {
 
       {/** end of up  start of func */}
       <Divider className="" />
-      <div className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}>
-      <p className="mt-48 ">Our Services</p></div>
+      <div
+        className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+      >
+        <p className="mt-24 ">Services</p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3  ">
-        
         {cfg_services.services.map((service, index) => (
           <div className="  md:mx-5 mt-10">
             <span
@@ -134,34 +134,46 @@ export default function Home() {
               </p>
             </span>
             <div className="mx-10">{service.description_short}</div>
-             
-       
           </div>
-          
         ))}
       </div>
 
       {/** END of Services */}
       <Divider className="mt-5  " />
-      <div className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}>
-      <p className="mt-48 ">Reviews</p></div>
-
-      {data.map((review)=>(<>
-     
-        
-        {review.profile_photo_url && (
+      <div
+        className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+      >
+        <p className="mt-24 ">Reviews</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {data.map((review) => (
+          <div className="mt-10 mx-10 ">
+            <span className="flex">
+              {review.profile_photo_url && (
+                <img
+                  src={review.profile_photo_url}
+                  alt={`${review.author_name}'s profile`}
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              )}
+              <div className={`${marker.className} mx-2`}>
+                <div> {review.author_name}</div>
+                <div className="inline text-xs font-mono">
+                  {review.relative_time_description}
+                </div>
+              </div>
+            </span>
+            <div>
               <img
-                src={review.profile_photo_url}
-                alt={`${review.author_name}'s profile`}
-                style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                src={`rating/${review.rating}.png`}
+                style={{ width: "100px", height: "20px" }}
+                className="my-4"
               />
-            )}
-               <div>{review.author_name}</div>
-               <div>{review.rating}</div>
-               <div>{review.text}</div>
-               <div>{review.relative_time_description}</div>
-        </>
-      ))}
+            </div>
+            <div>{review.text}</div>
+          </div>
+        ))}
+      </div>
     </DefaultLayout>
   );
 }

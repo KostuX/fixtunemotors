@@ -9,10 +9,9 @@ export default function DefaultLayout({ children }) {
       <Head />
       <Navbar_contact />
       <Navbar />
-      
-      
-      <main className=" h-screen">{children}</main>
-      {/*<Foot /> */}
+
+      <main>{children}</main>
+      <Foot />
     </div>
   );
 }
