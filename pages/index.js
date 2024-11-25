@@ -17,6 +17,7 @@ const lora = Lora({
 export default function Home() {
   const [data, setData] = useState([]);
   const [workingHours, setWorkingHours] = useState([]);
+  const [isOpen, setOpen] = useState(true);
   const [isReviewReadey, setReviewReady] = useState(false);
   function handleCallBtn() {
     window.location.href = `tel:${cfg_site.phone[0]}`;
@@ -35,6 +36,7 @@ export default function Home() {
         if (data.data) {
           setReviewReady(true);
           setWorkingHours(data.data.current_opening_hours.weekday_text);
+          setOpen(data.data.current_opening_hours.open_now);
         }
       });
   }, []);
@@ -168,19 +170,31 @@ export default function Home() {
         </div>
       )}
       <Divider className="mt-5  " />
-      <div className="h-screen ">
+      <div className=" ">
         <div
           className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
         >
           <p className="mt-24 ">Working Hours</p>
+          <div className="flex justify-center">
+            {" "}
+            <img
+              src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
+              style={{ width: "50px", height: "50px" }}
+            />
+          </div>
         </div>
-        <ul>
-          {workingHours.map((hours, i) => (
-            <li key={i}>{hours}</li>
-          ))}
-        </ul>
 
-        <div className="grid grid-cols-1 md:grid-cols-2"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 text-center">
+          <ul>
+            {workingHours.map((hours, i) => (
+              <li key={i}>{hours}</li>
+            ))}
+          </ul>
+          <div>
+            <div className="">{cfg_site.phone[0]}</div>
+            <div className="">{cfg_site.address}</div>
+          </div>
+        </div>
       </div>
     </DefaultLayout>
   );
