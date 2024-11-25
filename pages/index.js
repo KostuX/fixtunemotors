@@ -2,7 +2,7 @@ import { Button } from "@nextui-org/react";
 import { cfg_services } from "../config/cfg_services";
 import { cfg_site } from "../config/cfg_site";
 import DefaultLayout from "../layouts/default";
-import { Permanent_Marker, Lora, EB_Garamond } from "@next/font/google";
+import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -30,7 +30,7 @@ export default function Home() {
               <span></span>
               <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
                 <div className={marker.className}>
-                  <p className="mt-48 ">From Tune-ups to Repairs</p>
+                  <p className="mt-48 md:mr-48">From Tune-ups to Repairs</p>
                   <p className="text-xl">We Keep You Moving ... fast!</p>
 
                   <div className="grid grid-cols-2 content-ends w-56">
@@ -43,7 +43,7 @@ export default function Home() {
                     </Button>
                     <Button
                       size="sm"
-                      className="mx-2 mt-5 w-56 "
+                      className="mx-2 mt-5  "
                       onClick={handleLocationButton}
                     >
                       Find Us
@@ -58,7 +58,7 @@ export default function Home() {
       </div>
       {/** END of intro */}
       {/** Services */}
-      <div className="m-10 text-xl justify-between ">
+      <div className="m-10 md:m-48 text-xl justify-between ">
         <div>
           {" "}
           <p className="font-bold text-center">{cfg_site.slogan[1]}</p>
@@ -74,8 +74,10 @@ export default function Home() {
       </div>
 
       {/** end of up  start of func */}
-
-      <div className="grid grid-cols-1 ">
+      <div className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}>
+      <p className="mt-48 ">Our Services</p></div>
+      <div className="grid grid-cols-1 md:grid-cols-3 ">
+        
         {cfg_services.services.map((service, index) => (
           <div className="  mt-10">
             <span
