@@ -1,5 +1,5 @@
 import { cfg_site } from "../config/cfg_site";
-import { Logo } from "./icons";
+import { Facebook } from "./icons";
 import Image from "next/image";
 export const Foot = () => {
   return (
@@ -15,13 +15,15 @@ export const Foot = () => {
         </span>
         <span>
           <ul className="flex justify-center ">
-            {cfg_site.footerLinks.map((e) => (
-              <li key={e.label}>
-                <a href={e.href} className="hover:underline me-4 md:me-6">
-                  {e.label}
-                </a>
-              </li>
-            ))}
+            <li>
+              <a
+                href={cfg_site.facebook_link}
+                target="_blank"
+                className="hover:underline me-4 md:me-6"
+              >
+                <Facebook />
+              </a>
+            </li>
           </ul>
         </span>
         <span>

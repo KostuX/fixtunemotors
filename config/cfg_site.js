@@ -7,6 +7,7 @@ export const cfg_site = {
   postCode: "H12 X938",
   googleMap:
     "https://www.google.com/maps?saddr=My+Location&daddr=Fix+Tune+Motors",
+  facebook_link: "https://www.facebook.com/profile.php?id=61558521810900",
   slogan: [
     "From Tune-ups to Repairs, We Keep You Moving.",
     "Expert Maintenance, Reliable Fixes, and Unmatched Customer Care for Every Mile You Drive!",

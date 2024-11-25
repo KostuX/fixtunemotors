@@ -16,7 +16,8 @@ const lora = Lora({
 });
 export default function Home() {
   const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [workingHours, setWorkingHours] = useState([]);
+  const [isReviewReadey, setReviewReady] = useState(false);
   function handleCallBtn() {
     window.location.href = `tel:${cfg_site.phone[0]}`;
   }
@@ -24,33 +25,17 @@ export default function Home() {
   function handleLocationButton() {
     window.open(cfg_site.googleMap, "_blank");
   }
-  // RESTRICT API
-
-  const fetchReviws = async () => {
-    let endpoint = "http://localhost:3000/api/reviews";
-
-    try {
-      const response = await fetch(endpoint);
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const res = await response.json();
-      setData(res.reviews);
-      console.log(res.reviews);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
     let endpoint = "/api/reviews";
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setData(data.reviews);
-        setLoading(false);
-        console.log(data.reviews);
+        setData(data.data);
+        if (data.data) {
+          setReviewReady(true);
+          setWorkingHours(data.data.current_opening_hours.weekday_text);
+        }
       });
   }, []);
   return (
@@ -115,8 +100,8 @@ export default function Home() {
         <p className="mt-24 ">Services</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3  ">
-        {cfg_services.services.map((service, index) => (
-          <div className="  md:mx-5 mt-10">
+        {cfg_services.services.map((service, i) => (
+          <div key={i} className="  md:mx-5 mt-10">
             <span
               className={`grid grid-cols-1  content-center  md:my-5 ${lora.className} `}
             >
@@ -140,39 +125,62 @@ export default function Home() {
 
       {/** END of Services */}
       <Divider className="mt-5  " />
-      <div
-        className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-      >
-        <p className="mt-24 ">Reviews</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {data.map((review) => (
-          <div className="mt-10 mx-10 ">
-            <span className="flex">
-              {review.profile_photo_url && (
-                <img
-                  src={review.profile_photo_url}
-                  alt={`${review.author_name}'s profile`}
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                />
-              )}
-              <div className={`${marker.className} mx-2`}>
-                <div> {review.author_name}</div>
-                <div className="inline text-xs font-mono">
-                  {review.relative_time_description}
-                </div>
-              </div>
-            </span>
-            <div>
-              <img
-                src={`rating/${review.rating}.png`}
-                style={{ width: "100px", height: "20px" }}
-                className="my-4"
-              />
-            </div>
-            <div>{review.text}</div>
+      {isReviewReadey && (
+        <div>
+          <div
+            className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+          >
+            <p className="mt-24 ">Reviews</p>
           </div>
-        ))}
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {data?.reviews?.map((review, i) => (
+              <div key={i} className="mt-10 mx-10 ">
+                <span className="flex">
+                  {review.profile_photo_url && (
+                    <img
+                      src={review.profile_photo_url}
+                      alt={`${review.author_name}'s profile`}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                  <div className={`${marker.className} mx-2`}>
+                    <div> {review.author_name}</div>
+                    <div className="inline text-xs font-mono">
+                      {review.relative_time_description}
+                    </div>
+                  </div>
+                </span>
+                <div>
+                  <img
+                    src={`rating/${review.rating}.png`}
+                    style={{ width: "100px", height: "20px" }}
+                    className="my-4"
+                  />
+                </div>
+                <div>{review.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      <Divider className="mt-5  " />
+      <div className="h-screen ">
+        <div
+          className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+        >
+          <p className="mt-24 ">Working Hours</p>
+        </div>
+        <ul>
+          {workingHours.map((hours, i) => (
+            <li key={i}>{hours}</li>
+          ))}
+        </ul>
+
+        <div className="grid grid-cols-1 md:grid-cols-2"></div>
       </div>
     </DefaultLayout>
   );

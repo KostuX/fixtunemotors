@@ -13,9 +13,10 @@ export default async function handler(req, res) {
     }
 
     const res = await response.json();
-    data = res.result.reviews;
+
+    data = res.result;
   } catch (error) {
     console.error(error);
   }
-  res.status(200).json({ reviews: data });
+  res.status(200).json({ data: data });
 }

@@ -39,11 +39,7 @@ export const Navbar_contact = () => {
         </NavbarContent>
 
         {/** Links | center | large */}
-        <NavbarContent className="flex" justify="center">
-          {cfg.email.map((email) => (
-            <>{email}</>
-          ))}
-        </NavbarContent>
+        <NavbarContent className="flex" justify="center"></NavbarContent>
 
         {/** Links | end | large */}
         <NavbarContent className="flex basis-1/5 sm:basis-full" justify="end">
