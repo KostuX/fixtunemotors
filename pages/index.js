@@ -79,9 +79,9 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 ">
         
         {cfg_services.services.map((service, index) => (
-          <div className="  mt-10">
+          <div className="  md:mx-5 mt-10">
             <span
-              className={`grid grid-cols-1  content-center  ${lora.className} `}
+              className={`grid grid-cols-1  content-center  md:my-5 ${lora.className} `}
             >
               <div className=" flex justify-center items-center ">
                 <img
@@ -96,7 +96,7 @@ export default function Home() {
                 {service.title}
               </p>
             </span>
-            <div className="mx-10">{service.description}</div>
+            <div className="mx-10">{service.description_short}</div>
           </div>
         ))}
       </div>
