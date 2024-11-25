@@ -1,21 +1,21 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default async function handler(req, res) {
-  let endpoint = "https://maps.googleapis.com/maps/api/place/details/json?reference=ChIJ4RVcCAANXkgRZhQOVDyUKgA&key=AIzaSyBL8eEeLOenEzeDk_4jMUx-C45KGtNrDfM"
-  let data = {}
+  const api_key = process.env.GOOGLE_MAP_API;
+  const company_reference = process.env.COMPANY_REFERENCE;
+  let endpoint = `https://maps.googleapis.com/maps/api/place/details/json?reference=${company_reference}&key=${api_key}`;
+
+  let data = {};
   try {
     const response = await fetch(endpoint);
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error("Failed to fetch data");
     }
-    
-    const res  = await response.json();
-     data = res.result.reviews
 
-  
-  
+    const res = await response.json();
+    data = res.result.reviews;
   } catch (error) {
     console.error(error);
   }
-  res.status(200).json({reviews:data});
+  res.status(200).json({ reviews: data });
 }
