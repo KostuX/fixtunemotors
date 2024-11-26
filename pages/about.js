@@ -45,6 +45,20 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
+  <div class="relative flex items-center 
+        justify-center h-screen overflow-hidden">
+     
+        <video src=
+"/video/fixtunemotors.mp4"
+            autoplay="{true}" loop muted
+            className="absolute z-10 w-auto 
+            min-w-full min-h-full max-w-none">
+                   
+        </video>
+        <div>text</div>
+    </div>
+
+
        <div className="justify-between h-full text-center mb-10 ">
 
 
