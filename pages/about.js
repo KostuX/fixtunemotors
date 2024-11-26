@@ -33,8 +33,10 @@ export default function Home() {
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setData(data.data);
+       
         if (data.data) {
+     
+          setData(data.data);
           setDataFetched(true);
           setWorkingHours(data.data.current_opening_hours.weekday_text);
           setOpen(data.data.current_opening_hours.open_now);
@@ -43,32 +45,101 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-     
+       <div className="justify-between h-full text-center mb-10 ">
 
-      <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover text-white"}>
+
+  <div
+    className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+  >
+    <p className="mt-24 ">Working Hours</p>
+    <div className="flex justify-center">
+      {" "}
+      
+     {isDataFetched && <img
+        src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
+        style={{ width: "50px", height: "50px" }}
+      />}
+    </div>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 text-center">
+    <div>
+      <p className={`${marker.className} mx-2 font`} >Hours</p>
+    <ul>
+      {workingHours.map((hours, i) => (
+        <li key={i}>{hours}</li>
+      ))}
+    </ul>
+    </div>
+    <div>
+      
+      <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
+      <ul>
+      {phone.map((phone, i) => (
+        <li key={i}>{phone}</li>
+      ))}
+    </ul>
+    </div>
+     <div>
+     <p className={`${marker.className} mx-2 mt-10`} >Address</p>
+     <p className="">{cfg_site.address}</p>
+     <p className="">{cfg_site.postCode}</p>
+     <p className="">{cfg_site.country}</p>
+     </div>
+   
+   
+
+</div>
+</div>
+
+
+      <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover text-white mt-10"}>
         <div className="bg-black bg-opacity-30" >
         
           <div   className={`${marker.className} text-3xl  font-bold text-center mt-48` }>About Us</div>
           <div   className={`${marker.className} text-2xl  font-bold text-center ` }>Your Trusted Car Garage in Cavan, Ireland</div>
-          <p className={`text-xl text-center mx-10 md:mx-24`}>
+          <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
            {cfg_site.aboutUs}
           </p>
         </div>
       </div>
       <Divider/>
-      <div className="m-10 text-xl justify-between  ">
-       
-       
-        <div className="mx-10 md:mx-48 ">
-          <div   className={`${marker.className} text-2xl  font-bold text-center mt-10  ` }>Mission</div>
          
-          <p className={`text-sm text-center m-5 `}>
+       
+        <div className=" mx-10 md:mx-24 my-12  ">
+          <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Mission</div>
+         
+          <p className={`text-xl text-center m-5 `}>
            {cfg_site.mission}
           </p>
         </div>
+       
+     <Divider/>
+
+        <div className={"flex bg-[url('/intro.jpg')] bg-cover text-white"}>
+        <div className="bg-black bg-opacity-30  w-screen" >
+        
+          <div   className={`${marker.className} text-3xl  font-bold text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center` }>
+<p>Rating</p>
+         <div className={`text-xl ${lora.className}`}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.</div>
+                  <img
+                    src={`rating/${Math.ceil( data.rating)}.png`}
+                    style={{ width: "200px", height: "40px" }}
+                    className="my-4"
+                  />
+                </div>
+
+          
+        
+          <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
+          
+          
+          </p>
         </div>
+      </div>
       <Divider/>
       <div className="grid grid-cols-1  mb-10 ">
+      <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Team</div>
         {cfg_site.team.map((member, i) => (
           <div key={i} className="  md:mx-5 mt-10">
             <span
@@ -91,63 +162,18 @@ export default function Home() {
                 {member.name}
               </p>
               <p
-                className={`font-bold text-center text-xl ${marker.className} `}
+                className={`font-bold text-center text-md ${marker.className} `}
               >
                 {member.postition}
               </p>
             </span>
-            <div className="mx-10">{member.description}</div>
+            <div className="mx-10 text-xl text-center">{member.description}</div>
           </div>
         ))}
       </div>
     
-      <Divider/>
-      <div className="justify-between h-full text-center ">
-
-      <div className=" ">
-        <div
-          className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-        >
-          <p className="mt-24 ">Working Hours</p>
-          <div className="flex justify-center">
-            {" "}
-            
-           {isDataFetched && <img
-              src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
-              style={{ width: "50px", height: "50px" }}
-            />}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 text-center">
-          <div>
-            <p className={`${marker.className} mx-2 font`} >Hours</p>
-          <ul>
-            {workingHours.map((hours, i) => (
-              <li key={i}>{hours}</li>
-            ))}
-          </ul>
-          </div>
-          <div>
-            
-            <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
-            <ul>
-            {phone.map((phone, i) => (
-              <li key={i}>{phone}</li>
-            ))}
-          </ul>
-          </div>
-           <div>
-           <p className={`${marker.className} mx-2 mt-10`} >Address</p>
-           <p className="">{cfg_site.address}</p>
-           <p className="">{cfg_site.postCode}</p>
-           <p className="">{cfg_site.country}</p>
-           </div>
-         
-         
-        </div>
-      </div>
-      </div>
+  
+    
     </DefaultLayout>
   );
 }
