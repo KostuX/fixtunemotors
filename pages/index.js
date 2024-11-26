@@ -5,6 +5,7 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { Divider } from "@nextui-org/divider";
 import { useState, useEffect } from "react";
+import {Intro} from "../components/intro"
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function Home() {
   const [workingHours, setWorkingHours] = useState([]);
   const [isOpen, setOpen] = useState(true);
   const [isReviewReadey, setReviewReady] = useState(false);
+  /*
   function handleCallBtn() {
     window.location.href = `tel:${cfg_site.phone[0]}`;
   }
@@ -26,7 +28,7 @@ export default function Home() {
   function handleLocationButton() {
     window.open(cfg_site.googleMap, "_blank");
   }
-
+*/
   useEffect(() => {
     let endpoint = "/api/reviews";
     fetch(endpoint)
@@ -42,8 +44,11 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
+          <Intro/>
+      {/*}
       <div className="justify-between h-full   ">
-        {/** intro */}
+    
+       
         <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover"}>
           <span className=" w-screen bg-black bg-opacity-50">
             <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center ">
@@ -76,6 +81,7 @@ export default function Home() {
           </span>
         </div>
       </div>
+      {*/}
       {/** END of intro */}
       <Divider />
       {/** Services */}
