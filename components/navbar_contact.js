@@ -51,7 +51,7 @@ export const Navbar_contact = () => {
                 {", "}
                 {cfg.postCode}
               </span>
-              <span className="sm:hidden">Find Us</span>
+              <span className="sm:hidden">{cfg_site.postCode}</span>
             </Link>
           </NavbarItem>
         </NavbarContent>

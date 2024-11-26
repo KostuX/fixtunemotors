@@ -5,7 +5,7 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { Divider } from "@nextui-org/divider";
 import { useState, useEffect } from "react";
-import {Intro} from "../components/intro"
+
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -17,26 +17,27 @@ const lora = Lora({
 });
 export default function Home() {
   const [data, setData] = useState([]);
-  const [workingHours, setWorkingHours] = useState([]);
+  const [workingHours, setWorkingHours] = useState(cfg_site.workHours);
   const [isOpen, setOpen] = useState(true);
-  const [isReviewReadey, setReviewReady] = useState(false);
-  /*
+  const [isDataFetched, setDataFetched] = useState(false);
+  const [phone, setPhone] = useState(cfg_site.phone)
+  
   function handleCallBtn() {
-    window.location.href = `tel:${cfg_site.phone[0]}`;
+    window.location.href = `tel:${phone[0]}`;
   }
 
   function handleLocationButton() {
     window.open(cfg_site.googleMap, "_blank");
   }
-*/
+
   useEffect(() => {
-    let endpoint = "/api/reviews";
+    let endpoint = "/api/googleInfo";
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);
         if (data.data) {
-          setReviewReady(true);
+          setDataFetched(true);
           setWorkingHours(data.data.current_opening_hours.weekday_text);
           setOpen(data.data.current_opening_hours.open_now);
         }
@@ -44,8 +45,8 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-          <Intro/>
-      {/*}
+          
+   
       <div className="justify-between h-full   ">
     
        
@@ -81,7 +82,7 @@ export default function Home() {
           </span>
         </div>
       </div>
-      {*/}
+   
       {/** END of intro */}
       <Divider />
       {/** Services */}
@@ -133,7 +134,7 @@ export default function Home() {
 
       {/** END of Services */}
       <Divider className="mt-5  " />
-      {isReviewReadey && (
+      {isDataFetched && (
         <div>
           <div
             className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
@@ -183,23 +184,40 @@ export default function Home() {
           <p className="mt-24 ">Working Hours</p>
           <div className="flex justify-center">
             {" "}
-            <img
+            
+           {isDataFetched && <img
               src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
               style={{ width: "50px", height: "50px" }}
-            />
+            />}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 text-center">
+          <div>
+            <p className={`${marker.className} mx-2 font`} >Hours</p>
           <ul>
             {workingHours.map((hours, i) => (
               <li key={i}>{hours}</li>
             ))}
           </ul>
-          <div>
-            <div className="">{cfg_site.phone[0]}</div>
-            <div className="">{cfg_site.address}</div>
           </div>
+          <div>
+            
+            <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
+            <ul>
+            {phone.map((phone, i) => (
+              <li key={i}>{phone}</li>
+            ))}
+          </ul>
+          </div>
+           <div>
+           <p className={`${marker.className} mx-2 mt-10`} >Address</p>
+           <p className="">{cfg_site.address}</p>
+           <p className="">{cfg_site.postCode}</p>
+           <p className="">{cfg_site.country}</p>
+           </div>
+         
+         
         </div>
       </div>
     </DefaultLayout>
