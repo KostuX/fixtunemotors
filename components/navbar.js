@@ -71,19 +71,26 @@ export const Navbar = () => {
         <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
           <ThemeSwitch />
           <NavbarMenuToggle />
-          <NavbarMenu justify="end">
+          
+          <NavbarMenu justify="end "> 
+            <div className="mt-10">
             {cfg.navMenuItems.map((e, index) => (
-              <NavbarMenuItem key={`${e}-${index}`}>
+             
+              <NavbarMenuItem key={`${e}-${index}` }>
                 <NextLink
-                  className="w-full hover:underline"
+                  className="w-full hover:underline mt-48"
                   href={e.href}
                   size="lg"
                 >
+                
                   {e.label}
                 </NextLink>
               </NavbarMenuItem>
+         
             ))}
+                 </div>
           </NavbarMenu>
+          
         </NavbarContent>
       </NextUINavbar>
     </>

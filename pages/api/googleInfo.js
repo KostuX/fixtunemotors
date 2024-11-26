@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
     const res = await response.json();
 
+
     data = res.result;
    
   } catch (error) {
