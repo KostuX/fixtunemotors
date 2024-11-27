@@ -3,7 +3,11 @@ import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { Parallax } from 'react-scroll-parallax';
 import { cfg_site } from "../config/cfg_site";
 import { Button } from "@nextui-org/react";
+import { useRef, useEffect } from "react";
 import { ParallaxBanner,ParallaxBannerLayer ,useParallax  } from 'react-scroll-parallax';
+import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 
 const marker = Permanent_Marker({
     subsets: ["latin"],
@@ -17,9 +21,18 @@ export default function Intro() {
     const parallax = useParallax({
         rotateY: [0, 360],
       });
+
+  
+      const text = useRef(null);
+      useEffect(()=>{    
+        const el = text.current
+        gsap.fromTo(el, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
+            trigger:el
+        }})
+      },[])
     
     return(
-         <div className="m-10 md:m-48 text-xl justify-between ">
+         <div className="m-10 md:m-48 text-xl justify-between " ref={text}>
     
             
    
