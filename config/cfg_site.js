@@ -4,7 +4,7 @@ export const cfg_site = {
   phone: ["+353 087 278 8606", "+353 087 466 3350"],
   email: [""],
   address: "Latt, Co. Cavan",
-  postCode: "H12 X938",
+  postCode: "H12 A8X2",
   country: "Ireland",
   googleMap:
     "https://www.google.com/maps?saddr=My+Location&daddr=Fix+Tune+Motors",

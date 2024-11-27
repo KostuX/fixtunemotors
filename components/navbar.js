@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { ThemeSwitch } from "../components/theme-switch";
 import { cfg_site as cfg } from "../config/cfg_site";
-import { Logo } from "../components/icons";
+import { NextUILogo } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 
@@ -30,7 +30,7 @@ export const Navbar = () => {
       <NextUINavbar maxWidth="xl " className=" ">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-           {theme === "dark"?   <Image           
+           {  theme === "dark"?   <Image           
               src="/logo/logo_white.png"
               width={120}
               height={120}
@@ -40,7 +40,7 @@ export const Navbar = () => {
             width={120}
             height={120}
             alt="Picture of the author"
-          />}
+          /> }
       
 
             <NextLink
