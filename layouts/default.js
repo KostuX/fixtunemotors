@@ -3,7 +3,7 @@ import { Navbar_contact } from "../components/navbar_contact";
 import { Foot } from "../components/footer";
 import { Head } from "../components/head";
 import { useState, useEffect } from "react";
-
+import { Providers } from '../components/providers';
 
 export default function DefaultLayout({ children }) {
   
@@ -15,7 +15,7 @@ export default function DefaultLayout({ children }) {
       <Navbar_contact />
       <Navbar />
 
-      <main>{children}</main>
+     <Providers><main>{children}</main></Providers> 
       <Foot />
     </div>
   );

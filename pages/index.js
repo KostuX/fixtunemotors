@@ -5,7 +5,8 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { Divider } from "@nextui-org/divider";
 import { useState, useEffect } from "react";
-
+import Intro from '../components/intro';
+import Intro2 from '../components/intro2';
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -32,6 +33,8 @@ export default function Home() {
   }
 
   useEffect(() => {
+   
+
     let endpoint = "/api/googleInfo";
     fetch(endpoint)
       .then((res) => res.json())
@@ -46,61 +49,19 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-          
+    
    
       <div className="justify-between h-full   ">
-    
-       
-        <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover"}>
-          <span className=" w-screen bg-black bg-opacity-50">
-            <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center ">
-              <span></span>
-              <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
-                <div className={marker.className}>
-                  <p className="mt-48 md:mr-48">From Tune-ups to Repairs</p>
-                  <p className="text-xl">We Keep You Moving ... fast!</p>
-
-                  <div className="grid grid-cols-2 content-ends w-56">
-                    <Button
-                      size="sm"
-                      className="mx-2 inline sm:hidden mt-5"
-                      onClick={handleCallBtn}
-                    >
-                      Call Us
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="mx-2 mt-5  "
-                      onClick={handleLocationButton}
-                    >
-                      Find Us
-                    </Button>
-                  </div>
-                </div>
-              </span>
-              <span></span>
-            </div>
-          </span>
-        </div>
+    <Intro/>
+   <Intro2/>
+     
+  
       </div>
-   
+      
       {/** END of intro */}
       <Divider />
       {/** Services */}
-      <div className="m-10 md:m-48 text-xl justify-between ">
-        <div>
-          {" "}
-          <p className="font-bold text-center">{cfg_site.slogan[1]}</p>
-          <p className={`text-sm text-center m-5 `}>
-            Repairing your car on time ensures safety, prevents costly
-            breakdowns, and enhances performance. Timely maintenance extends the
-            vehicle's lifespan, improves fuel efficiency, and reduces
-            environmental impact. Neglecting repairs can compromise safety
-            features and lead to expensive damages. Stay proactive to ensure
-            reliability, save money, and maintain your car’s value.
-          </p>
-        </div>
-      </div>
+ 
 
       {/** end of up  start of func */}
       <Divider className="" />
