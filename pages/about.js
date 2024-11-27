@@ -3,7 +3,7 @@ import { cfg_site } from "../config/cfg_site";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { useState, useEffect } from "react";
 import { Divider } from "@nextui-org/divider";
-
+import { ParallaxBanner,ParallaxBannerLayer  } from 'react-scroll-parallax';
 const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
@@ -79,17 +79,21 @@ export default function Home() {
   
 
 
-
-      <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover text-white mt-10"}>
-        <div className="bg-black bg-opacity-30" >
+<ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen " >
+  <ParallaxBannerLayer image="/engine.jpg" speed={-30} />
+  <ParallaxBannerLayer className=" h-screen bg-black bg-opacity-50">
+      <div className={"flex bg-cover text-white mt-10"}>
+        <div >
         
-          <div   className={`${marker.className} text-3xl  font-bold text-center mt-48` }>About Us</div>
+          <div   className={`${marker.className} text-3xl  font-bold text-center mt-24` }>About Us</div>
           <div   className={`${marker.className} text-2xl  font-bold text-center ` }>Your Trusted Car Garage in Cavan, Ireland</div>
           <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
            {cfg_site.aboutUs}
           </p>
         </div>
       </div>
+      </ParallaxBannerLayer>
+</ParallaxBanner>
       <Divider/>
          
        <div className="justify-between h-full text-center mb-10 ">
@@ -138,19 +142,12 @@ export default function Home() {
 
 </div>
 </div>
-       
-        <div className=" mx-10 md:mx-24 my-12  ">
-          <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Mission</div>
-         
-          <p className={`text-xl text-center m-5 `}>
-           {cfg_site.mission}
-          </p>
-        </div>
-       
-     <Divider/>
-
-        <div className={"flex bg-[url('/intro.jpg')] bg-cover text-white"}>
-        <div className="bg-black bg-opacity-30  w-screen" >
+<Divider/>
+     <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-auto " >
+  <ParallaxBannerLayer image="/intro.jpg" speed={-30} />
+  <ParallaxBannerLayer className="  bg-black bg-opacity-50">
+        <div className={"flex  text-white"}>
+        <div className="" >
         
           <div   className={`${marker.className} text-3xl  font-bold text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center` }>
 <p>Rating</p>
@@ -171,6 +168,18 @@ export default function Home() {
           </p>
         </div>
       </div>
+      </ParallaxBannerLayer>
+      </ParallaxBanner>
+<Divider/>
+        <div className=" mx-10 md:mx-24 my-12  ">
+          <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Mission</div>
+         
+          <p className={`text-xl text-center m-5 `}>
+           {cfg_site.mission}
+          </p>
+        </div>
+       
+     
       <Divider/>
       <div className="grid grid-cols-1  mb-10 ">
       <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Team</div>
