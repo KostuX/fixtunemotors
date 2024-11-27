@@ -39,8 +39,7 @@ export default function Intro() {
         <div>
           {" "} <Parallax speed={2}><p className="font-bold text-center">{cfg_site.slogan[1]}</p></Parallax>
           <div ref={parallax.ref} className="spinner">
-          .....
-    
+          ................
      
     </div>
           <Parallax speed={-2}>

@@ -37,20 +37,23 @@ export default function Intro() {
                   <p className="mt-48 md:mr-48">From Tune-ups to Repairs</p>
                   <p className="text-xl">We Keep You Moving ... fast!</p>
 
-                  <div className="grid grid-cols-2 content-ends w-56">
+                  <div className="grid grid-cols-2 content-end w-56">
                     <Button
                       size="sm"
-                      className="mx-2 inline sm:hidden mt-5"
+                      className="mx-2 inline sm:hidden mt-5 before:ease relative  overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-blue hover:shadow-black hover:before:-rotate-180"
                       onClick={handleCallBtn}
+                    
                     >
-                      Call Us
+                      <div className="hover:text-red-600 relative z-10">Call Us</div>
+                      
                     </Button>
                     <Button
                       size="sm"
-                      className="mx-2 mt-5  "
+                      className="mx-2 inline  mt-5 before:ease relative  overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-blue hover:shadow-black hover:before:-rotate-180"
                       onClick={handleLocationButton}
                     >
-                      Find Us
+                       <div className="hover:text-red-600 relative z-10">Find Us</div>
+                      
                     </Button>
                   </div>
                 </div>
