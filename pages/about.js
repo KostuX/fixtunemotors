@@ -1,9 +1,13 @@
 import DefaultLayout from "../layouts/default";
 import { cfg_site } from "../config/cfg_site";
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Divider } from "@nextui-org/divider";
 import { ParallaxBanner,ParallaxBannerLayer  } from 'react-scroll-parallax';
+import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
+
 const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
@@ -19,6 +23,22 @@ export default function Home() {
   const [isOpen, setOpen] = useState(true);
   const [isDataFetched, setDataFetched] = useState(false);
   const [phone, setPhone] = useState(cfg_site.phone)
+
+  const load = useRef(null);
+  
+
+  
+  useEffect(()=>{    
+    const el = load.current
+ 
+    
+    gsap.fromTo(el, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
+        trigger:el
+    }})
+  
+   
+  },[])
+
   
   function handleCallBtn() {
     window.location.href = `tel:${phone[0]}`;
@@ -78,8 +98,8 @@ export default function Home() {
 </div>
   
 
-
-<ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen " >
+<div >
+<ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen "  >
   <ParallaxBannerLayer image="/engine.jpg" speed={-30} />
   <ParallaxBannerLayer className=" h-screen bg-black bg-opacity-50">
       <div className={"flex bg-cover text-white mt-10"}>
@@ -94,11 +114,13 @@ export default function Home() {
       </div>
       </ParallaxBannerLayer>
 </ParallaxBanner>
+</div>
       <Divider/>
          
        <div className="justify-between h-full text-center mb-10 ">
 
 
+<div ref={load}>
 <div
   className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
 >
@@ -142,7 +164,9 @@ export default function Home() {
 
 </div>
 </div>
+</div>
 <Divider/>
+<div ref={load}>
      <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-auto " >
   <ParallaxBannerLayer image="/intro.jpg" speed={-30} />
   <ParallaxBannerLayer className="  bg-black bg-opacity-50">
@@ -170,7 +194,9 @@ export default function Home() {
       </div>
       </ParallaxBannerLayer>
       </ParallaxBanner>
+      </div>
 <Divider/>
+<div >
         <div className=" mx-10 md:mx-24 my-12  ">
           <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Mission</div>
          
@@ -179,7 +205,7 @@ export default function Home() {
           </p>
         </div>
        
-     
+     </div>
       <Divider/>
       <div className="grid grid-cols-1  mb-10 ">
       <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Team</div>
