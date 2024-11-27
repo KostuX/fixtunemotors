@@ -98,16 +98,16 @@ export default function Home() {
 </div>
   
 
-<div >
-<ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen "  >
+<div className="h-max" >
+<ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" h-[72rem] md:h-screen"  >
   <ParallaxBannerLayer image="/engine.jpg" speed={-30} />
-  <ParallaxBannerLayer className=" h-screen bg-black bg-opacity-50">
-      <div className={"flex bg-cover text-white mt-10"}>
+  <ParallaxBannerLayer className="  bg-black bg-opacity-50  ">
+      <div className={"flex bg-cover text-white mt-10 "}>
         <div >
         
-          <div   className={`${marker.className} text-3xl  font-bold text-center mt-24` }>About Us</div>
+          <div   className={`${marker.className} text-3xl  font-bold text-center mt-24 ` }>About Us</div>
           <div   className={`${marker.className} text-2xl  font-bold text-center ` }>Your Trusted Car Garage in Cavan, Ireland</div>
-          <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
+          <p className={`text-xl text-center mx-10 md:mx-24 mt-5 `}>
            {cfg_site.aboutUs}
           </p>
         </div>
@@ -167,7 +167,7 @@ export default function Home() {
 </div>
 <Divider/>
 <div ref={load}>
-     <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-auto " >
+     <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen  md:h-auto " >
   <ParallaxBannerLayer image="/intro.jpg" speed={-30} />
   <ParallaxBannerLayer className="  bg-black bg-opacity-50">
         <div className={"flex  text-white"}>
