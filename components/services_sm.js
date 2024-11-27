@@ -2,6 +2,7 @@ import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { useState, useEffect , useRef} from "react";
 import { cfg_services } from "../config/cfg_services";
 import { cfg_site } from "../config/cfg_site";
+import { ParallaxBanner,ParallaxBannerLayer ,useParallax  } from 'react-scroll-parallax';
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
@@ -17,26 +18,27 @@ const lora = Lora({
 
 
 export default function Services_sm() {
-    const div = useRef(null);
-   
-
+    const div = useRef(null); 
     useEffect(()=>{   
-      const el = div.current      
-  
+      const el = div.current  
       gsap.fromTo(el, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
           trigger:el
       }})
-
-      
-      
-    
     },[])
     
+    const parallax = useParallax({
+      rotateY: [0, 180],
+    });
+    
     return(<div ref={div}>
+      
+     
     <div
       className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-     
+      
     >
+      
+     
       <p className="mt-24 ">Services</p>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-3  " >
@@ -62,4 +64,6 @@ export default function Services_sm() {
         </div>
       ))}
     </div>
+    <div className="mt-24" ref={parallax.ref}> ____________________________________________________________________________________________________</div>
+      
     </div>)}

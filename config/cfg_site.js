@@ -41,6 +41,10 @@ export const cfg_site = {
       href: "/",
     },
     {
+      label: "Services",
+      href: "/services",
+    },
+    {
       label: "About",
       href: "/about",
     },
@@ -50,7 +54,10 @@ export const cfg_site = {
       label: "Home",
       href: "/",
     },
-
+    {
+      label: "Services",
+      href: "/services",
+    },
     {
       label: "About",
       href: "/about",

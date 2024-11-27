@@ -65,37 +65,7 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-      <div className="relative w-full h-auto hidden">
-        
-      <div className="absolute w-full flex flex-col   ">
 
-
-
-      <div   className={`${marker.className} text-3xl  font-bold text-center mt-48` }>About Us</div>
-          <div   className={`${marker.className} text-2xl  font-bold text-center ` }>Your Trusted Car Garage in Cavan, Ireland</div>
-          <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
-           {cfg_site.aboutUs}
-          </p>
-
-
-</div>
-      <video
-  preload="auto"
- 
-  autoPlay
-  muted
-  loop
-  className="brightness-5"
->
-  <source src="/video/fixtunemotors.mp4" type="video/mp4" />
-</video>
-    <div className=" bg-black opacity-90 z-20">
-
-
-
-    </div>
-
-</div>
   
 
 <div className="h-max" >

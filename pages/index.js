@@ -29,6 +29,8 @@ export default function Home() {
   const [phone, setPhone] = useState(cfg_site.phone)
   const [isDarkMode, setDarkMode] = useState(false)
 
+ 
+
   const review = useRef(null);
   const hours = useRef(null);
   useEffect(()=>{    
@@ -67,7 +69,7 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-    
+   
    
       <div className="justify-between h-full   ">
     <Intro/>
@@ -86,7 +88,7 @@ export default function Home() {
       <Services_sm/>
       
       {/** END of Services */}
-      <Divider className="mt-5  " />
+     
       <div ref={review}>
       {isDataFetched && (
         <div >
@@ -130,6 +132,7 @@ export default function Home() {
           </div>
         </div>
       )}
+   
       </div>
       <Divider className="mt-5  " />
       <div ref={hours}>

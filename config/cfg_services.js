@@ -9,7 +9,7 @@ export const cfg_services = {
         price: "150",
       image: "/services/remap.jpg",
       link: "",
-      boost:{type:"boostType", size:50}
+      boost:{type:"Boost your car by: ", size:50}
     },
     // title 2
     {
@@ -20,7 +20,7 @@ export const cfg_services = {
         price: "250",
       image: "/services/pdf.png",
       link: "",
-      boost:{type:"boostType", size:50}
+      boost:{type:"Boost your car by: ", size:50}
     },
     // title 2
     {
@@ -30,6 +30,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/tire_repair.png",
       link: "",
+      boost:{type:"Increase car safety by* :", size:80}
     },
     // title 3
     {
@@ -39,6 +40,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/engine.png",
       link: "",
+      boost:{type:"Increase Car life span by* : ", size:75}
     },
     // title 4
     {
@@ -48,6 +50,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/service.png",
       link: "",
+      boost:{type:"Boost Car life span by* : ", size:90}
     },
     // title 5
     {
@@ -57,6 +60,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/diagnostic.png",
       link: "",
+      boost:{type:"Detect issues faster by* : ", size:50}
     },
     // title 2
     
@@ -67,6 +71,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/gearbox.png",
       link: "",
+      boost:{type:"Boost Car Performance By* : ", size:50}
     },
     // title 2
     {
@@ -76,6 +81,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/timingbelt.png",
       link: "",
+      boost:{type:"Boost Car life span by* : ", size:80}
     },
     {
       title: "Breaks",
@@ -84,6 +90,7 @@ export const cfg_services = {
       price: "250",
       image: "/services/breakes.png",
       link: "",
+      boost:{type:"Increase car safety by* : ", size:50}
     },
   ],
 };
