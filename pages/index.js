@@ -21,6 +21,7 @@ export default function Home() {
   const [isOpen, setOpen] = useState(true);
   const [isDataFetched, setDataFetched] = useState(false);
   const [phone, setPhone] = useState(cfg_site.phone)
+  const [isDarkMode, setDarkMode] = useState(false)
   
   function handleCallBtn() {
     window.location.href = `tel:${phone[0]}`;

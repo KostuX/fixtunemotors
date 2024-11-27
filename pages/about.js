@@ -45,9 +45,9 @@ export default function Home() {
   }, []);
   return (
     <DefaultLayout>
-      <div class="relative w-full h-auto hidden">
+      <div className="relative w-full h-auto hidden">
         
-      <div class="absolute w-full flex flex-col   ">
+      <div className="absolute w-full flex flex-col   ">
 
 
 
@@ -69,7 +69,7 @@ export default function Home() {
 >
   <source src="/video/fixtunemotors.mp4" type="video/mp4" />
 </video>
-    <div class=" bg-black opacity-90 z-20">
+    <div className=" bg-black opacity-90 z-20">
 
 
 
@@ -155,11 +155,12 @@ export default function Home() {
           <div   className={`${marker.className} text-3xl  font-bold text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center` }>
 <p>Rating</p>
          <div className={`text-xl ${lora.className}`}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.</div>
-                  <img
+         {isDataFetched && <img
                     src={`rating/${Math.ceil( data.rating)}.png`}
                     style={{ width: "200px", height: "40px" }}
                     className="my-4"
                   />
+         }
                 </div>
 
           
