@@ -14,7 +14,7 @@ const marker = Permanent_Marker({
   });
 export default function Intro() {
     function handleCallBtn() {
-        window.location.href = `tel:${phone[0]}`;
+        window.location.href = `tel:${cfg_site.phone[0]}`;
       }
     
       function handleLocationButton() {
