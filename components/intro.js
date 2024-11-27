@@ -26,7 +26,7 @@ export default function Intro() {
 
 
               <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen" >
-  <ParallaxBannerLayer image="/intro.jpg" speed={-20} />
+  <ParallaxBannerLayer image="/intro.jpg" speed={-30} />
   <ParallaxBannerLayer className="flex bg-cover h-screen">
  
   <span className=" w-screen bg-black bg-opacity-50">

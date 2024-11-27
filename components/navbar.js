@@ -4,7 +4,7 @@ import { cfg_site as cfg } from "../config/cfg_site";
 import { NextUILogo } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
-
+import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -12,12 +12,21 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
+
 } from "@nextui-org/navbar";
+import { Link, NavbarMenuItem } from "@nextui-org/react";
 import Image from "next/image";
 
 import NextLink from "next/link";
 
+const marker = Permanent_Marker({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [isDarkMode, setDarkMode] = useState(false)
@@ -84,19 +93,21 @@ export const Navbar = () => {
           <NavbarMenuToggle />
           
           <NavbarMenu justify="end "> 
-            <div className="mt-10">
-            {cfg.navMenuItems.map((e, index) => (
+            <div className={`${marker.className} mt-10 text-center `}>
+            {cfg.navMenuItems.map((item, index) => (
              
-              <NavbarMenuItem key={`${e}-${index}` }>
-                <NextLink
-                  className="w-full hover:underline mt-48"
-                  href={e.href}
-                  size="lg"
-                >
-                
-                  {e.label}
-                </NextLink>
-              </NavbarMenuItem>
+             <NavbarMenuItem key={`${item}-${index}`}>
+          <Link
+            color={"foreground"}
+            href={item.href}
+            size="lg"
+            className=" group transition-all duration-300 ease-in-out mt-10 text-4xl"
+          >
+            <p className=" bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+       {item.label}
+            </p>
+          </Link>
+        </NavbarMenuItem>
          
             ))}
                  </div>

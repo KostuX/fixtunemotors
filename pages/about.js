@@ -78,52 +78,6 @@ export default function Home() {
 </div>
   
 
-       <div className="justify-between h-full text-center mb-10 ">
-
-
-  <div
-    className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-  >
-    <p className="mt-24 ">Working Hours</p>
-    <div className="flex justify-center">
-      {" "}
-      
-     {isDataFetched && <img
-        src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
-        style={{ width: "50px", height: "50px" }}
-      />}
-    </div>
-  </div>
-
-  <div className="grid grid-cols-1 md:grid-cols-3 text-center">
-    <div>
-      <p className={`${marker.className} mx-2 font`} >Hours</p>
-    <ul>
-      {workingHours.map((hours, i) => (
-        <li key={i}>{hours}</li>
-      ))}
-    </ul>
-    </div>
-    <div>
-      
-      <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
-      <ul>
-      {phone.map((phone, i) => (
-        <li key={i}>{phone}</li>
-      ))}
-    </ul>
-    </div>
-     <div>
-     <p className={`${marker.className} mx-2 mt-10`} >Address</p>
-     <p className="">{cfg_site.address}</p>
-     <p className="">{cfg_site.postCode}</p>
-     <p className="">{cfg_site.country}</p>
-     </div>
-   
-   
-
-</div>
-</div>
 
 
       <div className={"flex h-screen bg-[url('/intro.jpg')] bg-cover text-white mt-10"}>
@@ -138,6 +92,52 @@ export default function Home() {
       </div>
       <Divider/>
          
+       <div className="justify-between h-full text-center mb-10 ">
+
+
+<div
+  className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
+>
+  <p className="mt-24 ">Working Hours</p>
+  <div className="flex justify-center">
+    {" "}
+    
+   {isDataFetched && <img
+      src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
+      style={{ width: "50px", height: "50px" }}
+    />}
+  </div>
+</div>
+
+<div className="grid grid-cols-1 md:grid-cols-3 text-center">
+  <div>
+    <p className={`${marker.className} mx-2 font`} >Hours</p>
+  <ul>
+    {workingHours.map((hours, i) => (
+      <li key={i}>{hours}</li>
+    ))}
+  </ul>
+  </div>
+  <div>
+    
+    <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
+    <ul>
+    {phone.map((phone, i) => (
+      <li key={i}>{phone}</li>
+    ))}
+  </ul>
+  </div>
+   <div>
+   <p className={`${marker.className} mx-2 mt-10`} >Address</p>
+   <p className="">{cfg_site.address}</p>
+   <p className="">{cfg_site.postCode}</p>
+   <p className="">{cfg_site.country}</p>
+   </div>
+ 
+ 
+
+</div>
+</div>
        
         <div className=" mx-10 md:mx-24 my-12  ">
           <div   className={`${marker.className} text-4xl  font-bold text-center mt-10  ` }>Mission</div>

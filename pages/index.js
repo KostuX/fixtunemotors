@@ -76,9 +76,9 @@ export default function Home() {
             <span
               className={`grid grid-cols-1  content-center  md:my-5 ${lora.className} `}
             >
-              <div className=" flex justify-center items-center ">
+              <div className=" flex justify-center items-center relative  overflow-hidden">
                 <img
-                  className="w-2/3 rounded-xl"
+                  className="w-2/3 rounded-xl transition-transform duration-500 transform hover:scale-125 peer hover:rounded-2xl"
                   src={service.image}
                   alt="image cannot be loaded"
                 ></img>
