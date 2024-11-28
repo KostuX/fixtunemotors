@@ -28,7 +28,7 @@ export const cfg_site = {
         name:"Deividas",
         postition:"Owner",
         image:"team/deividas.png",
-        description:"As a dedicated car mechanic, my passion lies in solving automotive challenges and ensuring vehicles run at their best. With years of hands-on experience and a commitment to staying updated on industry advancements, I take pride in diagnosing issues accurately and delivering reliable solutions. I value integrity, efficiency, and clear communication, striving to build trust with every client. Whether it's a routine maintenance check or a complex repair, I approach every task with precision and care. My goal is not only to fix cars but to provide peace of mind, ensuring safety and satisfaction for every driver I assist."
+        description:"As a dedicated car mechanic, my passion lies in solving automotive challenges and ensuring vehicles run at their best. With years of hands-on experience and a commitment to staying updated on industry advancements, I take pride in diagnosing issues accurately and delivering reliable solutions. I value integrity, efficiency, and clear communication, striving to build trust with every client."
       },
     
     ],
@@ -40,7 +40,7 @@ export const cfg_site = {
       label: "Home",
       href: "/",
     },
-    {
+     {
       label: "Services",
       href: "/services",
     },

@@ -68,14 +68,14 @@ export default function Home() {
   return (
     <DefaultLayout>
       <div className="h-max" >
-        <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" h-[72rem] md:h-screen"  >
+        <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" h-[74rem] md:h-screen"  >
           <ParallaxBannerLayer image="/in_car.jpg" speed={-20} />
           <ParallaxBannerLayer className="  bg-black bg-opacity-50  ">
             <div className={"flex bg-cover text-white mt-10 "}>
               <div >
 
                 <div className={`${marker.className} text-3xl  font-bold text-center mt-24 `}>About Us</div>
-                <div className={`${marker.className} text-2xl  font-bold text-center `}>Your Trusted Car Garage in Cavan, Ireland</div>
+                <div className={`${marker.className} text-2xl  font-bold text-center mx-2 `}>Your Trusted Car Garage in Cavan, Ireland</div>
                 <p className={`text-xl text-center mx-10 md:mx-24 mt-5 `}>
                   {cfg_site.aboutUs}
                 </p>

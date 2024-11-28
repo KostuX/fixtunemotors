@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <DefaultLayout>  
          <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen" >
-  <ParallaxBannerLayer image="/cars_lifted.jpg" speed={-20} />
+  <ParallaxBannerLayer image="/diagnostic.jpg" speed={-10} />
   <ParallaxBannerLayer className="flex bg-cover h-screen">
  
   <span className=" w-screen bg-black bg-opacity-50">
