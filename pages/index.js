@@ -79,12 +79,11 @@ export default function Home() {
       </div>
       
       {/** END of intro */}
-      <Divider />
+   
       {/** Services */}
  
 
-      {/** end of up  start of func */}
-      <Divider className="" />
+   
       <Services_sm/>
       
       {/** END of Services */}

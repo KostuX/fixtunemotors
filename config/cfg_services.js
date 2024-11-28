@@ -27,7 +27,7 @@ export const cfg_services = {
       title: "Tyre",
       description: "Flat tire? Don’t worry! Our expert tire repair services ensure quick, reliable fixes to get you back on the road. We provide affordable solutions, quality workmanship, and safety-focused repairs for all types of tires. Trust us for durable results and smooth rides. Visit us today for hassle-free service!",
       description_short:"Quick, reliable tire repairs to keep you safe on the road. Fast service, expert care, and affordable prices!",
-      price: "250",
+      price: "10",
       image: "/services/tire_repair.png",
       link: "",
       boost:{type:"Increase car safety by* :", size:80}
@@ -47,7 +47,7 @@ export const cfg_services = {
       title: "Service",
       description: "Keep your car in top shape with our comprehensive car service! From oil changes to full inspections, we ensure peak performance, safety, and reliability. Affordable, fast, and trusted by drivers—let our expert technicians care for your car. Drive confidently with our top-notch maintenance services. Book your service today!",
       description_short:"Reliable car service for all your maintenance needs. Expert technicians, fast service, and affordable prices to keep you on the road.",
-      price: "250",
+      price: "50",
       image: "/services/service.png",
       link: "",
       boost:{type:"Boost Car life span by* : ", size:90}
@@ -57,7 +57,7 @@ export const cfg_services = {
       title: "Diagnostic",
       description: "Uncover hidden issues with our advanced car diagnostic service! Using state-of-the-art tools, we identify problems quickly and accurately. From engine lights to performance checks, our experts ensure your vehicle runs smoothly and safely. Affordable, reliable, and fast diagnostics for peace of mind. Drive smarter—book your diagnostic appointment today!",
       description_short:"Accurate car diagnostics to identify and fix issues quickly. Expert analysis, fast service, and reliable solutions for a smooth drive.",
-      price: "250",
+      price: "75",
       image: "/services/diagnostic.png",
       link: "",
       boost:{type:"Detect issues faster by* : ", size:50}
@@ -78,7 +78,7 @@ export const cfg_services = {
       title: "Timing Belts / Chains",
       description: "Protect your engine with a professional timing belt replacement! Our expert service ensures precision, reliability, and long-lasting performance. Avoid costly damage with timely maintenance. Affordable, fast, and trusted by drivers—keep your engine running smoothly and efficiently. Don’t wait—schedule your timing belt service today for peace of mind on the road!",
       description_short:"Ensure smooth engine performance with a quick, reliable timing belt change. Affordable, efficient, preventative maintenance keeps you driving safely!",
-      price: "250",
+      price: "450",
       image: "/services/timingbelt.png",
       link: "",
       boost:{type:"Boost Car life span by* : ", size:80}
@@ -87,7 +87,7 @@ export const cfg_services = {
       title: "Breaks",
       description: "Protect your engine with a professional timing belt replacement! Our expert service ensures precision, reliability, and long-lasting performance. Avoid costly damage with timely maintenance. Affordable, fast, and trusted by drivers—keep your engine running smoothly and efficiently. Don’t wait—schedule your timing belt service today for peace of mind on the road!",
       description_short:"Drive with confidence! Expert car brake repairs ensure safety, reliability, precision, and durability. Affordable, quick service for smooth stops today!",
-      price: "250",
+      price: "20",
       image: "/services/breakes.png",
       link: "",
       boost:{type:"Increase car safety by* : ", size:50}

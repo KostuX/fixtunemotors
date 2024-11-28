@@ -27,7 +27,7 @@ export default function Services_sm() {
     },[])
     
     const parallax = useParallax({
-      rotateY: [0, 180],
+      rotateY: [0, 360],
     });
     
     return(<div ref={div}>
@@ -64,6 +64,6 @@ export default function Services_sm() {
         </div>
       ))}
     </div>
-    <div className="mt-24" ref={parallax.ref}> ____________________________________________________________________________________________________</div>
+    <div className="mt-24" ref={parallax.ref}> ................</div>
       
     </div>)}
