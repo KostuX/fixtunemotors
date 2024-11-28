@@ -75,13 +75,13 @@ export default function Home() {
   return (
     <DefaultLayout>  
          <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen" >
-  <ParallaxBannerLayer image="/programming.jpg" speed={-30} />
+  <ParallaxBannerLayer image="/cars_lifted.jpg" speed={-20} />
   <ParallaxBannerLayer className="flex bg-cover h-screen">
  
   <span className=" w-screen bg-black bg-opacity-50">
             <div className=" h-1/2 grid grid-cols-1 sm:grid-cols-3 mx-20 sm:mx-1 gap-4 content-center ">
               <span></span>
-              <span className="text-6xl md:text-7xl font-bold font-mono text-white col-span-2">
+              <span className="text-4xl md:text-7xl font-bold font-mono text-white col-span-2">
                 <div className={marker.className}>
                   <p className="mt-48 md:mr-48">Driven to Excellence, Always Reliable!</p>
                   <p className="text-xl">Expert care, smooth rides, dependable service!</p>

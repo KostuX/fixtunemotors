@@ -69,7 +69,7 @@ export default function Home() {
     <DefaultLayout>
       <div className="h-max" >
         <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" h-[72rem] md:h-screen"  >
-          <ParallaxBannerLayer image="/engine.jpg" speed={-30} />
+          <ParallaxBannerLayer image="/in_car.jpg" speed={-20} />
           <ParallaxBannerLayer className="  bg-black bg-opacity-50  ">
             <div className={"flex bg-cover text-white mt-10 "}>
               <div >
@@ -135,7 +135,7 @@ export default function Home() {
       <Divider />
       <div ref={load}>
         <ParallaxBanner style={{ aspectRatio: '2 / 1' }} className=" flex bg-cover h-screen  md:h-auto " >
-          <ParallaxBannerLayer image="/intro.jpg" speed={-30} />
+          <ParallaxBannerLayer image="/door.jpg" speed={-30} />
           <ParallaxBannerLayer className="  bg-black bg-opacity-50">
             <div className={"flex  text-white"}>
               <div className="" >
