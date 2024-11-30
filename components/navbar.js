@@ -35,7 +35,10 @@ export const Navbar = ({ siteData, fonts }) => {
       <NextUINavbar maxWidth="xl " className=" ">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-
+          <NextLink
+              className="flex justify-start items-center hidden sm:flex "
+              href="/"
+            >
             {isHydrated &&
               <Image
                 src={`${theme === "dark" ? "/logo/logo_white.png" : "/logo/logo_black.png"}`}
@@ -45,12 +48,8 @@ export const Navbar = ({ siteData, fonts }) => {
               />
             }
 
-
-            <NextLink
-              className="flex justify-start items-center hidden sm:flex "
-              href="/"
-            >
-              {" "}
+            
+              
 
             </NextLink>
           </NavbarBrand>
