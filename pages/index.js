@@ -1,16 +1,18 @@
-import { Button } from "@nextui-org/react";
-import { cfg_services } from "../config/cfg_services";
-import { cfg_site } from "../config/cfg_site";
+
 import DefaultLayout from "../layouts/default";
-import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
-import { Divider } from "@nextui-org/divider";
-import { useState, useEffect , useRef} from "react";
+import { Permanent_Marker, Lora } from "next/font/google";
+
+import { useState, useEffect } from "react";
+
 import Intro from '../components/intro';
 import Intro2 from '../components/intro2';
 import Services_sm from "../components/services_sm";
-import Lenis from "lenis";
-import { useTheme } from 'next-themes';
+import WorkingHours from "../components/workingHours";
+import Review from "../components/reviews";
 
+import { defaultData } from "../lib/defaultData";
+
+import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
@@ -23,149 +25,69 @@ const lora = Lora({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+
 export default function Home() {
-  const [data, setData] = useState([]);
-  const [workingHours, setWorkingHours] = useState(cfg_site.workHours);
-  const [isOpen, setOpen] = useState(true);
   const [isDataFetched, setDataFetched] = useState(false);
-  const [phone, setPhone] = useState(cfg_site.phone)
+  const [siteData, setSiteData] = useState(defaultData);
+  let fonts = {
+    marker: marker,
+    lora: lora
+  }
 
-  const { theme, setTheme } = useTheme();
-
- 
-  useEffect(() => {   
-    console.log(theme)
-   
-
+  useEffect(() => {
     let endpoint = "/api/googleInfo";
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setData(data.data);
         if (data.data) {
+          setSiteData({
+            ...siteData,
+            online: true,
+            phone: [data.data["international_phone_number"]] || siteData.phone,
+            address: data.data["address_components"] || siteData.address,
+            opening_hours: data.data["opening_hours"] || siteData.opening_hours,
+            reviews: data.data["reviews"] || siteData.reviews,
+            rating:data.data["rating"] || siteData.rating
+          })
           setDataFetched(true);
-          setWorkingHours(data.data.current_opening_hours.weekday_text);
-          setOpen(data.data.current_opening_hours.open_now);
-       
         }
+
         // start lenis (smooth scroll) only when document is ready
         const lenis = new Lenis();
         function raf(time) {
           lenis.raf(time);
           requestAnimationFrame(raf);
         }
-        requestAnimationFrame(raf); 
+        requestAnimationFrame(raf);
       });
   }, []);
-  return (
-    <DefaultLayout>   
-   
-   
-    {/**============================================================ Intro */}
-    <Intro/>
-    {/** END of Intro */}
-   <Intro2/>
-     
-  
-    
-      
-      
-   
-      {/**==================================================== Services */}
-   
-      <Services_sm/>
-      
-      {/** END of Services */}
-     
-      <div >
-      {isDataFetched && (
-        <div >
-          <div
-            className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-          >
-            <p className="mt-24 ">Reviews</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {data?.reviews?.map((review, i) => (
-              <div key={i} className="mt-10 mx-10 ">
-                <span className="flex">
-                  {review.profile_photo_url && (
-                    <img
-                      src={review.profile_photo_url}
-                      alt={`${review.author_name}'s profile`}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  )}
-                  <div className={`${marker.className} mx-2`}>
-                    <div> {review.author_name}</div>
-                    <div className="inline text-xs font-mono">
-                      {review.relative_time_description}
-                    </div>
-                  </div>
-                </span>
-                <div>
-                  <img
-                    src={`rating/${review.rating}.png`}
-                    style={{ width: "100px", height: "20px" }}
-                    className="my-4"
-                  />
-                </div>
-                <div>{review.text}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-   
-      </div>
-      <Divider className="mt-5  " />
-      <div>
-        <div
-          className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
-        >
-          <p className="mt-24 ">Working Hours</p>
-          <div className="flex justify-center">
-            {" "}
-            
-           {isDataFetched && <img
-              src={isOpen ? `workHours/open.png` : `workHours/closed.png`}
-              style={{ width: "50px", height: "50px" }}
-            />}
-          </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 text-center">
-          <div>
-            <p className={`${marker.className} mx-2 font`} >Hours</p>
-          <ul>
-            {workingHours.map((hours, i) => (
-              <li key={i}>{hours}</li>
-            ))}
-          </ul>
-          </div>
-          <div>
-            
-            <p className={`${marker.className} mx-2 mt-10`} >Phone</p>
-            <ul>
-            {phone.map((phone, i) => (
-              <li key={i}>{phone}</li>
-            ))}
-          </ul>
-          </div>
-           <div>
-           <p className={`${marker.className} mx-2 mt-10`} >Address</p>
-           <p className="">{cfg_site.address}</p>
-           <p className="">{cfg_site.postCode}</p>
-           <p className="">{cfg_site.country}</p>
-           </div>
-         
-         
-        </div>
-      </div>
+
+  return (
+    <DefaultLayout siteData={siteData} fonts={fonts}>
+
+      {/**============================================================ Intro */}
+      <Intro siteData={siteData} fonts={fonts} />
+      {/** END of Intro */}
+
+      {/**============================================================ Intro2 */}
+      <Intro2 siteData={siteData} fonts={fonts} />
+      {/** END of Intro2 */}
+
+      {/**============================================================ Services */}
+      <Services_sm siteData={siteData} fonts={fonts} />
+      {/** END of Services */}
+
+      {/**============================================================ Review */}
+      {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
+      {/** END of Review */}
+
+      {/**============================================================ Working Hours */}
+      <WorkingHours siteData={siteData} fonts={fonts} />
+      {/** END of WorkingHours */}
+
+
     </DefaultLayout>
   );
 }

@@ -1,25 +1,16 @@
 import React from "react";
-import { ThemeSwitch } from "../components/theme-switch";
-import { cfg_site as cfg, cfg_site } from "../config/cfg_site";
-import { Logo } from "../components/icons";
-import { useRouter } from "next/router";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from "@nextui-org/navbar";
 
 import NextLink from "next/link";
 import Link from "next/link";
 
-export const Navbar_contact = () => {
-  const router = useRouter();
-
-  return (
+export const Navbar_contact = ({siteData}) => {
+   return (
     <>
       {/** Logo | top left */}
       <NextUINavbar
@@ -31,9 +22,9 @@ export const Navbar_contact = () => {
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink
               className="flex justify-start items-center flex "
-              href={`tel:${cfg_site.phone[0]}`}
+              href={`tel:${siteData.phone[0]}`}
             >
-              {cfg_site.phone[0]}
+              {siteData.phone[0]}
             </NextLink>
           </NavbarBrand>
         </NavbarContent>
@@ -44,14 +35,16 @@ export const Navbar_contact = () => {
         {/** Links | end | large */}
         <NavbarContent className="flex basis-1/5 sm:basis-full" justify="end">
           <NavbarItem className=" gap-2 ">
-            <Link target="_blank" href={cfg_site.googleMap}>
+            <Link target="_blank" href={siteData.googleMap}>
               <span className=" hidden sm:flex">
                 {" "}
-                {cfg.address}
+                {siteData.address[0].long_name}
                 {", "}
-                {cfg.postCode}
+                {siteData.address[1].long_name}
+                {", "}
+                {siteData.address[3].long_name}
               </span>
-              <span className="sm:hidden">{cfg_site.postCode}</span>
+              <span className=" sm:hidden">{siteData.address[3].long_name}</span>
             </Link>
           </NavbarItem>
         </NavbarContent>

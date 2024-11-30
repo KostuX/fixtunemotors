@@ -19,7 +19,7 @@ export const Foot = () => {
             src={ `${theme ===  "dark" ? "/logo/logo_white.png":"/logo/logo_black.png" }`}
             width={120}
             height={120}
-            alt="Picture of the author"           
+            alt="Company Logo"              
           />            
             }
       
