@@ -2,7 +2,7 @@
 import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
 import { Parallax } from 'react-scroll-parallax';
 import { cfg_site } from "../config/cfg_site";
-import { Button } from "@nextui-org/react";
+
 import { useRef, useEffect } from "react";
 import { ParallaxBanner,ParallaxBannerLayer ,useParallax  } from 'react-scroll-parallax';
 import gsap from "gsap";
@@ -37,9 +37,9 @@ export default function Intro() {
             
    
         <div>
-          {" "} <Parallax speed={2}><p className="font-bold text-center">{cfg_site.slogan[1]}</p></Parallax>
+          {" "} <Parallax speed={1}><p className="font-bold text-center">{cfg_site.slogan[1]}</p></Parallax>
   
-          <Parallax speed={-2}>
+          <Parallax speed={-1}>
           <p className={`text-sm text-center m-5 mt-10`}>
             Repairing your car on time ensures safety, prevents costly
             breakdowns, and enhances performance. Timely maintenance extends the

@@ -31,7 +31,11 @@ export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [isDarkMode, setDarkMode] = useState(false)
   const router = useRouter();
-  
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   return (
     <>
@@ -39,18 +43,16 @@ export const Navbar = () => {
       <NextUINavbar maxWidth="xl " className=" ">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-           {  theme === "dark"?   <Image           
-              src="/logo/logo_white.png"
-              width={120}
-              height={120}
-              alt="Picture of the author"
-            />:  <Image           
-            src="/logo/logo_black.png" 
+
+            {isHydrated &&
+            <Image           
+            src={ `${theme ===  "dark" ? "/logo/logo_white.png":"/logo/logo_black.png" }`}
             width={120}
             height={120}
-            alt="Picture of the author"
-          /> }
-      
+            alt="Picture of the author"           
+          />            
+            }
+             
 
             <NextLink
               className="flex justify-start items-center hidden sm:flex "

@@ -9,6 +9,7 @@ import Intro from '../components/intro';
 import Intro2 from '../components/intro2';
 import Services_sm from "../components/services_sm";
 import Lenis from "lenis";
+import { useTheme } from 'next-themes';
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -28,53 +29,12 @@ export default function Home() {
   const [isOpen, setOpen] = useState(true);
   const [isDataFetched, setDataFetched] = useState(false);
   const [phone, setPhone] = useState(cfg_site.phone)
-  const [isDarkMode, setDarkMode] = useState(false)
+
+  const { theme, setTheme } = useTheme();
 
  
-
-  const review = useRef(null);
- 
-
-  useEffect(() => {
-    {
-      
-    
-        
-    }
-  }, []);
-
-  const review_div = useRef(null);
-  useEffect(() => {
-    console.log("her", review_div)
-    if (review_div.current) {
-      // This function will run when the div is loaded
-      console.log('Div is loaded!', review_div.current);
-
-      // Example: Perform additional actions
-      review_div.current.style.backgroundColor = 'lightblue';
-      
-    }
-  }, [review_div]); // Dependency on ref to trigger when it changes
-
-
-  useEffect(()=>{    
-    const el = review.current
- 
-    gsap.fromTo(el, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
-        trigger:el
-    }})
-  
-  },[])
-  
-  function handleCallBtn() {
-    window.location.href = `tel:${phone[0]}`;
-  }
-
-  function handleLocationButton() {
-    window.open(cfg_site.googleMap, "_blank");
-  }
-
-  useEffect(() => {
+  useEffect(() => {   
+    console.log(theme)
    
 
     let endpoint = "/api/googleInfo";
@@ -88,6 +48,7 @@ export default function Home() {
           setOpen(data.data.current_opening_hours.open_now);
        
         }
+        // start lenis (smooth scroll) only when document is ready
         const lenis = new Lenis();
         function raf(time) {
           lenis.raf(time);
@@ -97,21 +58,20 @@ export default function Home() {
       });
   }, []);
   return (
-    <DefaultLayout>
+    <DefaultLayout>   
    
    
-      <div className="justify-between h-full   ">
+    {/**============================================================ Intro */}
     <Intro/>
+    {/** END of Intro */}
    <Intro2/>
      
   
-      </div>
+    
       
-      {/** END of intro */}
+      
    
-      {/** Services */}
- 
-
+      {/**==================================================== Services */}
    
       <Services_sm/>
       
@@ -119,7 +79,7 @@ export default function Home() {
      
       <div >
       {isDataFetched && (
-        <div  key={review_div}>
+        <div >
           <div
             className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
           >
