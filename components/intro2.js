@@ -4,19 +4,16 @@ import { Parallax } from 'react-scroll-parallax';
 import { cfg_site } from "../config/cfg_site";
 
 import { useRef, useEffect } from "react";
-import { ParallaxBanner, ParallaxBannerLayer, useParallax } from 'react-scroll-parallax';
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Intro(siteData, fonts) {
-  const parallax = useParallax({
-    rotateY: [0, 360],
-  });
 
-  const text = useRef(null);
+
+  const load = useRef(null);
   useEffect(() => {
-    const el = text.current
+    const el = load.current
     gsap.fromTo(el, { opacity: 0 }, {
       opacity: 1, duration: 2, scrollTrigger: {
         trigger: el
@@ -25,7 +22,7 @@ export default function Intro(siteData, fonts) {
   }, [])
 
   return (
-    <div className="m-10 md:m-48 text-xl justify-between " ref={text}>
+    <div className="m-10 md:m-48 text-xl justify-between " ref={load}>
       <div>
         <Parallax speed={1}><p className="font-bold text-center">{cfg_site.slogan[1]}</p></Parallax>
 
@@ -40,9 +37,6 @@ export default function Intro(siteData, fonts) {
           </p>
         </Parallax>
       </div>
-      <div ref={parallax.ref} className="spinner">
-        ................
-
-      </div>
+    
     </div>)
 }

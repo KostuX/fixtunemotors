@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ThemeSwitch } from "../components/theme-switch";
 import { cfg_site as cfg } from "../config/cfg_site";
-import { NextUILogo } from "../components/icons";
+
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
-import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -18,20 +18,11 @@ import { Divider, Link, NavbarMenuItem } from "@nextui-org/react";
 import Image from "next/image";
 
 import NextLink from "next/link";
-import WorkingHours from "./workingHours";
 
-const marker = Permanent_Marker({
-  subsets: ["latin"],
-  weight: ["400"],
-});
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+
 export const Navbar = ({ siteData, fonts }) => {
   const { theme, setTheme } = useTheme();
-  const [isDarkMode, setDarkMode] = useState(false)
-  const router = useRouter();
+
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -95,54 +86,57 @@ export const Navbar = ({ siteData, fonts }) => {
           <ThemeSwitch />
           <NavbarMenuToggle />
 
-          <NavbarMenu justify="end ">
-            <div className={`${marker.className} mt-10 text-center `}>
-              {cfg.navMenuItems.map((item, index) => (
+          <NavbarMenu >
+            <div className="h-fit pb-10">
+              <div className={`${fonts.marker.className} mt-10 text-center `}>
+                {cfg.navMenuItems.map((item, index) => (
 
-                <NavbarMenuItem key={`${item}-${index}`}>
-                  <Link
-                    color={"foreground"}
-                    href={item.href}
-                    size="lg"
-                    className=" group transition-all duration-300 ease-in-out mt-10 text-4xl"
-                  >
-                    <p className=" bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-                      {item.label}
-                    </p>
-                  </Link>
-                </NavbarMenuItem>
+                  <NavbarMenuItem key={`${item}-${index}`}>
+                    <Link
+                      color={"foreground"}
+                      href={item.href}
+                      size="lg"
+                      className=" group transition-all duration-300 ease-in-out mt-10 text-4xl"
+                    >
+                      <p className=" bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+                        {item.label}
+                      </p>
+                    </Link>
+                  </NavbarMenuItem>
 
-              ))}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 text-center">
-              <Divider />
-              <p className={`${fonts.marker.className} mx-2 mt-12`} >Hours</p>
-              <ul>
-                {siteData.opening_hours.weekday_text.map((hours, i) => (
-                  <li key={i}>{hours}</li>
                 ))}
-              </ul>
-
-              <div>
-
-                <p className={`${fonts.marker.className} mx-2 mt-10`} >Phone</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 text-center mt-10">
+                <Divider />
+                <p className={`${fonts.marker.className} mx-2 mt-12`} >Hours</p>
                 <ul>
-                  {siteData.phone.map((phone, i) => (
-                    <li key={i}>{phone}</li>
+                  {siteData.opening_hours.weekday_text.map((hours, i) => (
+                    <li key={i}>{hours}</li>
                   ))}
                 </ul>
-              </div>
-              <div>
-                <p className={`${fonts.marker.className} mx-2 mt-10`} >Address</p>
-                {
-                  siteData.address.map((address, i) => (
-                    <p key={i}>{address.long_name}</p>
-                  ))
-                }
 
+                <div>
+                  <p className={`${fonts.marker.className} mx-2 mt-10`} >Phone</p>
+                  <ul>
+                    {siteData.phone.map((phone, i) => (
+                      <NextLink key={i} href={`tel:${phone}`} >
+                        {phone}
+                      </NextLink>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <NextLink href={siteData.googleMap} >
+                    <p className={`${fonts.marker.className} mx-2 mt-10`} >Address</p>
+                    {
+                      siteData.address.map((address, i) => (
+                        <p key={i}>{address.long_name}</p>
+                      ))
+                    }
+                  </NextLink>
+                </div>
               </div>
             </div>
-
           </NavbarMenu>
 
 

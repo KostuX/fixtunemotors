@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
-import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
+import { ParallaxBanner, ParallaxBannerLayer, Parallax } from 'react-scroll-parallax';
 
 import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Rating({ siteData, fonts }) {
 
@@ -19,22 +21,32 @@ export default function Rating({ siteData, fonts }) {
       <ParallaxBannerLayer image="/door.jpg" speed={-30} />
       <ParallaxBannerLayer className="  bg-black bg-opacity-50">
         <div className={"flex  text-white"}>
-          <div className="" >
+
+          <div >
 
             <div className={`${fonts.marker.className} text-3xl  font-bold text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center`}>
-              <p>Rating</p>
-              {siteData.online && <img
-                src={`rating/${Math.ceil(siteData.rating)}.png`}
-                style={{ width: "200px", height: "40px" }}
-                className="my-4"
-              />
-              }
-              <div className={`text-xl ${fonts.lora.className}`}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.
-                
-              </div>
+              <Parallax speed={1}>
+                <div>
+
+                  <p>Rating</p>
+
+                  {siteData.online && <img
+                    src={`rating/${Math.ceil(siteData.rating)}.png`}
+                    style={{ width: "200px", height: "40px" }}
+                    className="my-4"
+                  />
+                  }
+                </div>
+
+              </Parallax>
+              <Parallax speed={-1}>
+
+                <div className={`text-xl `}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.
+
+                </div>
+              </Parallax>
             </div>
-            <p className={`text-xl text-center mx-10 md:mx-24 mt-5`}>
-            </p>
+
           </div>
         </div>
       </ParallaxBannerLayer>

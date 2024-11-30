@@ -1,5 +1,6 @@
+import NextLink from "next/link";
 export default function WorkingHours({ siteData, fonts }) {
-    return (<div>
+    return (<div className="mb-10">
 
         <div
             className={`${fonts.marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
@@ -28,18 +29,21 @@ export default function WorkingHours({ siteData, fonts }) {
                 <p className={`${fonts.marker.className} mx-2 mt-10`} >Phone</p>
                 <ul>
                     {siteData.phone.map((phone, i) => (
-                        <li key={i}>{phone}</li>
+                        <NextLink key={i} href={`tel:${phone}`} >
+                            {phone}
+                        </NextLink>
                     ))}
                 </ul>
             </div>
             <div>
-                <p className={`${fonts.marker.className} mx-2 mt-10`} >Address</p>
-                {
-                    siteData.address.map((address, i) => (
-                        <p key={i}>{address.long_name}</p>
-                    ))
-                }
-
+                <NextLink href={siteData.googleMap} >
+                    <p className={`${fonts.marker.className} mx-2 mt-10`} >Address</p>
+                    {
+                        siteData.address.map((address, i) => (
+                            <p key={i}>{address.long_name}</p>
+                        ))
+                    }
+                </NextLink>
             </div>
 
 

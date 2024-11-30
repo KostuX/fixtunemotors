@@ -1,6 +1,6 @@
-
+import Spliter from "../components/spliter";
 import DefaultLayout from "../layouts/default";
-import { Permanent_Marker, Lora } from "next/font/google";
+import { Permanent_Marker } from "next/font/google";
 
 import { useState, useEffect } from "react";
 
@@ -21,10 +21,7 @@ const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
 });
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+
 
 
 export default function Home() {
@@ -32,7 +29,7 @@ export default function Home() {
   const [siteData, setSiteData] = useState(defaultData);
   let fonts = {
     marker: marker,
-    lora: lora
+
   }
 
   useEffect(() => {
@@ -48,7 +45,7 @@ export default function Home() {
             address: data.data["address_components"] || siteData.address,
             opening_hours: data.data["opening_hours"] || siteData.opening_hours,
             reviews: data.data["reviews"] || siteData.reviews,
-            rating:data.data["rating"] || siteData.rating
+            rating: data.data["rating"] || siteData.rating
           })
           setDataFetched(true);
         }
@@ -71,18 +68,19 @@ export default function Home() {
       <Intro siteData={siteData} fonts={fonts} />
       {/** END of Intro */}
 
+
       {/**============================================================ Intro2 */}
       <Intro2 siteData={siteData} fonts={fonts} />
       {/** END of Intro2 */}
-
+      <Spliter />
       {/**============================================================ Services */}
       <Services_sm siteData={siteData} fonts={fonts} />
       {/** END of Services */}
-
+      <Spliter />
       {/**============================================================ Review */}
       {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
       {/** END of Review */}
-
+      <Spliter />
       {/**============================================================ Working Hours */}
       <WorkingHours siteData={siteData} fonts={fonts} />
       {/** END of WorkingHours */}

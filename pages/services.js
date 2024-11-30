@@ -1,7 +1,7 @@
-
+import Spliter from "../components/spliter";
 
 import DefaultLayout from "../layouts/default";
-import { Permanent_Marker, Lora, EB_Garamond } from "next/font/google";
+import { Permanent_Marker } from "next/font/google";
 
 import { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
@@ -11,24 +11,19 @@ import Services from "../components/services/services";
 import WorkingHours from "../components/workingHours";
 
 import { defaultData } from "../lib/defaultData";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger)
+
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
 });
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+
 export default function Home() {
 
   const [siteData, setSiteData] = useState(defaultData);
   let fonts = {
     marker: marker,
-    lora: lora
+   
   }
 
   useEffect(() => {
@@ -62,7 +57,9 @@ export default function Home() {
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
       <Intro siteData={siteData} fonts={fonts} />
+      <Spliter/>
       <Services siteData={siteData} fonts={fonts} />
+      <Spliter/>
       <WorkingHours siteData={siteData} fonts={fonts} />
     </DefaultLayout>
   );
