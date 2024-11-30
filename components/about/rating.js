@@ -24,11 +24,11 @@ export default function Rating({ siteData, fonts }) {
 
           <div >
 
-            <div className={`${fonts.marker.className} text-3xl  font-bold text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center`}>
+            <div className={`  text-center mt-24 mx-10 md:mx-24 grid  flex justify-items-center`}>
               <Parallax speed={1}>
                 <div>
 
-                  <p>Rating</p>
+                  <p className={`${fonts.marker.className} text-3xl  font-bold`}>Rating</p>
 
                   {siteData.online && <img
                     src={`rating/${Math.ceil(siteData.rating)}.png`}
@@ -41,7 +41,7 @@ export default function Rating({ siteData, fonts }) {
               </Parallax>
               <Parallax speed={-1}>
 
-                <div className={`text-xl `}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.
+                <div className={`text-xl  `}>Maintaining a high business rating requires exceptional service, prompt communication, and addressing feedback effectively. Build trust through transparency, personalized service, and professionalism. Monitor reviews, respond courteously, and thank customers for support. Foster a positive workplace culture and adapt to evolving needs to ensure consistent quality and customer satisfaction.
 
                 </div>
               </Parallax>
