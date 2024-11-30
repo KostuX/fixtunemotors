@@ -8,6 +8,7 @@ import { useState, useEffect , useRef} from "react";
 import Intro from '../components/intro';
 import Intro2 from '../components/intro2';
 import Services_sm from "../components/services_sm";
+import Lenis from "lenis";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -32,16 +33,40 @@ export default function Home() {
  
 
   const review = useRef(null);
-  const hours = useRef(null);
+
+
+  useEffect(() => {
+    {
+      const lenis = new Lenis();
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);  
+         lenis.stop()
+         lenis.start()   
+    }
+  }, []);
+
+  const review_div = useRef(null);
+  useEffect(() => {
+    if (review_div.current) {
+      // This function will run when the div is loaded
+      console.log('Div is loaded!', review_div.current);
+
+      // Example: Perform additional actions
+      review_div.current.style.backgroundColor = 'lightblue';
+    }
+  }, [review_div.current]); // Dependency on ref to trigger when it changes
+
+
   useEffect(()=>{    
     const el = review.current
-    const hr = hours.current
+ 
     gsap.fromTo(el, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
         trigger:el
     }})
-    gsap.fromTo(hr, {opacity:0},{opacity:1, duration:2, scrollTrigger:{
-      trigger:hr
-  }})
+  
   },[])
   
   function handleCallBtn() {
@@ -88,9 +113,9 @@ export default function Home() {
       
       {/** END of Services */}
      
-      <div ref={review}>
+      <div >
       {isDataFetched && (
-        <div >
+        <div  key={review_div}>
           <div
             className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
           >
@@ -134,7 +159,7 @@ export default function Home() {
    
       </div>
       <Divider className="mt-5  " />
-      <div ref={hours}>
+      <div>
         <div
           className={`${marker.className} text-6xl md:text-6xl font-bold text-center mb-12`}
         >
