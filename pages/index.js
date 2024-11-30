@@ -33,31 +33,28 @@ export default function Home() {
  
 
   const review = useRef(null);
-
+ 
 
   useEffect(() => {
     {
-      const lenis = new Lenis();
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);  
-         lenis.stop()
-         lenis.start()   
+      
+    
+        
     }
   }, []);
 
   const review_div = useRef(null);
   useEffect(() => {
+    console.log("her", review_div)
     if (review_div.current) {
       // This function will run when the div is loaded
       console.log('Div is loaded!', review_div.current);
 
       // Example: Perform additional actions
       review_div.current.style.backgroundColor = 'lightblue';
+      
     }
-  }, [review_div.current]); // Dependency on ref to trigger when it changes
+  }, [review_div]); // Dependency on ref to trigger when it changes
 
 
   useEffect(()=>{    
@@ -89,7 +86,14 @@ export default function Home() {
           setDataFetched(true);
           setWorkingHours(data.data.current_opening_hours.weekday_text);
           setOpen(data.data.current_opening_hours.open_now);
+       
         }
+        const lenis = new Lenis();
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf); 
       });
   }, []);
   return (
