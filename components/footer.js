@@ -1,6 +1,7 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { cfg_site } from "../config/cfg_site";
-import { Facebook } from "./icons";
+import { Facebook, TickTok } from "./icons";
+import { SocialIcon } from "react-social-icons";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 export const Foot = () => {
@@ -14,26 +15,26 @@ export const Foot = () => {
     <footer className="border-t  bg-background w-full   p-4 text-sm text-gray-300  mt-10  ">
       <span className=" text-center grid grid-cols-3 gap-4  m-3 text-foreground/80">
         <span>
-        {isHydrated &&
-            <Image           
-            src={ `${theme ===  "dark" ? "/logo/logo_white.png":"/logo/logo_black.png" }`}
-            width={120}
-            height={120}
-            alt="Company Logo"              
-          />            
-            }
-      
+          {isHydrated && (
+            <Image
+              src={`${
+                theme === "dark"
+                  ? "/logo/logo_white.png"
+                  : "/logo/logo_black.png"
+              }`}
+              width={120}
+              height={120}
+              alt="Company Logo"
+            />
+          )}
         </span>
         <span>
           <ul className="flex justify-center ">
-            <li>
-              <a
-                href={cfg_site.facebook_link}
-                target="_blank"
-                className="hover:underline me-4 md:me-6"
-              >
-                <Facebook />
-              </a>
+            <li className=" mx-5">
+              <SocialIcon network="facebook" url={cfg_site.facebook_link} />
+            </li>
+            <li className=" mx-5">
+              <SocialIcon network="tiktok" url={cfg_site.tiktok_link} />
             </li>
           </ul>
         </span>

@@ -30,14 +30,26 @@ export default function WorkingHours({ siteData, fonts }) {
           </ul>
         </div>
         <div>
-          <p className={`${fonts.marker.className} mx-2 mt-10`}>Phone</p>
-          <ul>
-            {siteData.phone.map((phone, i) => (
-              <NextLink key={i} href={`tel:${phone}`}>
-                <div>{phone}</div>
-              </NextLink>
-            ))}
-          </ul>
+          <div>
+            <p className={`${fonts.marker.className} mx-2 mt-10`}>Phone</p>
+            <ul>
+              {siteData.phone.map((phone, i) => (
+                <NextLink key={i} href={`tel:${phone}`}>
+                  <div>{phone}</div>
+                </NextLink>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className={`${fonts.marker.className} mx-2 mt-10`}>Email</p>
+            <ul>
+              {siteData.email.map((email, i) => (
+                <NextLink key={i} href={`mailto:${email}`}>
+                  <div>{email}</div>
+                </NextLink>
+              ))}
+            </ul>
+          </div>
         </div>
         <div>
           <NextLink href={siteData.googleMap}>

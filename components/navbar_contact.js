@@ -9,8 +9,8 @@ import {
 import NextLink from "next/link";
 import Link from "next/link";
 
-export const Navbar_contact = ({siteData}) => {
-   return (
+export const Navbar_contact = ({ siteData }) => {
+  return (
     <>
       {/** Logo | top left */}
       <NextUINavbar
@@ -30,7 +30,14 @@ export const Navbar_contact = ({siteData}) => {
         </NavbarContent>
 
         {/** Links | center | large */}
-        <NavbarContent className="flex" justify="center"></NavbarContent>
+        <NavbarContent className="flex" justify="center">
+          <NextLink
+            key={siteData.email[0]}
+            href={`mailto:${siteData.email[0]}`}
+          >
+            <div>{siteData.email[0]}</div>
+          </NextLink>
+        </NavbarContent>
 
         {/** Links | end | large */}
         <NavbarContent className="flex basis-1/5 sm:basis-full" justify="end">
@@ -44,7 +51,9 @@ export const Navbar_contact = ({siteData}) => {
                 {", "}
                 {siteData.address[3].long_name}
               </span>
-              <span className=" sm:hidden">{siteData.address[3].long_name}</span>
+              <span className=" sm:hidden">
+                {siteData.address[3].long_name}
+              </span>
             </Link>
           </NavbarItem>
         </NavbarContent>

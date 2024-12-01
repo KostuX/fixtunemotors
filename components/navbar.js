@@ -132,6 +132,16 @@ export const Navbar = ({ siteData, fonts }) => {
                     ))}
                   </NextLink>
                 </div>
+                <div>
+                  <NextLink href={`mailto:${siteData.email[0]}`}>
+                    <p className={`${fonts.marker.className} mx-2 mt-10`}>
+                      Email
+                    </p>
+                    {siteData.email.map((email, i) => (
+                      <p key={i}>{email}</p>
+                    ))}
+                  </NextLink>
+                </div>
               </div>
               <div>
                 <NavbarBrand className=" mt-10 flex justify-center">
