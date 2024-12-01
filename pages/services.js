@@ -12,19 +12,16 @@ import WorkingHours from "../components/workingHours";
 
 import { defaultData } from "../lib/defaultData";
 
-
 const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
 });
 
 export default function Home() {
-
   const [siteData, setSiteData] = useState(defaultData);
   let fonts = {
     marker: marker,
-   
-  }
+  };
 
   useEffect(() => {
     let endpoint = "/api/googleInfo";
@@ -39,27 +36,28 @@ export default function Home() {
             address: data.data["address_components"] || siteData.address,
             opening_hours: data.data["opening_hours"] || siteData.opening_hours,
             reviews: data.data["reviews"] || siteData.reviews,
-            rating: data.data["rating"] || siteData.rating
-          })
+            rating: data.data["rating"] || siteData.rating,
+          });
         }
 
         // start lenis (smooth scroll) only when document is ready
+        /*
         const lenis = new Lenis();
         function raf(time) {
           lenis.raf(time);
           requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
+        */
       });
   }, []);
-
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
       <Intro siteData={siteData} fonts={fonts} />
-      <Spliter/>
+      <Spliter />
       <Services siteData={siteData} fonts={fonts} />
-      <Spliter/>
+      <Spliter />
       <WorkingHours siteData={siteData} fonts={fonts} />
     </DefaultLayout>
   );
