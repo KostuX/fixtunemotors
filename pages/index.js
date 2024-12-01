@@ -2,6 +2,8 @@ import Spliter from "../components/spliter";
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 
+import ScrollContext from "../components/ScrollContext";
+
 import { useState, useEffect } from "react";
 
 import Intro from "../components/intro";
@@ -14,8 +16,8 @@ import { defaultData } from "../lib/defaultData";
 
 import Lenis from "lenis";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+//import ScrollTrigger from "gsap/dist/ScrollTrigger";
+//gsap.registerPlugin(ScrollTrigger);
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -25,6 +27,7 @@ const marker = Permanent_Marker({
 export default function Home() {
   const [isDataFetched, setDataFetched] = useState(false);
   const [siteData, setSiteData] = useState(defaultData);
+
   let fonts = {
     marker: marker,
   };
@@ -61,25 +64,29 @@ export default function Home() {
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-      {/**============================================================ Intro */}
-      <Intro siteData={siteData} fonts={fonts} />
-      {/** END of Intro */}
+      <ScrollContext>
+        {/**============================================================ Intro */}
 
-      {/**============================================================ Intro2 */}
-      <Intro2 siteData={siteData} fonts={fonts} />
-      {/** END of Intro2 */}
-      <Spliter />
-      {/**============================================================ Services */}
-      <Services_sm siteData={siteData} fonts={fonts} />
-      {/** END of Services */}
-      <Spliter />
-      {/**============================================================ Review */}
-      {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
-      {/** END of Review */}
-      {isDataFetched && <Spliter />}
-      {/**============================================================ Working Hours */}
-      <WorkingHours siteData={siteData} fonts={fonts} />
-      {/** END of WorkingHours */}
+        <Intro siteData={siteData} fonts={fonts} />
+
+        {/** END of Intro */}
+
+        {/**============================================================ Intro2 */}
+        <Intro2 siteData={siteData} fonts={fonts} />
+        {/** END of Intro2 */}
+        <Spliter />
+        {/**============================================================ Services */}
+        <Services_sm siteData={siteData} fonts={fonts} />
+        {/** END of Services */}
+        <Spliter />
+        {/**============================================================ Review */}
+        {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
+        {/** END of Review */}
+        {isDataFetched && <Spliter />}
+        {/**============================================================ Working Hours */}
+        <WorkingHours siteData={siteData} fonts={fonts} />
+        {/** END of WorkingHours */}
+      </ScrollContext>
     </DefaultLayout>
   );
 }
