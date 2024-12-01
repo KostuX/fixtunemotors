@@ -12,13 +12,11 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-
 } from "@nextui-org/navbar";
 import { Divider, Link, NavbarMenuItem } from "@nextui-org/react";
 import Image from "next/image";
 
 import NextLink from "next/link";
-
 
 export const Navbar = ({ siteData, fonts }) => {
   const { theme, setTheme } = useTheme();
@@ -27,7 +25,7 @@ export const Navbar = ({ siteData, fonts }) => {
 
   useEffect(() => {
     setIsHydrated(true);
-  }, []);
+  }, [theme]);
 
   return (
     <>
@@ -35,22 +33,22 @@ export const Navbar = ({ siteData, fonts }) => {
       <NextUINavbar maxWidth="xl " className=" ">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink
+            <NextLink
               className="flex justify-start items-center hidden sm:flex "
               href="/"
             >
-            {isHydrated &&
-              <Image
-                src={`${theme === "dark" ? "/logo/logo_white.png" : "/logo/logo_black.png"}`}
-                width={120}
-                height={120}
-                alt="Company Logo"
-              />
-            }
-
-            
-              
-
+              {isHydrated && (
+                <Image
+                  src={`${
+                    theme === "dark"
+                      ? "/logo/logo_white.png"
+                      : "/logo/logo_black.png"
+                  }`}
+                  width={120}
+                  height={120}
+                  alt="Company Logo"
+                />
+              )}
             </NextLink>
           </NavbarBrand>
         </NavbarContent>
@@ -85,11 +83,10 @@ export const Navbar = ({ siteData, fonts }) => {
           <ThemeSwitch />
           <NavbarMenuToggle />
 
-          <NavbarMenu >
-            <div className="h-fit pb-10">
+          <NavbarMenu>
+            <div className="h-fit pb-24">
               <div className={`${fonts.marker.className} mt-10 text-center `}>
                 {cfg.navMenuItems.map((item, index) => (
-
                   <NavbarMenuItem key={`${item}-${index}`}>
                     <Link
                       color={"foreground"}
@@ -102,12 +99,11 @@ export const Navbar = ({ siteData, fonts }) => {
                       </p>
                     </Link>
                   </NavbarMenuItem>
-
                 ))}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 text-center mt-10">
                 <Divider />
-                <p className={`${fonts.marker.className} mx-2 mt-12`} >Hours</p>
+                <p className={`${fonts.marker.className} mx-2 mt-12`}>Hours</p>
                 <ul>
                   {siteData.opening_hours.weekday_text.map((hours, i) => (
                     <li key={i}>{hours}</li>
@@ -115,31 +111,48 @@ export const Navbar = ({ siteData, fonts }) => {
                 </ul>
 
                 <div>
-                  <p className={`${fonts.marker.className} mx-2 mt-10`} >Phone</p>
+                  <p className={`${fonts.marker.className} mx-2 mt-10`}>
+                    Phone
+                  </p>
                   <ul>
                     {siteData.phone.map((phone, i) => (
-                      <NextLink key={i} href={`tel:${phone}`} >
-                        {phone}
+                      <NextLink key={i} href={`tel:${phone}`}>
+                        <div> {phone}</div>
                       </NextLink>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <NextLink href={siteData.googleMap} >
-                    <p className={`${fonts.marker.className} mx-2 mt-10`} >Address</p>
-                    {
-                      siteData.address.map((address, i) => (
-                        <p key={i}>{address.long_name}</p>
-                      ))
-                    }
+                  <NextLink href={siteData.googleMap}>
+                    <p className={`${fonts.marker.className} mx-2 mt-10`}>
+                      Address
+                    </p>
+                    {siteData.address.map((address, i) => (
+                      <p key={i}>{address.long_name}</p>
+                    ))}
                   </NextLink>
                 </div>
               </div>
+              <div>
+                <NavbarBrand className=" mt-10 flex justify-center">
+                  <NextLink className="  " href="/">
+                    {isHydrated && (
+                      <Image
+                        src={`${
+                          theme === "dark"
+                            ? "/logo/logo_white.png"
+                            : "/logo/logo_black.png"
+                        }`}
+                        width={120}
+                        height={120}
+                        alt="Company Logo"
+                      />
+                    )}
+                  </NextLink>
+                </NavbarBrand>
+              </div>
             </div>
           </NavbarMenu>
-
-
-
         </NavbarContent>
       </NextUINavbar>
     </>
