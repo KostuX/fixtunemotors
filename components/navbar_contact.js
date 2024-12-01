@@ -30,7 +30,7 @@ export const Navbar_contact = ({ siteData }) => {
         </NavbarContent>
 
         {/** Links | center | large */}
-        <NavbarContent className="flex" justify="center">
+        <NavbarContent className=" hidden md:flex" justify="center">
           <NextLink
             key={siteData.email[0]}
             href={`mailto:${siteData.email[0]}`}

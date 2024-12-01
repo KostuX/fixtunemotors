@@ -29,12 +29,20 @@ export const Foot = () => {
           )}
         </span>
         <span>
-          <ul className="flex justify-center ">
-            <li className=" mx-5">
-              <SocialIcon network="facebook" url={cfg_site.facebook_link} />
+          <ul className=" justify-center flex hidden sm:flex">
+            <li className="mx-1 sm:mx-5 ">
+              <SocialIcon
+                network="facebook"
+                url={cfg_site.facebook_link}
+                style={{ width: 30, height: 30 }}
+              />
             </li>
-            <li className=" mx-5">
-              <SocialIcon network="tiktok" url={cfg_site.tiktok_link} />
+            <li className="mx-1 sm:mx-5">
+              <SocialIcon
+                network="tiktok"
+                url={cfg_site.tiktok_link}
+                style={{ width: 30, height: 30 }}
+              />
             </li>
           </ul>
         </span>
