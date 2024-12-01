@@ -16,8 +16,8 @@ import { defaultData } from "../lib/defaultData";
 
 import Lenis from "lenis";
 import gsap from "gsap";
-//import ScrollTrigger from "gsap/dist/ScrollTrigger";
-//gsap.registerPlugin(ScrollTrigger);
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -49,44 +49,32 @@ export default function Home() {
           });
           setDataFetched(true);
         }
-
-        // start lenis (smooth scroll) only when document is ready
-        /*
-        const lenis = new Lenis();
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-        */
       });
   }, []);
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-      <ScrollContext>
-        {/**============================================================ Intro */}
+      {/**============================================================ Intro */}
 
-        <Intro siteData={siteData} fonts={fonts} />
+      <Intro siteData={siteData} fonts={fonts} />
 
-        {/** END of Intro */}
+      {/** END of Intro */}
 
-        {/**============================================================ Intro2 */}
-        <Intro2 siteData={siteData} fonts={fonts} />
-        {/** END of Intro2 */}
-        <Spliter />
-        {/**============================================================ Services */}
-        <Services_sm siteData={siteData} fonts={fonts} />
-        {/** END of Services */}
-        <Spliter />
-        {/**============================================================ Review */}
-        {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
-        {/** END of Review */}
-        {isDataFetched && <Spliter />}
-        {/**============================================================ Working Hours */}
-        <WorkingHours siteData={siteData} fonts={fonts} />
-        {/** END of WorkingHours */}
-      </ScrollContext>
+      {/**============================================================ Intro2 */}
+      <Intro2 siteData={siteData} fonts={fonts} />
+      {/** END of Intro2 */}
+      <Spliter />
+      {/**============================================================ Services */}
+      <Services_sm siteData={siteData} fonts={fonts} />
+      {/** END of Services */}
+      <Spliter />
+      {/**============================================================ Review */}
+      {isDataFetched && <Review siteData={siteData} fonts={fonts} />}
+      {/** END of Review */}
+      {isDataFetched && <Spliter />}
+      {/**============================================================ Working Hours */}
+      <WorkingHours siteData={siteData} fonts={fonts} />
+      {/** END of WorkingHours */}
     </DefaultLayout>
   );
 }

@@ -11,8 +11,6 @@ import Video from "../components/about/video";
 import Team from "../components/about/team";
 import Rating from "../components/about/rating";
 
-import Lenis from "lenis";
-
 const marker = Permanent_Marker({
   subsets: ["latin"],
   weight: ["400"],
@@ -39,15 +37,6 @@ export default function about() {
             reviews: data.data["reviews"] || siteData.reviews,
           });
         }
-        /*
-        // start lenis (smooth scroll) only when document is ready
-        const lenis = new Lenis();
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-        */
       });
   }, []);
 

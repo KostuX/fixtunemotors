@@ -4,7 +4,6 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 
 import { useState, useEffect, useRef } from "react";
-import Lenis from "lenis";
 
 import Intro from "../components/services/intro";
 import Services from "../components/services/services";
@@ -39,16 +38,6 @@ export default function Home() {
             rating: data.data["rating"] || siteData.rating,
           });
         }
-
-        // start lenis (smooth scroll) only when document is ready
-        /*
-        const lenis = new Lenis();
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-        */
       });
   }, []);
 
