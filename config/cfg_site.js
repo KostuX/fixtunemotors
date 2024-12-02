@@ -1,7 +1,7 @@
 export const cfg_site = {
   title: "Fix Tune Motors",
   year: "2024",
-  phone: ["+353 87 278 8606", "+353 87 466 3350"],
+  phone: ["+353 87 466 3350","+353 87 278 8606"],
   email: ["fixtunemotors@gmail.com"],
   address: [
     { long_name: "Latt" },
