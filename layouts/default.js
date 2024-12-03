@@ -7,6 +7,7 @@ import { Providers } from "../components/providers";
 import ScrollContext from "../components/ScrollContext";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function DefaultLayout({ children, siteData, fonts }) {
   const [isHydrated, setIsHidrated] = useState(false);
@@ -24,6 +25,7 @@ export default function DefaultLayout({ children, siteData, fonts }) {
         </ScrollContext>
       </Providers>
       {isHydrated && <SpeedInsights />}
+      <Analytics />
       <Foot siteData={siteData} />
     </div>
   );
