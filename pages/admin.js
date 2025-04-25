@@ -24,114 +24,112 @@ const marker = Permanent_Marker({
 });
 
 export default function Home() {
-  const [isDataFetched, setDataFetched] = useState(false);
-  const [siteData, setSiteData] = useState(defaultData);
-  const [newEntry, setNewEntry] = useState({ name: "", role: "", status: "" });
-  const [tableData, setTableData] = useState([
-    { name: "11LH8974", role: "2025/01/20", status: "Service" },
-    { name: "11LH8974", role: "2025/01/20", status: "Service" },
-    { name: "11LH8974", role: "2025/01/20", status: "Service" },
-    { name: "11LH8974", role: "2025/01/20", status: "Service" },
-  ]);
-
-  let fonts = {
-    marker: marker,
-  };
-
-  useEffect(() => {
-    let endpoint = "/api/googleInfo";
-    fetch(endpoint)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          setSiteData({
-            ...siteData,
-            online: true,
-            phone: [data.data["international_phone_number"]] || siteData.phone,
-            address: data.data["address_components"] || siteData.address,
-            opening_hours: data.data["opening_hours"] || siteData.opening_hours,
-            reviews: data.data["reviews"] || siteData.reviews,
-            rating: data.data["rating"] || siteData.rating,
-          });
-          setDataFetched(true);
-        }
-      });
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewEntry({ ...newEntry, [name]: value });
-  };
-
-  const handleAddEntry = (e) => {
-    e.preventDefault();
-    if (newEntry.name && newEntry.role && newEntry.status) {
-      setTableData([...tableData, newEntry]);
-      setNewEntry({ name: "", role: "", status: "" });
-    }
-  };
-
-  return (
-    <DefaultLayout siteData={siteData} fonts={fonts}>
-      <form onSubmit={handleAddEntry} className="mb-4 flex gap-4 w-full  justify-center">
-        <div>
-          <label htmlFor="name">REG</label>
+    const [isDataFetched, setDataFetched] = useState(false);
+    const [siteData, setSiteData] = useState(defaultData);
+    const [newEntry, setNewEntry] = useState({ name: "", role: "", status: "" });
+    const [tableData, setTableData] = useState([
+      { name: "11LH8974", role: "2025/01/20", status: "Service" },
+      { name: "22LH1234", role: "2025/02/15", status: "Repair" },
+      { name: "33LH5678", role: "2025/03/10", status: "Inspection" },
+      { name: "44LH9101", role: "2025/04/05", status: "Maintenance" },
+    ]);
+    const [filter, setFilter] = useState(""); // State for the filter input
+  
+    let fonts = {
+      marker: marker,
+    };
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setNewEntry({ ...newEntry, [name]: value });
+    };
+  
+    const handleAddEntry = (e) => {
+      e.preventDefault();
+      if (newEntry.name && newEntry.role && newEntry.status) {
+        setTableData([...tableData, newEntry]);
+        setNewEntry({ name: "", role: "", status: "" });
+      }
+    };
+  
+    const handleFilterChange = (e) => {
+      setFilter(e.target.value); // Update the filter state
+    };
+  
+    const filteredTableData = tableData.filter((row) =>
+      row.name.toLowerCase().includes(filter.toLowerCase())
+    ); // Filter table data based on the REG field
+  
+    return (
+      <DefaultLayout siteData={siteData} fonts={fonts}>
+        <div className="mb-4 flex gap-4 w-full justify-center">
           <input
             type="text"
-            id="name"
-            name="name"
-            value={newEntry.name}
-            onChange={handleInputChange}
-            className="border p-2 rounded"
-            required
+            placeholder="Filter by REG"
+            value={filter}
+            onChange={handleFilterChange}
+            className="border p-2 rounded w-1/2"
           />
         </div>
-        <div>
-          <label htmlFor="role">DATE</label>
-          <input
-            type="text"
-            id="role"
-            name="role"
-            
-            value={newEntry.role}
-            onChange={handleInputChange}
-            className="border p-2 rounded"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="status">JOB</label>
-          <input
-            type="text"
-            id="status"
-            name="status"
-            value={newEntry.status}
-            onChange={handleInputChange}
-            className="border p-2 rounded"
-            required
-          />
-        </div>
-        <button type="submit" className="bg-red-500 flex text-white p-2 rounded-xl mt-2 justify-center flex">
-          Add Entry
-        </button>
-      </form>
-
-      <Table isStriped aria-label="Example static collection table">
-        <TableHeader>
-          <TableColumn>REG</TableColumn>
-          <TableColumn>DATE</TableColumn>
-          <TableColumn>JOB</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {tableData.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.role}</TableCell>
-              <TableCell>{row.status}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </DefaultLayout>
-  );
-}
+  
+        <form onSubmit={handleAddEntry} className="mb-4 flex gap-4 w-full justify-center">
+          <div>
+            <label htmlFor="name">REG</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={newEntry.name}
+              onChange={handleInputChange}
+              className="border p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="role">DATE</label>
+            <input
+              type="text"
+              id="role"
+              name="role"
+              value={newEntry.role}
+              onChange={handleInputChange}
+              className="border p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="status">JOB</label>
+            <input
+              type="text"
+              id="status"
+              name="status"
+              value={newEntry.status}
+              onChange={handleInputChange}
+              className="border p-2 rounded"
+              required
+            />
+          </div>
+          <button type="submit" className="bg-red-500 text-white p-2 rounded-xl mt-2">
+            Add Entry
+          </button>
+        </form>
+  
+        <Table isStriped aria-label="Example static collection table">
+          <TableHeader>
+            <TableColumn>REG</TableColumn>
+            <TableColumn>DATE</TableColumn>
+            <TableColumn>JOB</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {filteredTableData.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.role}</TableCell>
+                <TableCell>{row.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DefaultLayout>
+    );
+  }
