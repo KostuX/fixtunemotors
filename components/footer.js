@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 export const Foot = () => {
   const { theme, setTheme } = useTheme();
+    const { resolvedTheme } = useTheme(); 
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export const Foot = () => {
           {isHydrated && (
             <Image
               src={`${
-                theme === "dark"
+                resolvedTheme === "dark"
                   ? "/logo/logo_white.png"
                   : "/logo/logo_black.png"
               }`}
