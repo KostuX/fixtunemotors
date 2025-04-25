@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroui/react": "^2.7.6",
     "@next/font": "^14.2.15",
     "@nextui-org/navbar": "^2.0.30",
     "@nextui-org/react": "^2.3.6",
