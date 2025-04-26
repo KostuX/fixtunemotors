@@ -1,36 +1,38 @@
-import {
-  Input,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from "@heroui/react";
-import { useState } from "react";
-
-export default function CarTable({ tableData }) {
+import AddData from "./addData";
+import { useState, useEffect } from "react";
+import { Button , Input, Table, TableHeader, TableColumn, TableBody , TableRow, TableCell  } from "@heroui/react";
+export default function CarTable() {
+  const [tableData, setTableData] = useState([]); // State for table data
   const [filter, setFilter] = useState(""); // Single input for filtering all fields
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const itemsPerPage = 20; // Number of items per page
 
-  const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state
-  const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
+  // Function to fetch data from the API
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/getCarHistory");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      setTableData(data); // Set the fetched data to the table
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Fetch data when the component mounts
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // Filtered data based on the single filter input
   const filteredTableData = tableData.filter((row) => {
     const lowerCaseFilter = filter.toLowerCase();
     return (
-      row.name.toLowerCase().includes(lowerCaseFilter) ||
-      row.role.toLowerCase().includes(lowerCaseFilter) ||
-      row.label.toLowerCase().includes(lowerCaseFilter)
+      row?.reg?.toLowerCase().includes(lowerCaseFilter) ||
+      row?.date?.toLowerCase().includes(lowerCaseFilter) ||
+      row?.job?.toLowerCase().includes(lowerCaseFilter)
     );
   });
 
@@ -46,18 +48,13 @@ export default function CarTable({ tableData }) {
     }
   };
 
-  // Handle row click
-  const handleRowClick = (row) => {
-    setSelectedRow(row); // Set the selected row data
-    onOpen(); // Open the modal
-  };
-
   return (
     <div className="mx-1 sm:mx-12">
+    
       <div className="mb-4 flex gap-4 justify-center">
         <Input
           type="text"
-          placeholder="Filter by any field"
+          placeholder="Filter"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="p-2 rounded w-1/2"
@@ -71,10 +68,10 @@ export default function CarTable({ tableData }) {
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, index) => (
-            <TableRow key={index} onClick={() => handleRowClick(row)} className="cursor-pointer">
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.role}</TableCell>
-              <TableCell>{row.label}</TableCell>
+            <TableRow key={index} className="cursor-pointer">
+              <TableCell className="text-md">{row.reg}</TableCell>
+              <TableCell className="text-md">{row.date}</TableCell>
+              <TableCell className="text-md">{row.job}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -82,7 +79,7 @@ export default function CarTable({ tableData }) {
       <div className="flex justify-center items-center mt-4 gap-2">
         <Button
           disabled={currentPage === 1}
-          onClick={() => handlePageChange(currentPage - 1)}
+          onPress={() => handlePageChange(currentPage - 1)}
           className="p-2 rounded "
           size="sm"
         >
@@ -93,38 +90,12 @@ export default function CarTable({ tableData }) {
         </span>
         <Button
           disabled={currentPage === totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
+          onPress={() => handlePageChange(currentPage + 1)}
           className="p-2 rounded "
           size="sm"
         >
           {">"}
         </Button>
       </div>
-
-      {/* Modal for displaying row data */}
-      <Modal isOpen={isOpen} onOpenChange={onClose} backdrop="blur">
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader>Row Details</ModalHeader>
-              <ModalBody>
-                {selectedRow && (
-                  <div>
-                    <p><strong>REG:</strong> {selectedRow.name}</p>
-                    <p><strong>DATE:</strong> {selectedRow.role}</p>
-                    <p><strong>JOB:</strong> {selectedRow.label}</p>
-                  </div>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" onPress={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </div>
-  );
-}
+  );}

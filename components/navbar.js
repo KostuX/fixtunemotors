@@ -47,6 +47,7 @@ export const Navbar = ({ siteData, fonts }) => {
                   width={120}
                   height={120}
                   alt="Company Logo"
+                  priority
                 />
               )}
             </NextLink>
@@ -156,6 +157,7 @@ export const Navbar = ({ siteData, fonts }) => {
                         width={120}
                         height={120}
                         alt="Company Logo"
+                        priority
                       />
                     )}
                   </NextLink>
