@@ -54,8 +54,8 @@ export default function AddData({ onAddSuccess }) {
 
   return (
     <>
-      <Button color="success" onPress={onOpen} className="text-white">
-        Create New
+      <Button color="success" onPress={onOpen} className="text-white w-1/3 " size="md">
+      Add New
       </Button>
 
       <Modal
@@ -68,7 +68,7 @@ export default function AddData({ onAddSuccess }) {
         <ModalContent>
           {(onClose) => (
             <form onSubmit={handleSubmit}>
-              <ModalHeader className="flex flex-col gap-1">Add New</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-center">ADD NEW</ModalHeader>
               <ModalBody>
                 <Input
                   isRequired

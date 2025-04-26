@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react";
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
+import SignIn from "./auth/signin";
 
 import "jspdf-autotable";
 
@@ -22,13 +23,13 @@ const marker = Permanent_Marker({
   weight: ["400"],
 });
 
-export default function Home() {
-
+export default function Admin({ session }) {
+  const { data: sessionData } = useSession();
   const [siteData, setSiteData] = useState(defaultData);  
   const [tableData, setTableData] = useState([]);
-  const { data: sessionData } = useSession();
 
-  console.log(sessionData);
+
+
 
   let fonts = {
     marker: marker,
@@ -58,13 +59,7 @@ export default function Home() {
   if (!sessionData) {
     return (
       <DefaultLayout siteData={siteData} fonts={fonts}>
- <Button
-            color="success"
-            onPress={() => signIn()} // No callbackUrl here
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Sign In
-          </Button>
+ <SignIn/>
       </DefaultLayout>
     );
   }
@@ -72,11 +67,20 @@ export default function Home() {
   
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-      <div className="mb-4 flex gap-4 justify-center">
+      <div className="mb-4 flex gap-4 justify-center ">
+      <Button
+          color="danger"
+          onPress={signOut}
+          className=" text-white "
+          size="sm"
+        >
+          SignOut
+        </Button>
         <Button
           color="danger"
           onPress={handleExportCSV}
           className=" text-white "
+          size="sm"
         >
           Export as CSV
         </Button>
@@ -85,4 +89,21 @@ export default function Home() {
       <CarTable tableData={tableData} />
     </DefaultLayout>
   );
+}
+// Protect the page with server-side authentication
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
 }
