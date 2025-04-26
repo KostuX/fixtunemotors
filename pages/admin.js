@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import Spliter from "../components/spliter";
+
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/react";
-import jsPDF from "jspdf"; // Import jsPDF for PDF generation
+import {Button} from "@heroui/react";
+
 import "jspdf-autotable";
-import ScrollContext from "../components/ScrollContext";
-import Intro from "../components/intro";
-import Intro2 from "../components/intro2";
-import Services_sm from "../components/services_sm";
-import WorkingHours from "../components/workingHours";
-import Review from "../components/reviews";
+
+import CarTable from "../components/admin/table";
+import AddData from "../components/admin/addData";
 
 import { defaultData } from "../lib/defaultData";
 
@@ -27,12 +24,24 @@ const marker = Permanent_Marker({
 export default function Home() {
     const [isDataFetched, setDataFetched] = useState(false);
     const [siteData, setSiteData] = useState(defaultData);
-    const [newEntry, setNewEntry] = useState({ name: "", role: "", status: "" });
+    const [newEntry, setNewEntry] = useState({ name: "", role: "", label: "" });
     const [tableData, setTableData] = useState([
-      { name: "11LH8974", role: "2025/01/20", status: "Service" },
-      { name: "22LH1234", role: "2025/02/15", status: "Repair" },
-      { name: "33LH5678", role: "2025/03/10", status: "Inspection" },
-      { name: "44LH9101", role: "2025/04/05", status: "Maintenance" },
+      { name: "11LH8974", role: "2025/01/20", label: "Service" },
+      { name: "22LH1234", role: "2025/02/15", label: "Repair" },
+      { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
+      { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
+      { name: "11LH8974", role: "2025/01/20", label: "Service" },
+      { name: "22LH1234", role: "2025/02/15", label: "Repair" },
+      { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
+      { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
+      { name: "11LH8974", role: "2025/01/20", label: "Service" },
+      { name: "22LH1234", role: "2025/02/15", label: "Repair" },
+      { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
+      { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
+      { name: "11LH8974", role: "2025/01/20", label: "Service" },
+      { name: "22LH1234", role: "2025/02/15", label: "Repair" },
+      { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
+      { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
     ]);
     const [filter, setFilter] = useState(""); // State for the filter input
   
@@ -40,25 +49,27 @@ export default function Home() {
       marker: marker,
     };
 
-    
-const handleExportPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Table Data", 10, 10); // Title
-  
-    const tableColumn = ["REG", "DATE", "JOB"];
-    const tableRows = tableData.map((row) => [row.name, row.role, row.status]);
-  
-    doc.autoTable({
-      head: [tableColumn],
-      body: tableRows,
-    });
-  
-    doc.save("table_data.pdf");
-  };
+   // Fetch data from the local API
+
+    async function testdb() {
+      try {
+        const response = await fetch("http://localhost:3000/api/hello");
+       
+        const data = await response.json();
+
+        console.log(data)
+       
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+
+ 
     const handleExportCSV = () => {
         const csvRows = [
           ["REG", "DATE", "JOB"], // Header row
-          ...tableData.map((row) => [row.name, row.role, row.status]), // Data rows
+          ...tableData.map((row) => [row.name, row.role, row.label]), // Data rows
         ];
 
     
@@ -97,88 +108,20 @@ const handleExportPDF = () => {
   
     return (
         <DefaultLayout siteData={siteData} fonts={fonts}>
+        
+          
+
           <div className="mb-4 flex gap-4 justify-center">
-            <input
-              type="text"
-              placeholder="Filter by REG"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="border p-2 rounded w-1/2"
-            />
-          </div>
-    
-          <form onSubmit={handleAddEntry} className="mb-4 lg:flex gap-4 justify-center">
-            <div>
-              <label htmlFor="name">REG</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={newEntry.name}
-                onChange={handleInputChange}
-                className="border p-2 rounded"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="role">DATE</label>
-              <input
-                type="text"
-                id="role"
-                name="role"
-                value={newEntry.role}
-                onChange={handleInputChange}
-                className="border p-2 rounded"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="status">JOB</label>
-              <input
-                type="text"
-                id="status"
-                name="status"
-                value={newEntry.status}
-                onChange={handleInputChange}
-                className="border p-2 rounded"
-                required
-              />
-            </div>
-            <button type="submit" className="bg-red-500 text-white p-2 rounded-xl mt-2">
-              Add Entry
-            </button>
-          </form>
-    
-          <div className="mb-4 flex gap-4 justify-center">
-            <button
-              onClick={handleExportCSV}
-              className="bg-blue-500 text-white p-2 rounded"
+            <Button
+            color="danger"
+              onPress={handleExportCSV}
+              className=" text-white "
             >
               Export as CSV
-            </button>
-          
+            </Button>
+            <AddData/>
           </div>
-    
-          <Table isStriped aria-label="Example static collection table">
-            <TableHeader>
-              <TableColumn>REG</TableColumn>
-              <TableColumn>DATE</TableColumn>
-              <TableColumn>JOB</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {tableData
-                .filter((row) =>
-                  row.name.toLowerCase().includes(filter.toLowerCase())
-                )
-                .map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.role}</TableCell>
-                    <TableCell>{row.status}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
+    <CarTable tableData={tableData}/>
         </DefaultLayout>
       );
   }
