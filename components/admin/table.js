@@ -17,21 +17,20 @@ import {
 import { useState } from "react";
 
 export default function CarTable({ tableData }) {
-  const [regFilter, setRegFilter] = useState(""); // State for REG filter
-  const [dateFilter, setDateFilter] = useState(""); // State for DATE filter
-  const [jobFilter, setJobFilter] = useState(""); // State for JOB filter
+  const [filter, setFilter] = useState(""); // Single input for filtering all fields
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const itemsPerPage = 20; // Number of items per page
 
   const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state
   const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
 
-  // Filtered data based on filters
+  // Filtered data based on the single filter input
   const filteredTableData = tableData.filter((row) => {
+    const lowerCaseFilter = filter.toLowerCase();
     return (
-      row.name.toLowerCase().includes(regFilter.toLowerCase()) &&
-      row.role.toLowerCase().includes(dateFilter.toLowerCase()) &&
-      row.label.toLowerCase().includes(jobFilter.toLowerCase())
+      row.name.toLowerCase().includes(lowerCaseFilter) ||
+      row.role.toLowerCase().includes(lowerCaseFilter) ||
+      row.label.toLowerCase().includes(lowerCaseFilter)
     );
   });
 
@@ -58,24 +57,10 @@ export default function CarTable({ tableData }) {
       <div className="mb-4 flex gap-4 justify-center">
         <Input
           type="text"
-          placeholder="Filter by REG"
-          value={regFilter}
-          onChange={(e) => setRegFilter(e.target.value)}
-          className="p-2 rounded w-1/3"
-        />
-        <Input
-          type="text"
-          placeholder="Filter by DATE"
-          value={dateFilter}
-          onChange={(e) => setDateFilter(e.target.value)}
-          className="p-2 rounded w-1/3"
-        />
-        <Input
-          type="text"
-          placeholder="Filter by JOB"
-          value={jobFilter}
-          onChange={(e) => setJobFilter(e.target.value)}
-          className="p-2 rounded w-1/3"
+          placeholder="Filter by any field"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="p-2 rounded w-1/2"
         />
       </div>
       <Table isStriped aria-label="Example static collection table">
