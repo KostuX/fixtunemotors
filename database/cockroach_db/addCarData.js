@@ -1,13 +1,11 @@
 import pg from "pg";
-const { Pool, Client } = pg;
+const { Pool } = pg;
 
-const connection = "postgresql://deividas:fawf6NdDS3nEzmi3aRFyQw@fixtunemotors-10683.j77.aws-eu-west-1.cockroachlabs.cloud:26257/fixtunemotors?sslmode=verify-full";
-
-const client = new Client(connection);
+const pool = new Pool({
+  connectionString: "postgresql://deividas:fawf6NdDS3nEzmi3aRFyQw@fixtunemotors-10683.j77.aws-eu-west-1.cockroachlabs.cloud:26257/fixtunemotors?sslmode=verify-full",
+});
 
 export default async function addCarData(params) {
-
-
   const query = `
     INSERT INTO car_history.main 
     (reg, date, job, description, carModel, mileage, clientName, phone, price) 
@@ -26,13 +24,17 @@ export default async function addCarData(params) {
     params.price,
   ];
 
-  await client.connect();
   try {
-    const results = await client.query(query, values);
-    console.log("Insert successful:", results.rowCount);
+    const client = await pool.connect(); // Get a client from the pool
+    try {
+      const results = await client.query(query, values);
+      console.log("Insert successful:", results.rowCount);
+      return results.rowCount; // Return the number of rows inserted
+    } finally {
+      client.release(); // Release the client back to the pool
+    }
   } catch (err) {
     console.error("Error executing query:", err);
-  } finally {
-    await client.end();
+    throw err; // Re-throw the error to handle it in the calling function
   }
 }

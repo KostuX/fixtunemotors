@@ -1,10 +1,27 @@
 import AddData from "./addData";
 import { useState, useEffect } from "react";
-import { Button , Input, Table, TableHeader, TableColumn, TableBody , TableRow, TableCell  } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@heroui/react";
+
 export default function CarTable() {
   const [tableData, setTableData] = useState([]); // State for table data
   const [filter, setFilter] = useState(""); // Single input for filtering all fields
   const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const itemsPerPage = 20; // Number of items per page
 
   // Function to fetch data from the API
@@ -48,9 +65,21 @@ export default function CarTable() {
     }
   };
 
+  // Handle row click
+  const handleRowClick = (row) => {
+    setSelectedRow(row); // Set the selected row data
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setSelectedRow(null); // Clear the selected row data
+  };
+
   return (
     <div className="mx-1 sm:mx-12">
-    
+     
       <div className="mb-4 flex gap-4 justify-center">
         <Input
           type="text"
@@ -68,7 +97,11 @@ export default function CarTable() {
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, index) => (
-            <TableRow key={index} className="cursor-pointer">
+            <TableRow
+              key={index}
+              onClick={() => handleRowClick(row)} // Open modal on row click
+              className="cursor-pointer"
+            >
               <TableCell className="text-md">{row.reg}</TableCell>
               <TableCell className="text-md">{row.date}</TableCell>
               <TableCell className="text-md">{row.job}</TableCell>
@@ -97,5 +130,29 @@ export default function CarTable() {
           {">"}
         </Button>
       </div>
+
+      {/* Modal for displaying row data */}
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onOpenChange={handleCloseModal} backdrop="blur">
+          <ModalContent>
+            <ModalHeader>Row Details</ModalHeader>
+            <ModalBody>
+                {selectedRow && (
+                  <div>
+                    <p><strong>REG:</strong> {selectedRow.reg}</p>
+                    <p><strong>DATE:</strong> {selectedRow.date}</p>
+                    <p><strong>JOB:</strong> {selectedRow.job}</p>
+                  </div>
+                )}
+              </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onPress={handleCloseModal}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
-  );}
+  );
+}
