@@ -31,6 +31,8 @@ export default function Home() {
   let fonts = {
     marker: marker,
   };
+console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
 
   useEffect(() => {
     let endpoint = "/api/googleInfo";
