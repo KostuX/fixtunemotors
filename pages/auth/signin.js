@@ -1,39 +1,58 @@
 import { getCsrfToken } from "next-auth/react";
+import DefaultLayout from '../../layouts/default'
+import React, { useEffect, useState } from "react";
+import { defaultData } from '../../lib/defaultData'
+import { Permanent_Marker } from "next/font/google";
+import { Input, Button } from "@heroui/react";
+const marker = Permanent_Marker({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export default function SignIn({ csrfToken }) {
+    const [siteData, setSiteData] = useState(defaultData);  
+    
+    
+    let fonts = {
+      marker: marker,
+    };
+  
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold mb-4">Sign in</h1>
+    <DefaultLayout siteData={siteData} fonts={fonts}>
+    <div className="flex flex-col items-center   h-screen text-center">
+      <h1 className="text-4xl font-bold my-24">Sign in</h1>
       <form method="post" action="/api/auth/callback/credentials" className="flex flex-col gap-4">
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+        <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
         <div>
           <label htmlFor="username" className="block text-sm font-medium">Username</label>
-          <input
+          <Input
             name="username"
             type="text"
             required
-            className="border rounded px-4 py-2 w-full"
+            className=" rounded px-4 py-2 w-full"
             placeholder="Enter your username"
           />
         </div>
         <div>
           <label htmlFor="password" className="block text-sm font-medium">Password</label>
-          <input
+          <Input
             name="password"
             type="password"
             required
-            className="border rounded px-4 py-2 w-full"
+            className=" rounded px-4 py-2 w-full"
             placeholder="Enter your password"
           />
         </div>
-        <button
+        <Button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className=" text-white px-4 py-2 rounded hover:bg-blue-600"
+          color="primary"
         >
           Sign In
-        </button>
+        </Button>
       </form>
     </div>
+    </DefaultLayout>
   );
 }
 

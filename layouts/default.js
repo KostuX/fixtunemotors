@@ -15,7 +15,7 @@ export default function DefaultLayout({ children, siteData, fonts }) {
     setIsHidrated(true);
   }, []);
   return (
-    <div>
+    <div className="h-screen">
       <SessionProvider >
       <Head />
       <Navbar_contact siteData={siteData} />

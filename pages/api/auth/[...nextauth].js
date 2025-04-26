@@ -26,6 +26,14 @@ export const authOptions = {
   pages: {
     signIn: "/auth/signin", // Custom sign-in page
   },
+  session: {
+    strategy: "jwt", // Use JSON Web Tokens for session management
+    maxAge: 30 * 24 * 60 * 60, // Set session expiration to 30 days (default)
+    updateAge: 0, // Disable automatic session updates
+  },
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // Set JWT expiration to 30 days
+  },
 };
 
 export default NextAuth(authOptions);
