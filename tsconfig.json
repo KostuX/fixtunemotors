@@ -21,7 +21,8 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
@@ -29,8 +30,9 @@
     "**/*.tsx",
     "**/*.js",
     "components/icons.js",
-    ".next/types/**/*.ts"
-, "components/theme-switch.tsxx"  ],
+    ".next/types/**/*.ts",
+    "components/theme-switch.tsxx"
+  ],
   "exclude": [
     "node_modules"
   ]
