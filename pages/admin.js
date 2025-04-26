@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import { useSession, signIn, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
@@ -11,7 +12,7 @@ import AddData from "../components/admin/addData";
 
 import { defaultData } from "../lib/defaultData";
 
-import Lenis from "lenis";
+
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -22,44 +23,12 @@ const marker = Permanent_Marker({
 });
 
 export default function Home() {
-  const [isDataFetched, setDataFetched] = useState(false);
-  const [siteData, setSiteData] = useState(defaultData);
-  const [newEntry, setNewEntry] = useState({ name: "", role: "", label: "" });
-  const [tableData, setTableData] = useState([
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-    { name: "11LH8974", role: "2025/01/20", label: "Service" },
-    { name: "22LH1234", role: "2025/02/15", label: "Repair" },
-    { name: "33LH5678", role: "2025/03/10", label: "Inspection" },
-    { name: "44LH9101", role: "2025/04/05", label: "Maintenance" },
-  ]);
-  const [filter, setFilter] = useState(""); // State for the filter input
+
+  const [siteData, setSiteData] = useState(defaultData);  
+  const [tableData, setTableData] = useState([]);
+  const { data: sessionData } = useSession();
+
+  console.log(sessionData);
 
   let fonts = {
     marker: marker,
@@ -85,44 +54,22 @@ export default function Home() {
     document.body.removeChild(link);
   };
 
-  /* 
 
-  // Fetch data from the local API
-
-  async function testdb() {
-    try {
-      const response = await fetch("http://localhost:3000/api/hello");
-
-      const data = await response.json();
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  if (!sessionData) {
+    return (
+      <DefaultLayout siteData={siteData} fonts={fonts}>
+ <Button
+            color="success"
+            onPress={() => signIn()} // No callbackUrl here
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Sign In
+          </Button>
+      </DefaultLayout>
+    );
   }
 
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewEntry({ ...newEntry, [name]: value });
-  };
-
-  const handleAddEntry = (e) => {
-    e.preventDefault();
-    if (newEntry.name && newEntry.role && newEntry.status) {
-      setTableData([...tableData, newEntry]);
-      setNewEntry({ name: "", role: "", status: "" });
-    }
-  };
-
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value); // Update the filter state
-  };
-
-  const filteredTableData = tableData.filter((row) =>
-    row.name.toLowerCase().includes(filter.toLowerCase())
-  ); // Filter table data based on the REG field
-*/
+  
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
       <div className="mb-4 flex gap-4 justify-center">
