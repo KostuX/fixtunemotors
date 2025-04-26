@@ -1,4 +1,19 @@
-import { Input, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from "@heroui/react";
+import {
+  Input,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@heroui/react";
 import { useState } from "react";
 
 export default function CarTable({ tableData }) {
@@ -7,6 +22,9 @@ export default function CarTable({ tableData }) {
   const [jobFilter, setJobFilter] = useState(""); // State for JOB filter
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const itemsPerPage = 20; // Number of items per page
+
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state
+  const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
 
   // Filtered data based on filters
   const filteredTableData = tableData.filter((row) => {
@@ -27,6 +45,12 @@ export default function CarTable({ tableData }) {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
+  };
+
+  // Handle row click
+  const handleRowClick = (row) => {
+    setSelectedRow(row); // Set the selected row data
+    onOpen(); // Open the modal
   };
 
   return (
@@ -62,7 +86,7 @@ export default function CarTable({ tableData }) {
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} onClick={() => handleRowClick(row)} className="cursor-pointer">
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.role}</TableCell>
               <TableCell>{row.label}</TableCell>
@@ -77,7 +101,7 @@ export default function CarTable({ tableData }) {
           className="p-2 rounded "
           size="sm"
         >
-              {'<'}
+          {"<"}
         </Button>
         <span>
           Page {currentPage} of {totalPages}
@@ -88,9 +112,34 @@ export default function CarTable({ tableData }) {
           className="p-2 rounded "
           size="sm"
         >
-          {'>'}
+          {">"}
         </Button>
       </div>
+
+      {/* Modal for displaying row data */}
+      <Modal isOpen={isOpen} onOpenChange={onClose} backdrop="blur">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Row Details</ModalHeader>
+              <ModalBody>
+                {selectedRow && (
+                  <div>
+                    <p><strong>REG:</strong> {selectedRow.name}</p>
+                    <p><strong>DATE:</strong> {selectedRow.role}</p>
+                    <p><strong>JOB:</strong> {selectedRow.label}</p>
+                  </div>
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
