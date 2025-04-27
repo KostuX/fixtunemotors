@@ -1,4 +1,6 @@
+
 {
+  
   "name": "next_template",
   "version": "0.1.0",
   "private": true,
@@ -11,6 +13,7 @@
   "dependencies": {
     "@heroui/react": "^2.7.6",
     "@nextui-org/react": "^2.6.11",
+    "@tanstack/virtual-core": "^3.13.6",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.4.21",
