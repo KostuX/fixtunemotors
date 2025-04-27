@@ -6,8 +6,14 @@ const pool = new Pool({
 });
 
 export default async function getUser(username) {
+  const sanitizedUsername = username.replace(/[^a-zA-Z0-9_]/g, ""); // Sanitize the username to prevent SQL injection
+  if (sanitizedUsername.length < 3 || sanitizedUsername.length > 20) {
+    throw new Error("Invalid username length");
+  }
+
+  let user = sanitizedUsername.toLowerCase(); // Convert username to lowercase
   const query = `SELECT * FROM car_history.user WHERE username ILIKE $1;`; // Use a parameterized query
-  const values = [username]; // Pass the username as a parameter
+  const values = [user]; // Pass the username as a parameter
 
   try {
     const client = await pool.connect(); // Get a client from the pool

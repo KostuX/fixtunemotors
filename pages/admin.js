@@ -39,32 +39,50 @@ export default function Admin() {
     marker: marker,
   };
 
-  const handleExportCSV = () => {
-    const csvRows = [
-      ["REG", "DATE", "JOB"], // Header row
-      ...tableData.map((row) => [row.name, row.role, row.label]), // Data rows
-    ];
-
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      csvRows.map((e) => e.join(",")).join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "table_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleExportCSV = async () => {
+    try {
+      // Fetch data from the API
+      const response = await fetch("/api/getCarHistory");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+  
+      // Prepare CSV rows
+      const csvRows = [
+        ["REG", "DATE", "JOB", "Car Model", "Description", "Mileage", "Client Name", "Phone", "Price"], // Header row
+        ...data.map((row) => [
+          row.reg,
+          row.date,
+          row.job,
+          row.carmodel || "-",
+          row.description || "-",
+          row.mileage || "-",
+          row.clientname || "-",
+          row.phone || "-",
+          row.price || "-",
+        ]), // Data rows
+      ];
+  
+      // Convert rows to CSV content
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        csvRows.map((e) => e.join(",")).join("\n");
+  
+      // Create a downloadable link
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "car_history_data.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+    }
   };
 
-  if (!sessionData) {
-    return (
-    
-        <SignIn />
-    
-    );
-  }
+ 
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>

@@ -19,8 +19,8 @@ export default function SignIn({ csrfToken }) {
   
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-    <div className="flex flex-col items-center   h-screen text-center">
-      <h1 className="text-4xl font-bold my-24">Sign in</h1>
+    <div className="flex flex-col items-center h-screen text-center">
+      <h1 className="text-4xl font-bold  my-12 md:my-24">Sign in</h1>
       <form method="post" action="/api/auth/callback/credentials" className="flex flex-col gap-4">
         <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
         <div>
