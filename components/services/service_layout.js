@@ -1,4 +1,4 @@
-import { Progress } from "@nextui-org/react";
+import { Progress } from "@heroui/react";
 import { Parallax } from "react-scroll-parallax";
 import { useRef, useEffect } from "react";
 

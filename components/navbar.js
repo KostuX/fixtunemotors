@@ -12,8 +12,9 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-} from "@nextui-org/navbar";
-import { Divider, Link, NavbarMenuItem } from "@nextui-org/react";
+  Divider, Link, NavbarMenuItem 
+} from "@heroui/react";
+
 import Image from "next/image";
 
 import NextLink from "next/link";

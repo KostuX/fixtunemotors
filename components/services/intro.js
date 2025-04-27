@@ -1,5 +1,5 @@
 import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 export default function Intro({ siteData, fonts }) {
     function handleCallBtn() {
         window.location.href = `tel:${siteData.phone[0]}`;

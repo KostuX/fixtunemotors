@@ -4,7 +4,7 @@ import {
   NavbarContent,
   NavbarBrand,
   NavbarItem,
-} from "@nextui-org/navbar";
+} from "@heroui/react";
 
 import NextLink from "next/link";
 import Link from "next/link";

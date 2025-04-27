@@ -1,7 +1,7 @@
 "use client";
 
 import { cfg_site } from "../config/cfg_site";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { ParallaxBanner, ParallaxBannerLayer } from "react-scroll-parallax";
 
 export default function Intro({ siteData, fonts }) {
