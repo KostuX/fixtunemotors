@@ -28,7 +28,7 @@ export default async function addCarData(params) {
     const client = await pool.connect(); // Get a client from the pool
     try {
       const results = await client.query(query, values);
-      console.log("Insert successful:", results.rowCount);
+     
       return results.rowCount; // Return the number of rows inserted
     } finally {
       client.release(); // Release the client back to the pool
