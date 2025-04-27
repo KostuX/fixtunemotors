@@ -29,8 +29,6 @@ export const authOptions = {
           return null; // Invalid password
         }
 
-        console.log("User authenticated successfully:", user);
-
         // Return user object if authentication is successful
         return {
           id: user.id,
