@@ -6,7 +6,7 @@ import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
 import SignIn from "./auth/signin";
 
-import "jspdf-autotable";
+
 
 import CarTable from "../components/admin/table";
 import AddData from "../components/admin/addData";

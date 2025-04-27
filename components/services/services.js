@@ -1,5 +1,5 @@
 import { cfg_services } from "../../config/cfg_services";
-import { Progress } from "@nextui-org/react";
+import { Progress } from "@heroui/react";
 import Services_layout from "./service_layout";
 export default function Services({ siteData, fonts }) {
   return (
