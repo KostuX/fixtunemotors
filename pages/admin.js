@@ -16,6 +16,7 @@ import { defaultData } from "../lib/defaultData";
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import { user } from "@nextui-org/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const marker = Permanent_Marker({
@@ -30,6 +31,17 @@ export default function Admin({ session }) {
 
 
 
+
+let user={  
+  write: false,
+  edit: false,
+
+}
+if (sessionData) {
+  user.write =  sessionData.user.write
+user.edit = sessionData.user.edit
+
+}
 
   let fonts = {
     marker: marker,
@@ -81,10 +93,11 @@ export default function Admin({ session }) {
           onPress={handleExportCSV}
           className=" text-white "
           size="sm"
+          isDisabled={!user?.write}
         >
           Export as CSV
         </Button>
-        <AddData />
+        <AddData user={user}/>
       </div>
       <CarTable tableData={tableData} />
     </DefaultLayout>

@@ -14,6 +14,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Divider
 } from "@heroui/react";
 
 export default function CarTable() {
@@ -77,9 +78,19 @@ export default function CarTable() {
     setSelectedRow(null); // Clear the selected row data
   };
 
+  // Handle edit
+  const handleEdit = (rowData) => {
+    console.log("Editing row:", rowData);
+    // Add your logic to handle editing the row data here
+
+
+
+
+
+  };
+
   return (
     <div className="mx-1 sm:mx-12">
-     
       <div className="mb-4 flex gap-4 justify-center">
         <Input
           type="text"
@@ -102,7 +113,7 @@ export default function CarTable() {
               onClick={() => handleRowClick(row)} // Open modal on row click
               className="cursor-pointer"
             >
-              <TableCell className="text-md">{row.reg}</TableCell>
+              <TableCell className="text-md">{row.reg}<div className="text-sm">{row.carmodel}</div></TableCell>
               <TableCell className="text-md">{row.date}</TableCell>
               <TableCell className="text-md">{row.job}</TableCell>
             </TableRow>
@@ -135,22 +146,43 @@ export default function CarTable() {
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onOpenChange={handleCloseModal} backdrop="blur">
           <ModalContent>
-            <ModalHeader>Row Details</ModalHeader>
+            <ModalHeader className="text-center font-bold underline">Details</ModalHeader>
             <ModalBody>
-                {selectedRow && (
-                  <div>
-                    <p><strong>REG:</strong> {selectedRow.reg}</p>
-                    <p><strong>DATE:</strong> {selectedRow.date}</p>
-                    <p><strong>JOB:</strong> {selectedRow.job}</p>
-                  </div>
-                )}
-              </ModalBody>
+              {selectedRow && (
+                <div>
+                  <p><strong>REG:</strong> {selectedRow.reg}</p>
+                  <p><strong>DATE:</strong> {selectedRow.date}</p>
+                  <p><strong>JOB:</strong> {selectedRow.job}</p>
+                  {selectedRow.carmodel && <p><strong>Car Model:</strong> {selectedRow.carmodel}</p>}
+                  {selectedRow.description && <p><strong>Description:</strong> {selectedRow.description}</p>}
+                  <Divider className="my-4" />
+                  {selectedRow.mileage > 0 && <p><strong>Mileage:</strong> {selectedRow.mileage}</p>}
+                  {selectedRow.clientname && <p><strong>Client Name:</strong> {selectedRow.clientname}</p>}
+                  {selectedRow.phone && <p><strong>Phone:</strong> {selectedRow.phone}</p>}
+                  {selectedRow.price > 0 && <p><strong>Price:</strong> {selectedRow.price}€</p>}
+                  {selectedRow.id && <p className="text-xs"><strong>ID:</strong> {selectedRow.id}</p>}
+                </div>
+              )}
+            </ModalBody>
             <ModalFooter>
-              <Button color="danger" onPress={handleCloseModal}>
+              <Button
+              isDisabled
+                size="sm"
+                color="warning"
+                onPress={() => handleEdit(selectedRow)} // Pass selectedRow to handleEdit
+              >
+                Edit
+              </Button>
+              <Button
+                size="sm"
+                color="danger"
+                onPress={handleCloseModal}
+              >
                 Close
               </Button>
             </ModalFooter>
           </ModalContent>
+          
         </Modal>
       )}
     </div>

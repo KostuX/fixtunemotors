@@ -2,8 +2,9 @@ import { useDisclosure } from "@heroui/react"; // Import useDisclosure
 import { useState } from "react";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import { Button , Modal, ModalContent, ModalHeader, ModalBody, Input, DatePicker, Textarea, ModalFooter, Accordion, AccordionItem  } from "@heroui/react";
-export default function AddData({ onAddSuccess }) {
+export default function AddData({ user }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [errrorMessage, setErrorMessage] = useState([]);
 
   const [formData, setFormData] = useState({
     reg: "",
@@ -39,13 +40,13 @@ export default function AddData({ onAddSuccess }) {
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log("Server Response:", result);
+        const result = await response.json();       
         onOpenChange(false); // Close the modal after successful submission
-        onAddSuccess(); // Trigger the parent component to refresh the table data
+       
       } else {
         const result = await response.json();
         console.log("Failed to submit form:", result);
+        setErrorMessage(result.errors || ["Failed to submit form"]);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -54,7 +55,9 @@ export default function AddData({ onAddSuccess }) {
 
   return (
     <>
-      <Button color="success" onPress={onOpen} className="text-white w-1/3 " size="md">
+      <Button 
+      isDisabled={!user.write}
+      color="success" onPress={onOpen} className="text-white w-1/3 " size="sm" >
       Add New
       </Button>
 
@@ -113,6 +116,13 @@ export default function AddData({ onAddSuccess }) {
                   onChange={handleInputChange}
                   aria-label="description"
                 />
+                {errrorMessage.length > 0 && (
+                  <div className="text-red-500 text-sm mt-2">
+                    {errrorMessage.map((error, index) => (
+                      <p key={index}>{error}</p>
+                    ))}
+                  </div>
+                )}
                 <Accordion>
                   <AccordionItem key="1" aria-label="Additional data" title="Additional data">
                     <Input
