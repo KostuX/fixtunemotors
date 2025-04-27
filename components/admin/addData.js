@@ -24,12 +24,13 @@ export default function AddData({ user, setTableData }) {
   };
 
   const handleDateChange = (date) => {
+ 
     setFormData({ ...formData, date });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    console.log(formData)
     try {
       const response = await fetch("/api/addData", {
         method: "POST",

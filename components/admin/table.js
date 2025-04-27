@@ -1,5 +1,6 @@
 import AddData from "./addData";
 import { useState, useEffect } from "react";
+import EditHistoryEntry from "./editHistory";
 import {
   Button,
   Input,
@@ -17,12 +18,12 @@ import {
   Divider
 } from "@heroui/react";
 
-export default function CarTable({user, tableData,setTableData}) {
-  //const [tableData, setTableData] = useState([]); // State for table data
+export default function CarTable({ user, tableData, setTableData }) {
   const [filter, setFilter] = useState(""); // Single input for filtering all fields
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for details modal visibility
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State for edit modal visibility
   const itemsPerPage = 20; // Number of items per page
 
   const [filteredTableData, setFilteredTableData] = useState([]); // State for filtered data
@@ -47,8 +48,6 @@ export default function CarTable({user, tableData,setTableData}) {
     fetchData();
   }, []);
 
- 
-
   // Update filtered and paginated data whenever tableData, filter, or currentPage changes
   useEffect(() => {
     const lowerCaseFilter = filter.toLowerCase();
@@ -71,8 +70,6 @@ export default function CarTable({user, tableData,setTableData}) {
     const paginated = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
     setPaginatedData(paginated);
-
-    console.log('triggered')
 
     // Ensure the current page is valid
     if (currentPage > totalPages && totalPages > 0) {
@@ -101,17 +98,23 @@ export default function CarTable({user, tableData,setTableData}) {
 
   // Handle edit
   const handleEdit = (rowData) => {
-    console.log("Editing row:", rowData);
-    // Add your logic to handle editing the row data here
+    handleCloseModal(); // Close the details modal
+    setSelectedRow(rowData); // Set the selected row data for editing
+    setIsEditModalOpen(true); // Open the edit modal
+  };
+
+  const handleEditClose = () => {
+    setIsEditModalOpen(false); // Close the edit modal
+    setSelectedRow(null); // Clear the selected row data
   };
 
   const handleDelete = async (entry) => {
-    let id = entry.id
+    let id = entry.id;
     if (!id) {
       console.error("ID is required for deletion");
       return;
     }
-    console.log("Deleting row with ID:", id);
+
     try {
       const response = await fetch("/api/deleteCarHistory", {
         method: "DELETE",
@@ -120,10 +123,10 @@ export default function CarTable({user, tableData,setTableData}) {
         },
         body: JSON.stringify({ id }),
       });
-  
+
       if (response.ok) {
-        handleCloseModal(); 
-        setTableData((prevData) => prevData.filter((row) => row.id !== id)); 
+        handleCloseModal();
+        setTableData((prevData) => prevData.filter((row) => row.id !== id));
       } else {
         const result = await response.json();
         console.error("Failed to delete record:", result.error);
@@ -159,7 +162,9 @@ export default function CarTable({user, tableData,setTableData}) {
               className="cursor-pointer"
             >
               <TableCell className="text-md">{row.reg}</TableCell>
-              <TableCell className="text-md hidden md:block">{row.carmodel === "" ? " -" : row.carmodel}</TableCell>
+              <TableCell className="text-md hidden md:block">
+                {row.carmodel === "" ? " -" : row.carmodel}
+              </TableCell>
               <TableCell className="text-md">{row.date}</TableCell>
               <TableCell className="text-md">{row.job}</TableCell>
             </TableRow>
@@ -188,7 +193,7 @@ export default function CarTable({user, tableData,setTableData}) {
         </Button>
       </div>
 
-      {/* Modal for displaying row data */}
+      {/* Details Modal */}
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onOpenChange={handleCloseModal} backdrop="blur">
           <ModalContent>
@@ -196,48 +201,60 @@ export default function CarTable({user, tableData,setTableData}) {
             <ModalBody>
               {selectedRow && (
                 <div>
-                  <p><strong>REG:</strong> {selectedRow.reg}</p>
-                  <p><strong>DATE:</strong> {selectedRow.date}</p>
-                  <p><strong>JOB:</strong> {selectedRow.job}</p>
-                  {selectedRow.carmodel && <p><strong>Car Model:</strong> {selectedRow.carmodel}</p>}
-                  {selectedRow.description && <p><strong>Description:</strong> {selectedRow.description}</p>}
-                  <Divider className="my-4" />
-                  {selectedRow.mileage > 0 && <p><strong>Mileage:</strong> {selectedRow.mileage}</p>}
-                  {selectedRow.clientname && <p><strong>Client Name:</strong> {selectedRow.clientname}</p>}
-                  {selectedRow.phone && <p><strong>Phone:</strong> {selectedRow.phone}</p>}
-                  {selectedRow.price > 0 && <p><strong>Price:</strong> {selectedRow.price}€</p>}
-                  {selectedRow.id && <p className="text-xs"><strong>ID:</strong> {selectedRow.id}</p>}
+                  <p>
+                    <strong>REG:</strong> {selectedRow.reg}
+                  </p>
+                  <p>
+                    <strong>DATE:</strong> {selectedRow.date}
+                  </p>
+                  <p>
+                    <strong>JOB:</strong> {selectedRow.job}
+                  </p>
+                  {selectedRow.carmodel && (
+                    <p>
+                      <strong>Car Model:</strong> {selectedRow.carmodel}
+                    </p>
+                  )}
+                  {selectedRow.description && (
+                    <p>
+                      <strong>Description:</strong> {selectedRow.description}
+                    </p>
+                  )}
                 </div>
               )}
             </ModalBody>
             <ModalFooter>
-            <Button
-                
+              <Button
                 size="sm"
                 color="danger"
-                onPress={() => handleDelete(selectedRow)} 
-              className={`${user?.edit ? "" : "hidden"}`}
+                onPress={() => handleDelete(selectedRow)}
+                className={`${user?.edit ? "" : "hidden"}`}
               >
                 Delete
               </Button>
               <Button
                 size="sm"
                 color="warning"
-                onPress={() => handleEdit(selectedRow)} // Pass selectedRow to handleEdit
+                onPress={() => handleEdit(selectedRow)} // Open edit modal
                 className={`${user?.edit ? "" : "hidden"}`}
               >
                 Edit
               </Button>
-              <Button
-                size="sm"
-                
-                onPress={handleCloseModal}
-              >
+              <Button size="sm" onPress={handleCloseModal}>
                 Close
               </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
+      )}
+
+      {/* Edit Modal */}
+      {isEditModalOpen && (
+        <EditHistoryEntry
+          data={selectedRow}
+          onClose={handleEditClose}
+          setTableData={setTableData}
+        />
       )}
     </div>
   );
