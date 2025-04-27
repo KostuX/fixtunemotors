@@ -50,7 +50,8 @@ export default function CarTable() {
     return (
       row?.reg?.toLowerCase().includes(lowerCaseFilter) ||
       row?.date?.toLowerCase().includes(lowerCaseFilter) ||
-      row?.job?.toLowerCase().includes(lowerCaseFilter)
+      row?.job?.toLowerCase().includes(lowerCaseFilter) ||
+      row?.carmodel?.toLowerCase().includes(lowerCaseFilter) 
     );
   });
 
@@ -103,8 +104,10 @@ export default function CarTable() {
       <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>REG</TableColumn>
+          <TableColumn className="hidden md:block">Model</TableColumn>
           <TableColumn>DATE</TableColumn>
           <TableColumn>JOB</TableColumn>
+       
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, index) => (
@@ -113,9 +116,12 @@ export default function CarTable() {
               onClick={() => handleRowClick(row)} // Open modal on row click
               className="cursor-pointer"
             >
-              <TableCell className="text-md">{row.reg}<div className="text-sm">{row.carmodel}</div></TableCell>
+              <TableCell className="text-md">{row.reg}</TableCell>
+              <TableCell className="text-md hidden md:block">{ row.carmodel == ''? ' -' : row.carmodel }</TableCell>
+            
               <TableCell className="text-md">{row.date}</TableCell>
               <TableCell className="text-md">{row.job}</TableCell>
+
             </TableRow>
           ))}
         </TableBody>

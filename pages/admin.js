@@ -60,9 +60,9 @@ export default function Admin() {
 
   if (!sessionData) {
     return (
-      <DefaultLayout siteData={siteData} fonts={fonts}>
+    
         <SignIn />
-      </DefaultLayout>
+    
     );
   }
 
