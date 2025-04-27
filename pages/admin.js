@@ -107,7 +107,7 @@ export default function Admin() {
         </Button>
         <AddData user={user} setTableData={setTableData}/>
       </div>
-      <CarTable tableData={tableData} />
+      <CarTable user={user}  tableData={tableData} setTableData={setTableData}/>
     </DefaultLayout>
   );
 }

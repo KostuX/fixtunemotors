@@ -17,8 +17,8 @@ import {
   Divider
 } from "@heroui/react";
 
-export default function CarTable() {
-  const [tableData, setTableData] = useState([]); // State for table data
+export default function CarTable({user, tableData,setTableData}) {
+  //const [tableData, setTableData] = useState([]); // State for table data
   const [filter, setFilter] = useState(""); // Single input for filtering all fields
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const [selectedRow, setSelectedRow] = useState(null); // State for selected row data
@@ -45,7 +45,9 @@ export default function CarTable() {
   // Fetch data when the component mounts
   useEffect(() => {
     fetchData();
-  }, [tableData]);
+  }, []);
+
+ 
 
   // Update filtered and paginated data whenever tableData, filter, or currentPage changes
   useEffect(() => {
@@ -69,6 +71,8 @@ export default function CarTable() {
     const paginated = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
     setPaginatedData(paginated);
+
+    console.log('triggered')
 
     // Ensure the current page is valid
     if (currentPage > totalPages && totalPages > 0) {
@@ -99,6 +103,34 @@ export default function CarTable() {
   const handleEdit = (rowData) => {
     console.log("Editing row:", rowData);
     // Add your logic to handle editing the row data here
+  };
+
+  const handleDelete = async (entry) => {
+    let id = entry.id
+    if (!id) {
+      console.error("ID is required for deletion");
+      return;
+    }
+    console.log("Deleting row with ID:", id);
+    try {
+      const response = await fetch("/api/deleteCarHistory", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+  
+      if (response.ok) {
+        handleCloseModal(); 
+        setTableData((prevData) => prevData.filter((row) => row.id !== id)); 
+      } else {
+        const result = await response.json();
+        console.error("Failed to delete record:", result.error);
+      }
+    } catch (error) {
+      console.error("Error deleting record:", error);
+    }
   };
 
   return (
@@ -179,16 +211,26 @@ export default function CarTable() {
               )}
             </ModalBody>
             <ModalFooter>
+            <Button
+                
+                size="sm"
+                color="danger"
+                onPress={() => handleDelete(selectedRow)} 
+              className={`${user?.edit ? "" : "hidden"}`}
+              >
+                Delete
+              </Button>
               <Button
                 size="sm"
                 color="warning"
                 onPress={() => handleEdit(selectedRow)} // Pass selectedRow to handleEdit
+                className={`${user?.edit ? "" : "hidden"}`}
               >
                 Edit
               </Button>
               <Button
                 size="sm"
-                color="danger"
+                
                 onPress={handleCloseModal}
               >
                 Close

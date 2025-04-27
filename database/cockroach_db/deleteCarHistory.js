@@ -5,14 +5,15 @@ const pool = new Pool({
   connectionString: "postgresql://deividas:fawf6NdDS3nEzmi3aRFyQw@fixtunemotors-10683.j77.aws-eu-west-1.cockroachlabs.cloud:26257/fixtunemotors?sslmode=verify-full",
 });
 
-export default async function getCarHistory() {
-  const query = `SELECT * FROM car_history.main ORDER BY date DESC;`;
+export default async function deleteCarHistory(id) {
+  const query = `DELETE FROM car_history.main WHERE id = $1;`; // Parameterized query
+  const values = [id]; // Pass the id as a parameter
 
   try {
     const client = await pool.connect(); // Get a client from the pool
     try {
-      const results = await client.query(query);
-      return results.rows; // Return the rows from the query
+      const result = await client.query(query, values); // Execute the DELETE query
+      return result.rowCount; // Return the number of rows deleted
     } finally {
       client.release(); // Release the client back to the pool
     }
