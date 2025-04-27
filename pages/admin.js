@@ -61,6 +61,7 @@ export default function Admin() {
           row.clientname || "-",
           row.phone || "-",
           row.price || "-",
+          row.id || "-",
         ]), // Data rows
       ];
   
@@ -104,7 +105,7 @@ export default function Admin() {
         >
           Export as CSV
         </Button>
-        <AddData user={user} />
+        <AddData user={user} setTableData={setTableData}/>
       </div>
       <CarTable tableData={tableData} />
     </DefaultLayout>

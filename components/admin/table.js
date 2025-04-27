@@ -25,6 +25,9 @@ export default function CarTable() {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const itemsPerPage = 20; // Number of items per page
 
+  const [filteredTableData, setFilteredTableData] = useState([]); // State for filtered data
+  const [paginatedData, setPaginatedData] = useState([]); // State for paginated data
+
   // Function to fetch data from the API
   const fetchData = async () => {
     try {
@@ -42,27 +45,40 @@ export default function CarTable() {
   // Fetch data when the component mounts
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [tableData]);
 
-  // Filtered data based on the single filter input
-  const filteredTableData = tableData.filter((row) => {
+  // Update filtered and paginated data whenever tableData, filter, or currentPage changes
+  useEffect(() => {
     const lowerCaseFilter = filter.toLowerCase();
-    return (
-      row?.reg?.toLowerCase().includes(lowerCaseFilter) ||
-      row?.date?.toLowerCase().includes(lowerCaseFilter) ||
-      row?.job?.toLowerCase().includes(lowerCaseFilter) ||
-      row?.carmodel?.toLowerCase().includes(lowerCaseFilter) 
-    );
-  });
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredTableData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = filteredTableData.slice(startIndex, startIndex + itemsPerPage);
+    // Filter the table data
+    const filteredData = tableData.filter((row) => {
+      return (
+        row?.reg?.toLowerCase().includes(lowerCaseFilter) ||
+        row?.date?.toLowerCase().includes(lowerCaseFilter) ||
+        row?.job?.toLowerCase().includes(lowerCaseFilter) ||
+        row?.carmodel?.toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+
+    setFilteredTableData(filteredData);
+
+    // Paginate the filtered data
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginated = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+    setPaginatedData(paginated);
+
+    // Ensure the current page is valid
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [tableData, filter, currentPage]);
 
   // Handle page change
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
+    if (newPage >= 1 && newPage <= Math.ceil(filteredTableData.length / itemsPerPage)) {
       setCurrentPage(newPage);
     }
   };
@@ -83,11 +99,6 @@ export default function CarTable() {
   const handleEdit = (rowData) => {
     console.log("Editing row:", rowData);
     // Add your logic to handle editing the row data here
-
-
-
-
-
   };
 
   return (
@@ -107,7 +118,6 @@ export default function CarTable() {
           <TableColumn className="hidden md:block">Model</TableColumn>
           <TableColumn>DATE</TableColumn>
           <TableColumn>JOB</TableColumn>
-       
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, index) => (
@@ -117,11 +127,9 @@ export default function CarTable() {
               className="cursor-pointer"
             >
               <TableCell className="text-md">{row.reg}</TableCell>
-              <TableCell className="text-md hidden md:block">{ row.carmodel == ''? ' -' : row.carmodel }</TableCell>
-            
+              <TableCell className="text-md hidden md:block">{row.carmodel === "" ? " -" : row.carmodel}</TableCell>
               <TableCell className="text-md">{row.date}</TableCell>
               <TableCell className="text-md">{row.job}</TableCell>
-
             </TableRow>
           ))}
         </TableBody>
@@ -136,10 +144,10 @@ export default function CarTable() {
           {"<"}
         </Button>
         <span>
-          Page {currentPage} of {totalPages}
+          Page {currentPage} of {Math.ceil(filteredTableData.length / itemsPerPage)}
         </span>
         <Button
-          disabled={currentPage === totalPages}
+          disabled={currentPage === Math.ceil(filteredTableData.length / itemsPerPage)}
           onPress={() => handlePageChange(currentPage + 1)}
           className="p-2 rounded "
           size="sm"
@@ -172,7 +180,6 @@ export default function CarTable() {
             </ModalBody>
             <ModalFooter>
               <Button
-              isDisabled
                 size="sm"
                 color="warning"
                 onPress={() => handleEdit(selectedRow)} // Pass selectedRow to handleEdit
@@ -188,7 +195,6 @@ export default function CarTable() {
               </Button>
             </ModalFooter>
           </ModalContent>
-          
         </Modal>
       )}
     </div>
