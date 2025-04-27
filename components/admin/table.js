@@ -220,6 +220,29 @@ export default function CarTable({ user, tableData, setTableData }) {
                       <strong>Description:</strong> {selectedRow.description}
                     </p>
                   )}
+
+{selectedRow.mileage >0 && (
+                    <p>
+                      <strong>Mileage:</strong> {selectedRow.mileage}
+                    </p>
+                  )}
+
+{selectedRow.clientname && (
+                    <p>
+                      <strong>Client Name:</strong> {selectedRow.clientname}
+                    </p>
+                  )}
+                  {selectedRow.phone && (
+                    <p>
+                      <strong>Phone:</strong> {selectedRow.phone}
+                    </p>
+                  )}
+
+{selectedRow.price && (
+                    <p>
+                      <strong>Price:</strong> {selectedRow.price}
+                    </p>
+                  )}
                 </div>
               )}
             </ModalBody>
