@@ -49,7 +49,7 @@ export const Foot = () => {
         </span>
         <span>
           © {cfg_site.year}
-          <a href="#" className="hover:underline">
+          <a href="/admin" className="hover:underline">
             {" "}
             {cfg_site.title}
           </a>

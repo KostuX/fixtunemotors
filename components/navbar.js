@@ -36,7 +36,7 @@ export const Navbar = ({ siteData, fonts }) => {
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink
               className="flex justify-start items-center hidden sm:flex "
-              href="/"
+              href="/admin"
             >
               {isHydrated && (
                 <Image
