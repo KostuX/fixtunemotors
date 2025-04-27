@@ -2,7 +2,7 @@ import { useDisclosure } from "@heroui/react"; // Import useDisclosure
 import { useState } from "react";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import { Button , Modal, ModalContent, ModalHeader, ModalBody, Input, DatePicker, Textarea, ModalFooter, Accordion, AccordionItem  } from "@heroui/react";
-export default function AddData({ user }) {
+export default function AddData({ user, setTableData }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [errrorMessage, setErrorMessage] = useState([]);
 
@@ -29,7 +29,7 @@ export default function AddData({ user }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("/api/addData", {
         method: "POST",
@@ -38,11 +38,19 @@ export default function AddData({ user }) {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
-        const result = await response.json();       
+        // Fetch the updated data from the database
+        const fetchResponse = await fetch("/api/getCarHistory");
+        if (!fetchResponse.ok) {
+          throw new Error("Failed to fetch updated data");
+        }
+        const updatedData = await fetchResponse.json();
+  
+        // Update the table data with the fetched data
+        setTableData(updatedData);
+  
         onOpenChange(false); // Close the modal after successful submission
-       
       } else {
         const result = await response.json();
         console.log("Failed to submit form:", result);
