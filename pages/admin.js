@@ -5,7 +5,7 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
 import SignIn from "./auth/signin";
-import {Tabs, Tab, Card, CardBody} from "@heroui/react";
+import { Tabs, Tab, Card, CardBody } from "@heroui/react";
 import CarTable from "../components/admin/table";
 import AddData from "../components/admin/addData";
 import AddDataForm from "../components/admin/addDataForm";
@@ -48,10 +48,20 @@ export default function Admin() {
         throw new Error("Failed to fetch data");
       }
       const data = await response.json();
-  
+
       // Prepare CSV rows
       const csvRows = [
-        ["REG", "DATE", "JOB", "Car Model", "Description", "Mileage", "Client Name", "Phone", "Price"], // Header row
+        [
+          "REG",
+          "DATE",
+          "JOB",
+          "Car Model",
+          "Description",
+          "Mileage",
+          "Client Name",
+          "Phone",
+          "Price",
+        ], // Header row
         ...data.map((row) => [
           row.reg,
           row.date,
@@ -65,12 +75,12 @@ export default function Admin() {
           row.id || "-",
         ]), // Data rows
       ];
-  
+
       // Convert rows to CSV content
       const csvContent =
         "data:text/csv;charset=utf-8," +
         csvRows.map((e) => e.join(",")).join("\n");
-  
+
       // Create a downloadable link
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
@@ -84,42 +94,49 @@ export default function Admin() {
     }
   };
 
- 
-
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-
-      <div className="mb-4 flex gap-4 justify-center ">
-        <Button
-          color="danger"
-          onPress={signOut}
-          className=" text-white "
-          size="sm"
-        >
-          SignOut
-        </Button>
-        <Button
-          color="danger"
-          onPress={handleExportCSV}
-          className=" text-white "
-          size="sm"
-          isDisabled={!user?.write}
-        >
-          Export as CSV
-        </Button>
-      
+      <div className="flex  items-center justify-center p-4 sm:p-12 max-w-4xl mx-auto  ">
+        <div className=" w-full  ">
+          <Tabs aria-label="Options">
+            <Tab key="Add_Machine" title="Add Machine">
+              <div>
+                <AddDataForm user={user} setTableData={setTableData} />
+              </div>
+            </Tab>
+            <Tab key="read" title="Read Database" className="">
+              <div>
+                <CarTable
+                  user={user}
+                  tableData={tableData}
+                  setTableData={setTableData}
+                />
+              </div>
+            </Tab>
+            <Tab key="select" title="Options">
+              <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
+                <Button
+                  color="danger"
+                  onPress={signOut}
+                  className="text-white"
+                  size="sm"
+                >
+                  SignOut
+                </Button>
+                <Button
+                  color="danger"
+                  onPress={handleExportCSV}
+                  className="text-white"
+                  size="sm"
+                  isDisabled={!user?.write}
+                >
+                  Export as CSV
+                </Button>
+              </div>
+            </Tab>
+          </Tabs>
+        </div>
       </div>
-      <div className="gap-2 mx-12">
-      <Tabs aria-label="Options">
-        <Tab key="Add_Machine" title="Add Machine">
-        <AddDataForm user={user} setTableData={setTableData}/>
-        </Tab>
-        <Tab key="read" title="Read Database">
-        <CarTable user={user}  tableData={tableData} setTableData={setTableData}/>
-        </Tab>
-     
-      </Tabs>
-    </div>
     </DefaultLayout>
   );
 }

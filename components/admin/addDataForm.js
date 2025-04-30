@@ -82,8 +82,8 @@ export default function AddDataForm({ user, setTableData }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="p-4 items-center justify-center flex rounded shadow-md">
-      <h2 className="text-lg font-bold mb-4 text-center w-full">Add New Entry</h2>
+    <Form onSubmit={handleSubmit} className=" rounded shadow-md  ">
+     
       <Input
         isRequired
         label="REG"
@@ -100,16 +100,7 @@ export default function AddDataForm({ user, setTableData }) {
         className="p-2 rounded w-full"
         aria-label="Date picker"
       />
-      <Input
-        label="Car Model"
-        name="carModel"
-        placeholder=""
-        variant="bordered"
-        value={formData.carModel}
-        onChange={handleInputChange}
-        aria-label="car model"
-      />
-      <Input
+       <Input
         isRequired
         label="Job"
         name="job"
@@ -119,6 +110,16 @@ export default function AddDataForm({ user, setTableData }) {
         onChange={handleInputChange}
         aria-label="job"
       />
+      <Input
+        label="Car Model"
+        name="carModel"
+        placeholder=""
+        variant="bordered"
+        value={formData.carModel}
+        onChange={handleInputChange}
+        aria-label="car model"
+      />
+     
       <Textarea
         label="Description"
         name="description"
