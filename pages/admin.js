@@ -5,9 +5,10 @@ import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
 import SignIn from "./auth/signin";
-
+import {Tabs, Tab, Card, CardBody} from "@heroui/react";
 import CarTable from "../components/admin/table";
 import AddData from "../components/admin/addData";
+import AddDataForm from "../components/admin/addDataForm";
 
 import { defaultData } from "../lib/defaultData";
 
@@ -87,6 +88,7 @@ export default function Admin() {
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
+
       <div className="mb-4 flex gap-4 justify-center ">
         <Button
           color="danger"
@@ -105,9 +107,19 @@ export default function Admin() {
         >
           Export as CSV
         </Button>
-        <AddData user={user} setTableData={setTableData}/>
+      
       </div>
-      <CarTable user={user}  tableData={tableData} setTableData={setTableData}/>
+      <div className="gap-2 mx-12">
+      <Tabs aria-label="Options">
+        <Tab key="Add_Machine" title="Add Machine">
+        <AddDataForm user={user} setTableData={setTableData}/>
+        </Tab>
+        <Tab key="read" title="Read Database">
+        <CarTable user={user}  tableData={tableData} setTableData={setTableData}/>
+        </Tab>
+     
+      </Tabs>
+    </div>
     </DefaultLayout>
   );
 }
