@@ -15,7 +15,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Divider
+  Divider,
 } from "@heroui/react";
 
 export default function CarTable({ user, tableData, setTableData }) {
@@ -46,6 +46,7 @@ export default function CarTable({ user, tableData, setTableData }) {
   // Fetch data when the component mounts
   useEffect(() => {
     fetchData();
+    console.log("Table data fetched successfully");
   }, []);
 
   // Update filtered and paginated data whenever tableData, filter, or currentPage changes
@@ -79,7 +80,10 @@ export default function CarTable({ user, tableData, setTableData }) {
 
   // Handle page change
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(filteredTableData.length / itemsPerPage)) {
+    if (
+      newPage >= 1 &&
+      newPage <= Math.ceil(filteredTableData.length / itemsPerPage)
+    ) {
       setCurrentPage(newPage);
     }
   };
@@ -181,10 +185,13 @@ export default function CarTable({ user, tableData, setTableData }) {
           {"<"}
         </Button>
         <span>
-          Page {currentPage} of {Math.ceil(filteredTableData.length / itemsPerPage)}
+          Page {currentPage} of{" "}
+          {Math.ceil(filteredTableData.length / itemsPerPage)}
         </span>
         <Button
-          disabled={currentPage === Math.ceil(filteredTableData.length / itemsPerPage)}
+          disabled={
+            currentPage === Math.ceil(filteredTableData.length / itemsPerPage)
+          }
           onPress={() => handlePageChange(currentPage + 1)}
           className="p-2 rounded "
           size="sm"
@@ -195,9 +202,15 @@ export default function CarTable({ user, tableData, setTableData }) {
 
       {/* Details Modal */}
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onOpenChange={handleCloseModal} backdrop="blur">
+        <Modal
+          isOpen={isModalOpen}
+          onOpenChange={handleCloseModal}
+          backdrop="blur"
+        >
           <ModalContent>
-            <ModalHeader className="text-center font-bold underline">Details</ModalHeader>
+            <ModalHeader className="text-center font-bold underline">
+              Details
+            </ModalHeader>
             <ModalBody>
               {selectedRow && (
                 <div>
@@ -221,13 +234,13 @@ export default function CarTable({ user, tableData, setTableData }) {
                     </p>
                   )}
 
-{selectedRow.mileage >0 && (
+                  {selectedRow.mileage > 0 && (
                     <p>
                       <strong>Mileage:</strong> {selectedRow.mileage}
                     </p>
                   )}
 
-{selectedRow.clientname && (
+                  {selectedRow.clientname && (
                     <p>
                       <strong>Client Name:</strong> {selectedRow.clientname}
                     </p>
@@ -238,7 +251,7 @@ export default function CarTable({ user, tableData, setTableData }) {
                     </p>
                   )}
 
-{selectedRow.price && (
+                  {selectedRow.price && (
                     <p>
                       <strong>Price:</strong> {selectedRow.price}
                     </p>
