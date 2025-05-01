@@ -22,7 +22,8 @@ import { today, getLocalTimeZone } from "@internationalized/date";
 
 export default function AddDataForm({ user, setTableData }) {
   const [errorMessage, setErrorMessage] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [infoModal, setInfoModal] = useState({});
+  const [open, setOpen] = useState(true);
   const [formData, setFormData] = useState({
     reg: "",
     date: today(getLocalTimeZone()),
@@ -59,21 +60,16 @@ export default function AddDataForm({ user, setTableData }) {
       });
 
       if (response.ok) {
-        console.log("Form submitted successfully");
+
+        let reg = formData.reg
+       
+        setInfoModal({
+            color: "text-green-500",
+            description: `${reg} Added successfully`,
+        })
 
         setOpen(true);
-        /*
-        // Fetch the updated data from the database
-        const fetchResponse = await fetch("/api/getCarHistory");
-        if (!fetchResponse.ok) {
-          throw new Error("Failed to fetch updated data");
-        }
-        const updatedData = await fetchResponse.json();
-
-        // Update the table data with the fetched data
-        setTableData(updatedData);
-*/
-        // Reset the form
+   
         setFormData({
           reg: "",
           date: today(getLocalTimeZone()),
@@ -88,8 +84,17 @@ export default function AddDataForm({ user, setTableData }) {
         setErrorMessage([]);
       } else {
         const result = await response.json();
-        console.log("Failed to submit form:", result);
+     
         setErrorMessage(result.errors || ["Failed to submit form"]);
+
+        
+       
+        setInfoModal({
+            color: "text-green-500",
+            description: `${result.errors} ||  "Failed to submit form"`,
+        })
+
+        setOpen(true);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -207,9 +212,9 @@ export default function AddDataForm({ user, setTableData }) {
     </Form>
    <Modal isOpen={open}>
    <ModalContent>
-     {(open) => (
-       <>
-         <ModalHeader className="flex flex-col gap-1 text-green-500"> {formData.reg} Added successfully</ModalHeader>
+   
+    
+         <ModalHeader className={`flex flex-col gap-1 ${infoModal.color}`}> {infoModal.description}</ModalHeader>
          <ModalBody>
          
          </ModalBody>
@@ -219,8 +224,8 @@ export default function AddDataForm({ user, setTableData }) {
              ok
            </Button>
          </ModalFooter>
-       </>
-     )}
+   
+
    </ModalContent>
  </Modal></>
   );
