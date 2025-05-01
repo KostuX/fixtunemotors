@@ -148,7 +148,7 @@ export default function CarTable({ user, tableData, setTableData }) {
           placeholder="Filter"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="p-2 rounded w-1/2"
+          className="p-2 rounded "
         />
       </div>
       <Table isStriped aria-label="Example static collection table">
