@@ -23,7 +23,7 @@ import { today, getLocalTimeZone } from "@internationalized/date";
 export default function AddDataForm({ user, setTableData }) {
   const [errorMessage, setErrorMessage] = useState([]);
   const [infoModal, setInfoModal] = useState({});
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     reg: "",
     date: today(getLocalTimeZone()),
