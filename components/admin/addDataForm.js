@@ -6,12 +6,23 @@ import {
   Textarea,
   Accordion,
   AccordionItem,
-  Form
+  Form,
+  addToast,
+  ToastProvider,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+ 
+  useDisclosure,
 } from "@heroui/react";
+
 import { today, getLocalTimeZone } from "@internationalized/date";
 
 export default function AddDataForm({ user, setTableData }) {
   const [errorMessage, setErrorMessage] = useState([]);
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     reg: "",
     date: today(getLocalTimeZone()),
@@ -33,6 +44,8 @@ export default function AddDataForm({ user, setTableData }) {
     setFormData({ ...formData, date });
   };
 
+ 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -47,6 +60,8 @@ export default function AddDataForm({ user, setTableData }) {
 
       if (response.ok) {
         console.log("Form submitted successfully");
+
+        setOpen(true);
         /*
         // Fetch the updated data from the database
         const fetchResponse = await fetch("/api/getCarHistory");
@@ -82,6 +97,7 @@ export default function AddDataForm({ user, setTableData }) {
   };
 
   return (
+    <>
     <Form onSubmit={handleSubmit} className=" rounded shadow-md  ">
      
       <Input
@@ -189,5 +205,23 @@ export default function AddDataForm({ user, setTableData }) {
         </Button>
       </div>
     </Form>
+   <Modal isOpen={open}>
+   <ModalContent>
+     {(open) => (
+       <>
+         <ModalHeader className="flex flex-col gap-1 text-green-500"> {formData.reg} Added successfully</ModalHeader>
+         <ModalBody>
+         
+         </ModalBody>
+         <ModalFooter>
+           
+           <Button color="success" size="sm" onPress={()=>{setOpen(false)}}>
+             ok
+           </Button>
+         </ModalFooter>
+       </>
+     )}
+   </ModalContent>
+ </Modal></>
   );
 }
