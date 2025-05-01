@@ -251,9 +251,9 @@ export default function CarTable({ user, tableData, setTableData }) {
                     </p>
                   )}
 
-                  {selectedRow.price && (
+                  {selectedRow.price > 0 && (
                     <p>
-                      <strong>Price:</strong> {selectedRow.price}
+                      <strong>Price:</strong> {selectedRow.price} €
                     </p>
                   )}
                 </div>
