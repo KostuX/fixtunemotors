@@ -1,6 +1,16 @@
 export const cfg_services = {
   services: [
-    // title 1
+    {
+      title: "Valeting",
+      description:
+        "Restore your car’s shine with our expert valeting service. We provide deep exterior cleaning, interior vacuuming, polishing, and detailing to leave your vehicle spotless and refreshed. Ideal for daily drivers or special occasions. Fast, reliable, and affordable mobile service—satisfaction guaranteed. Book today for a professional clean that turns heads.",
+      description_short:
+        "Professional car valeting service offering deep cleaning, polishing, and interior detailing for a showroom finish. Convenient, reliable, and affordable.!",
+      price: "20",
+      image: "/services/valeting.png",
+      link: "",
+      boost: { type: "Increase car appearance by* : ", size: 100 },
+    },
     {
       title: "Remapping ",
       description:
@@ -108,5 +118,6 @@ export const cfg_services = {
       link: "",
       boost: { type: "Increase car safety by* : ", size: 50 },
     },
+     
   ],
 };
