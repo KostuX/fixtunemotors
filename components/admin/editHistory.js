@@ -38,9 +38,15 @@ const [errors, setErrors] = useState([]); // State for error messages
     
         if (response.ok) {
           const updatedData = await response.json();
-          console.log("Record updated successfully:", updatedData);
+      
           handleCloseModal()
           // Update the table data here
+          setTableData((prevData) =>
+            prevData.map((row) =>
+              
+              row.id === selectedRow.id ? updatedData : row
+            )
+          );
         } else {
           const result = await response.json();
           console.error("Failed to update record:", result.errors || result.error);

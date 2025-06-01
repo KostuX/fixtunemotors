@@ -3,13 +3,13 @@ export const cfg_services = {
     {
       title: "Valeting",
       description:
-        "Restore your car’s shine with our expert valeting service. We provide deep exterior cleaning, interior vacuuming, polishing, and detailing to leave your vehicle spotless and refreshed. Ideal for daily drivers or special occasions. Fast, reliable, and affordable mobile service—satisfaction guaranteed. Book today for a professional clean that turns heads.",
+        "Restore your car’s shine with our expert valeting service. We provide deep exterior cleaning, interior vacuuming, polishing, and detailing to leave your vehicle spotless and refreshed. Ideal for daily drivers or special occasions. Fast, reliable, and affordable mobile service—satisfaction guaranteed. Book today for a professional clean that turns heads. Mini valet from 40€ Full valet from 80€ Car polishing from 120€",
       description_short:
         "Professional car valeting service offering deep cleaning, polishing, and interior detailing for a showroom finish. Convenient, reliable, and affordable.!",
-      price: "20",
+      price: "40",
       image: "/services/valeting.png",
       link: "",
-      boost: { type: "Increase car appearance by* : ", size: 100 },
+      boost: { type: "Increase car appearance by* : ", size: 75 },
     },
     {
       title: "Remapping ",
