@@ -76,6 +76,10 @@ export const authOptions = {
       session.user.edit = token.edit;
       return session;
     },
+     async redirect({ url, baseUrl }) {
+    // Always redirect to /admin after sign in
+    return baseUrl + "/admin";
+  },
   },
 };
 
