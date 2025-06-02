@@ -297,21 +297,7 @@ export default function Admin() {
       <div className="flex  items-center justify-center p-4 sm:p-12 max-w-4xl mx-auto  ">
         <div className=" w-full  ">
           <Tabs aria-label="Options">
-            <Tab key="Add_Machine" title="Add Machine">
-              <div>
-                <AddDataForm user={user} setTableData={setTableData} />
-              </div>
-            </Tab>
-            <Tab key="read" title="Read Database" className="">
-              <div>
-                <CarTable
-                  user={user}
-                  tableData={tableData}
-                  setTableData={setTableData}
-                />
-              </div>
-            </Tab>
-            <Tab key="invoice" title="Invoice">
+             <Tab key="invoice" title="Invoice">
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
                 <Form
                   className="w-full max-w-md flex flex-col gap-4"
@@ -474,6 +460,21 @@ export default function Admin() {
                 </Form>
               </div>
             </Tab>
+            <Tab key="Add_Machine" title="Add Machine">
+              <div>
+                <AddDataForm user={user} setTableData={setTableData} />
+              </div>
+            </Tab>
+            <Tab key="read" title="Read Database" className="">
+              <div>
+                <CarTable
+                  user={user}
+                  tableData={tableData}
+                  setTableData={setTableData}
+                />
+              </div>
+            </Tab>
+           
             <Tab key="select" title="Options">
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
                 <Button
