@@ -378,14 +378,7 @@ export default function Admin() {
                           })
                         }
                       />
-                      <Input
-                        label="Payment Information"
-                        labelPlacement="outside"
-                        name="paymentInfo"
-                        placeholder="Enter payment information"
-                        defaultValue="IBAN 454545454545454"
-                        type="text"
-                      />
+                  
                     </AccordionItem>
                   </Accordion>
 
@@ -406,7 +399,7 @@ export default function Admin() {
                   />
                   {jobs.map((job, index) => (
                     <div
-                      className="grid grid-cols-7 gap-2 items-end"
+                      className="grid grid-cols-8 gap-2 items-end"
                       key={index}
                     >
                       <Input
@@ -429,7 +422,7 @@ export default function Admin() {
                         name={`price_${index}`}
                         placeholder="€"
                         type="text"
-                        className="col-span-1"
+                        className="col-span-2"
                         value={job.price}
                         onChange={(e) => {
                           const newJobs = [...jobs];
@@ -477,11 +470,7 @@ export default function Admin() {
                     </Button>
                   </div>
 
-                  {action && (
-                    <div className="text-small text-default-500">
-                      Action: <code>{action}</code>
-                    </div>
-                  )}
+                
                 </Form>
               </div>
             </Tab>
