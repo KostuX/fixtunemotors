@@ -1,14 +1,18 @@
 export const cfg_site = {
   title: "Fix Tune Motors",
-  year: "2024",
+  year: "2025",
   phone: ["+353 87 466 3350","+353 87 278 8606"],
   email: ["fixtunemotors@gmail.com"],
+  www: "www.fixtunemotors.ie",
+  
   address: [
     { long_name: "Latt" },
-    { long_name: "County Cavan" },
+     { long_name: "Cavan" },
+    { long_name: "Co. Cavan" },
     { long_name: "Ireland" },
     { long_name: "H12 A8X2" },
   ],
+  
   opening_hours: {
     open_now: true,
     weekday_text: [
