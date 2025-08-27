@@ -453,7 +453,7 @@ export default function Admin() {
                         labelPlacement="outside"
                         name={`price_${index}`}
                         placeholder="€"
-                        type="text"
+                        type="number"
                         className="col-span-2"
                         value={job.price}
                         onChange={(e) => {
