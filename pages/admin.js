@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
-import {ToWords} from 'to-words';
+import { ToWords } from "to-words";
 import DefaultLayout from "../layouts/default";
 import { Permanent_Marker } from "next/font/google";
 import { Button } from "@heroui/react";
@@ -67,7 +67,6 @@ export default function Admin() {
     phone: cfg_site.phone[0] || "+353 87 466 3350",
     email: cfg_site.email[0] || "fixtunemotors@gmail.com",
     www: cfg_site.www || "www.fixtunemotors.ie",
-   
   });
   const handleAddJob = () => {
     setJobs([...jobs, { job: "", price: "" }]);
@@ -99,7 +98,7 @@ export default function Admin() {
   }
 
   function handlePrintInvoice(invoiceData, companyInfo) {
-    let priceSum = 0
+    let priceSum = 0;
 
     jobs.forEach((job) => {
       if (job.price) {
@@ -155,8 +154,12 @@ export default function Admin() {
           <div class="inv-bold" style="margin-top:0px;">
           <br>${companyInfo.companyName || ""}
           <br>${companyInfo.phone || ""}        
-          <br>${companyInfo.address[0].long_name || ""}, ${companyInfo.address[1].long_name || ""}, ${companyInfo.address[4].long_name || ""}
-          <br>${companyInfo.address[2].long_name || ""}, ${companyInfo.address[3].long_name || ""}
+          <br>${companyInfo.address[0].long_name || ""}, ${
+      companyInfo.address[1].long_name || ""
+    }, ${companyInfo.address[4].long_name || ""}
+          <br>${companyInfo.address[2].long_name || ""}, ${
+      companyInfo.address[3].long_name || ""
+    }
   
           </div>
         </div>
@@ -164,17 +167,28 @@ export default function Admin() {
       <div class="inv-bill-row">
         <div class="inv-bill-col">
         ${
-          invoiceData.clientName ? `
+          invoiceData.clientName
+            ? `
           <div class="inv-label">BILL TO</div>
-          <div class="inv-bold">${invoiceData.clientName || ""}</div>      ` : ""}
+          <div class="inv-bold">${
+            String(invoiceData.clientName).toUpperCase() || ""
+          }</div>      `
+            : ""
+        }
         </div>
 
 
         <div class="inv-bill-col">
-        ${invoiceData.reg ? `
+        ${
+          invoiceData.reg
+            ? `
           <div class="inv-label">REG</div>
-          <div class="inv-bold">${invoiceData.reg || ""}</div>
-        ` : ""}
+          <div class="inv-bold">${
+            String(invoiceData.reg).toUpperCase() || ""
+          }</div>
+        `
+            : ""
+        }
         </div>
 
        
@@ -197,14 +211,18 @@ export default function Admin() {
         <tbody>
 
       
-          ${jobs.map((job) => `   
+          ${jobs
+            .map(
+              (job) => `   
             
             <tr>
               <td>${job.job || ""}</td>
               <td>${job.price ? Number(job.price).toFixed(2) : "0.00"}</td>
             </tr>
             
-            `).join("")}
+            `
+            )
+            .join("")}
           
           
         </tbody>
@@ -218,22 +236,38 @@ export default function Admin() {
           <tr>
       
              <td class="inv-price-words" colspan="2">
-      ${
-        (() => {
-          const price = Number(invoiceData.price || 0).toFixed(2);
-          const [euros, cents] = price.split(".");
-          let words = toWords.convert(Number(euros)) + " euro";
-          if (Number(cents) > 0) {
-            words += " and " + toWords.convert(Number(cents)) + " cents";
-          }
-          return words.charAt(0).toUpperCase() + words.slice(1);
-        })()
-      }
+      ${(() => {
+        const price = Number(invoiceData.price || 0).toFixed(2);
+        const [euros, cents] = price.split(".");
+        let words = toWords.convert(Number(euros)) + " euro";
+        if (Number(cents) > 0) {
+          words += " and " + toWords.convert(Number(cents)) + " cents";
+        }
+        return words.charAt(0).toUpperCase() + words.slice(1);
+      })()}
     </td>
           </tr>
         </tfoot>
       </table>
-     
+     <div style="font-size: 12px;">
+     <span style="font-weight: bold;">IBAN:</span> ${
+       cfg_site.bankDetails?.iban || "IE12AIBK93205148495099"
+     }
+     <div>
+     <div>
+     <span style="font-weight: bold;"> BIC: </span>${
+       cfg_site.bankDetails?.bic || "AIBKIE2D"
+     }
+     <div>
+     <div><span style="font-weight: bold;">Account Number:</span> ${
+       cfg_site.bankDetails?.accountNumber || "48495099"
+     }
+     <div>
+     <div><span style="font-weight: bold;">NSC:</span> ${
+       cfg_site.bankDetails?.nsc || "932051"
+     }
+     <div>
+     </div>
     </div>
   `;
   }
@@ -297,7 +331,7 @@ export default function Admin() {
       <div className="flex  items-center justify-center p-4 sm:p-12 max-w-4xl mx-auto  ">
         <div className=" w-full  ">
           <Tabs aria-label="Options">
-             <Tab key="invoice" title="Invoice">
+            <Tab key="invoice" title="Invoice">
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
                 <Form
                   className="w-full max-w-md flex flex-col gap-4"
@@ -309,7 +343,7 @@ export default function Admin() {
                     );
 
                     setAction(`submit ${JSON.stringify(data)}`);
-                    handlePrintInvoice(data,companyInfo);
+                    handlePrintInvoice(data, companyInfo);
                   }}
                 >
                   <Accordion className="mb-8">
@@ -364,7 +398,6 @@ export default function Admin() {
                           })
                         }
                       />
-                  
                     </AccordionItem>
                   </Accordion>
 
@@ -455,8 +488,6 @@ export default function Admin() {
                       Print Invoice
                     </Button>
                   </div>
-
-                
                 </Form>
               </div>
             </Tab>
@@ -474,7 +505,7 @@ export default function Admin() {
                 />
               </div>
             </Tab>
-           
+
             <Tab key="select" title="Options">
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
                 <Button
