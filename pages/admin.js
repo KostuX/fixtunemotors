@@ -256,7 +256,13 @@ export default function Admin() {
           </tr>
         </tfoot>
       </table>
+
+       <div style="font-weight: bold;text-align: center; margin: 0px 16px 20px;">
+      Thank you for your business.
+      </div>
+      
      <div style="font-size: 12px;">
+    
      <span style="font-weight: bold;">IBAN:</span> ${
        cfg_site.bankDetails?.iban || "IE12AIBK93205148495099"
      }
