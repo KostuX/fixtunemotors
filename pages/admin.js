@@ -72,6 +72,13 @@ export default function Admin() {
     setJobs([...jobs, { job: "", price: "" }]);
   };
 
+  function capitalizeAllWords(str) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
   const invoiceRef = useRef();
 
   function createInvoice(
@@ -171,7 +178,7 @@ export default function Admin() {
             ? `
           <div class="inv-label">BILL TO</div>
           <div class="inv-bold">${
-            String(invoiceData.clientName).toUpperCase() || ""
+            capitalizeAllWords(String(invoiceData.clientName)) || ""
           }</div>      `
             : ""
         }
@@ -216,7 +223,7 @@ export default function Admin() {
               (job) => `   
             
             <tr>
-              <td>${job.job || ""}</td>
+              <td>${capitalizeAllWords(job.job) || ""}</td>
               <td>${job.price ? Number(job.price).toFixed(2) : "0.00"}</td>
             </tr>
             
