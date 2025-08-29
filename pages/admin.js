@@ -9,23 +9,16 @@ import SignIn from "./auth/signin";
 import {
   Tabs,
   Tab,
-  Card,
-  CardBody,
   Form,
   Input,
   Accordion,
   AccordionItem,
 } from "@heroui/react";
 import CarTable from "../components/admin/table";
-import AddData from "../components/admin/addData";
 import AddDataForm from "../components/admin/addDataForm";
 
 import { defaultData } from "../lib/defaultData";
 import { cfg_site } from "../config/cfg_site";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import { create } from "domain";
-gsap.registerPlugin(ScrollTrigger);
 
 const marker = Permanent_Marker({
   subsets: ["latin"],
@@ -38,20 +31,6 @@ export default function Admin() {
   const [siteData, setSiteData] = useState(defaultData);
   const [tableData, setTableData] = useState([]);
   const [action, setAction] = useState(null);
-  let user = {
-    write: false,
-    edit: false,
-  };
-
-  if (sessionData) {
-    user.write = sessionData.user.write;
-    user.edit = sessionData.user.edit;
-  }
-
-  let fonts = {
-    marker: marker,
-  };
-
   const [invoiceData, setInvoiceData] = useState(null);
   const [showInvoice, setShowInvoice] = useState(false);
   const [jobs, setJobs] = useState([{ job: "", price: "" }]);
@@ -69,6 +48,23 @@ export default function Admin() {
     email: cfg_site.email[0] || "fixtunemotors@gmail.com",
     www: cfg_site.www || "www.fixtunemotors.ie",
   });
+
+  const invoiceRef = useRef();
+
+  let user = {
+    write: false,
+    edit: false,
+  };
+
+  if (sessionData) {
+    user.write = sessionData.user.write;
+    user.edit = sessionData.user.edit;
+  }
+
+  let fonts = {
+    marker: marker,
+  };
+
   const handleAddJob = () => {
     setJobs([...jobs, { job: "", price: "" }]);
   };
@@ -79,8 +75,6 @@ export default function Admin() {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   }
-
-  const invoiceRef = useRef();
 
   function createInvoice(
     jobDone,
@@ -106,32 +100,24 @@ export default function Admin() {
   }
 
   function handlePrintInvoice(invoiceData, companyInfo) {
-    let priceSum = 0;
-
-    // Calculate total price
-    jobs.forEach((job) => {
-      if (job.price) {
-        priceSum += Number(job.price);
-      }
-    });
+    let priceSum = jobs.reduce((sum, job) => sum + Number(job.price || 0), 0);
     invoiceData.price = priceSum.toFixed(2);
     setInvoiceData(invoiceData);
 
     if (invoiceData) {
       const win = window.open("", "", "height=900,width=700");
 
-      // Write the invoice HTML
       win.document.write("<html><head><title>Invoice</title></head><body>");
       win.document.write(getInvoiceHTML(invoiceData, companyInfo));
       win.document.write("</body></html>");
       win.document.close();
 
-      // Wait for the new window to load before printing
       win.onload = () => {
         win.print();
       };
     }
   }
+
   function getInvoiceHTML(invoiceData, companyInfo) {
     return `
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -158,65 +144,47 @@ export default function Admin() {
     </style>
     <div class="inv-container">
       <div class="inv-header">
-       <div class="inv-bold">
-      
-        <img src="./logo/logo_black.png" alt="logo" class="inv-logo" />
+        <div class="inv-bold">
+          <img src="./logo/logo_black.png" alt="logo" class="inv-logo" />
           <br>${companyInfo.www || ""}
           <br>${companyInfo.email || ""}
-          </div>
-          <div>
+        </div>
+        <div>
           <div class="inv-title">INVOICE</div>
-          <div class="inv-bold" style="margin-top:0px;">
-          <br>${companyInfo.companyName || ""}
-          <br>${companyInfo.phone || ""}        
-          <br>${companyInfo.address[0].long_name || ""}, ${
-      companyInfo.address[1].long_name || ""
-    }, ${companyInfo.address[4].long_name || ""}
-          <br>${companyInfo.address[2].long_name || ""}, ${
-      companyInfo.address[3].long_name || ""
-    }
-  
+          <div class="inv-bold">
+            <br>${companyInfo.companyName || ""}
+            <br>${companyInfo.phone || ""}
+            <br>${companyInfo.address.map((addr) => addr.long_name).join(", ")}
           </div>
         </div>
       </div>
       <div class="inv-bill-row">
         <div class="inv-bill-col">
-        ${
-          invoiceData.clientName
-            ? `
-          <div class="inv-label">BILL TO</div>
-          <div class="inv-bold">${
-            capitalizeAllWords(String(invoiceData.clientName)) || ""
-          }</div>      `
-            : ""
-        }
+          ${
+            invoiceData.clientName
+              ? `<div class="inv-label">BILL TO</div>
+                 <div class="inv-bold">${capitalizeAllWords(
+                   invoiceData.clientName
+                 )}</div>`
+              : ""
+          }
         </div>
-
-
         <div class="inv-bill-col">
-        ${
-          invoiceData.reg
-            ? `
-          <div class="inv-label">REG</div>
-          <div class="inv-bold">${
-            String(invoiceData.reg).toUpperCase() || ""
-          }</div>
-        `
-            : ""
-        }
+          ${
+            invoiceData.reg
+              ? `<div class="inv-label">REG</div>
+                 <div class="inv-bold">${String(
+                   invoiceData.reg
+                 ).toUpperCase()}</div>`
+              : ""
+          }
         </div>
-
-       
-
         <div class="inv-bill-col">
           <div class="inv-label">INVOICE DATE</div>
           <div class="inv-bold">${new Date().toLocaleDateString()}</div>
         </div>
       </div>
-
-      
       <table class="inv-table">
-      
         <thead>
           <tr>
             <th>DESCRIPTION</th>
@@ -224,22 +192,16 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody>
-
-      
           ${jobs
             .map(
-              (job) => `   
-            
-            <tr>
-              <td>${capitalizeAllWords(job.job) || ""}</td>
-              <td>${job.price ? Number(job.price).toFixed(2) : "0.00"}</td>
-            </tr>
-            
+              (job) => `
+              <tr>
+                <td>${capitalizeAllWords(job.job)}</td>
+                <td>${job.price ? Number(job.price).toFixed(2) : "0.00"}</td>
+              </tr>
             `
             )
             .join("")}
-          
-          
         </tbody>
         <tfoot>
           <tr>
@@ -249,60 +211,35 @@ export default function Admin() {
             } €</td>
           </tr>
           <tr>
-      
-             <td class="inv-price-words" colspan="2">
-      ${(() => {
-        const price = Number(invoiceData.price || 0).toFixed(2);
-        const [euros, cents] = price.split(".");
-        let words = toWords.convert(Number(euros)) + " euro";
-        if (Number(cents) > 0) {
-          words += " and " + toWords.convert(Number(cents)) + " cents";
-        }
-        return words.charAt(0).toUpperCase() + words.slice(1);
-      })()}
-    </td>
+            <td class="inv-price-words" colspan="2">
+              ${(() => {
+                const price = Number(invoiceData.price || 0).toFixed(2);
+                const [euros, cents] = price.split(".");
+                let words = toWords.convert(Number(euros)) + " euro";
+                if (Number(cents) > 0) {
+                  words += " and " + toWords.convert(Number(cents)) + " cents";
+                }
+                return words.charAt(0).toUpperCase() + words.slice(1);
+              })()}
+            </td>
           </tr>
         </tfoot>
       </table>
-
-       <div style="font-weight: bold;text-align: center; margin: 0px 16px 20px;">
-      Thank you for your business.
+      <div style="font-weight: bold;text-align: center; margin: 0px 16px 20px;">
+        Thank you for your business.
       </div>
-      
-     <div style="font-size: 12px;">
-    
-     <span style="font-weight: bold;">IBAN:</span> ${
-       cfg_site.bankDetails?.iban || "IE12AIBK93205148495099"
-     }
-     <div>
-     <div>
-     <span style="font-weight: bold;"> BIC: </span>${
-       cfg_site.bankDetails?.bic || "AIBKIE2D"
-     }
-     <div>
-     <div><span style="font-weight: bold;">Account Number:</span> ${
-       cfg_site.bankDetails?.accountNumber || "48495099"
-     }
-     <div>
-     <div><span style="font-weight: bold;">NSC:</span> ${
-       cfg_site.bankDetails?.nsc || "932051"
-     }
-     <div>
-     </div>
     </div>
   `;
   }
 
   const handleExportCSV = async () => {
     try {
-      // Fetch data from the API
       const response = await fetch("/api/getCarHistory");
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
       const data = await response.json();
 
-      // Prepare CSV rows
       const csvRows = [
         [
           "REG",
@@ -314,7 +251,7 @@ export default function Admin() {
           "Client Name",
           "Phone",
           "Price",
-        ], // Header row
+        ],
         ...data.map((row) => [
           row.reg,
           row.date,
@@ -326,15 +263,13 @@ export default function Admin() {
           row.phone || "-",
           row.price || "-",
           row.id || "-",
-        ]), // Data rows
+        ]),
       ];
 
-      // Convert rows to CSV content
       const csvContent =
         "data:text/csv;charset=utf-8," +
         csvRows.map((e) => e.join(",")).join("\n");
 
-      // Create a downloadable link
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
@@ -349,8 +284,8 @@ export default function Admin() {
 
   return (
     <DefaultLayout siteData={siteData} fonts={fonts}>
-      <div className="flex  items-center justify-center p-4 sm:p-12 max-w-4xl mx-auto  ">
-        <div className=" w-full  ">
+      <div className="flex items-center justify-center p-4 sm:p-12 max-w-4xl mx-auto">
+        <div className="w-full">
           <Tabs aria-label="Options">
             <Tab key="invoice" title="Invoice">
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
@@ -362,7 +297,6 @@ export default function Admin() {
                     let data = Object.fromEntries(
                       new FormData(e.currentTarget)
                     );
-
                     setAction(`submit ${JSON.stringify(data)}`);
                     handlePrintInvoice(data, companyInfo);
                   }}
@@ -371,7 +305,7 @@ export default function Admin() {
                     <AccordionItem
                       key="1"
                       aria-label="Company Information"
-                      title="Company Information "
+                      title="Company Information"
                     >
                       <Input
                         label="Company Name"
@@ -408,8 +342,7 @@ export default function Admin() {
                         labelPlacement="outside"
                         name="email"
                         placeholder="Enter email"
-                        defaultValue="fixtunemotors@gmail.com
-"
+                        defaultValue="fixtunemotors@gmail.com"
                         type="text"
                         className="mb-12"
                         onChange={(e) =>
@@ -491,7 +424,6 @@ export default function Admin() {
                   ))}
                   <div className="flex justify-start my-4">
                     <Button size="sm" color="success" onPress={handleAddJob}>
-                      {" "}
                       Add more
                     </Button>
                   </div>
@@ -517,7 +449,7 @@ export default function Admin() {
                 <AddDataForm user={user} setTableData={setTableData} />
               </div>
             </Tab>
-            <Tab key="read" title="Read Database" className="">
+            <Tab key="read" title="Read Database">
               <div>
                 <CarTable
                   user={user}
