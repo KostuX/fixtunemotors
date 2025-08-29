@@ -228,6 +228,28 @@ export default function Admin() {
       <div style="font-weight: bold;text-align: center; margin: 0px 16px 20px;">
         Thank you for your business.
       </div>
+      
+     <div style="font-size: 12px;">
+    
+     <span style="font-weight: bold;">IBAN:</span> ${
+       cfg_site.bankDetails?.iban || "IE12AIBK93205148495099"
+     }
+     <div>
+     <div>
+     <span style="font-weight: bold;"> BIC: </span>${
+       cfg_site.bankDetails?.bic || "AIBKIE2D"
+     }
+     <div>
+     <div><span style="font-weight: bold;">Account Number:</span> ${
+       cfg_site.bankDetails?.accountNumber || "48495099"
+     }
+     </div>
+     <div>
+     <span style="font-weight: bold;">NSC:</span> ${
+       cfg_site.bankDetails?.nsc || "932051"
+     }
+     </div>
+     </div>
     </div>
   `;
   }
