@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { ToWords } from "to-words";
@@ -107,6 +108,7 @@ export default function Admin() {
   function handlePrintInvoice(invoiceData, companyInfo) {
     let priceSum = 0;
 
+    // Calculate total price
     jobs.forEach((job) => {
       if (job.price) {
         priceSum += Number(job.price);
@@ -117,11 +119,17 @@ export default function Admin() {
 
     if (invoiceData) {
       const win = window.open("", "", "height=900,width=700");
+
+      // Write the invoice HTML
       win.document.write("<html><head><title>Invoice</title></head><body>");
       win.document.write(getInvoiceHTML(invoiceData, companyInfo));
       win.document.write("</body></html>");
       win.document.close();
-      win.print();
+
+      // Wait for the new window to load before printing
+      win.onload = () => {
+        win.print();
+      };
     }
   }
   function getInvoiceHTML(invoiceData, companyInfo) {
