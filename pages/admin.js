@@ -98,10 +98,46 @@ export default function Admin() {
     });
     setShowInvoice(true);
   }
+  async function handlePrintInvoice(invoiceData, companyInfo) {
+    console.log("Generating invoice on server");
+    try {
+      const response = await fetch("/api/generateInvoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceData, companyInfo, jobs }),
+      });
 
-  function handlePrintInvoice(invoiceData, companyInfo) {
+      if (!response.ok) {
+        throw new Error("Failed to generate invoice");
+      }
+
+      const invoiceHTML = await response.text();
+
+      // Open the invoice in a new tab
+      const newWindow = window.open("", "_blank");
+      newWindow.document.write(invoiceHTML);
+      newWindow.document.close();
+
+      // Trigger the print dialog
+      newWindow.onload = () => {
+        newWindow.print();
+      };
+    } catch (error) {
+      console.error("Error generating invoice:", error);
+    }
+  }
+
+  function handlePrintInvoiceClient(invoiceData, companyInfo) {
+    console.log("Generating invoice on client");
+    // Ensure invoiceData is initialized
+    if (!invoiceData) {
+      invoiceData = {};
+    }
+
+    // Calculate total price
     let priceSum = jobs.reduce((sum, job) => sum + Number(job.price || 0), 0);
     invoiceData.price = priceSum.toFixed(2);
+
     setInvoiceData(invoiceData);
 
     if (invoiceData) {
@@ -460,7 +496,18 @@ export default function Admin() {
                       size="sm"
                       className="text-white"
                     >
-                      Print Invoice
+                      Invoice (Sever)
+                    </Button>
+                    <Button
+                      color="danger"
+                      type="button"
+                      size="sm"
+                      className="text-white"
+                      onPress={() =>
+                        handlePrintInvoiceClient(invoiceData, companyInfo)
+                      }
+                    >
+                      Invoice (Client)
                     </Button>
                   </div>
                 </Form>
