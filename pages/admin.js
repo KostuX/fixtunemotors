@@ -354,7 +354,10 @@ export default function Admin() {
               <div className="mb-4 flex justify-center gap-4 m-8 min-h-screen">
                 <Form
                   className="w-full max-w-md flex flex-col gap-4"
-                  onReset={() => setAction("reset")}
+                  onReset={() => {
+                    setAction("reset");
+                    setJobs([{ job: "", price: "" }]);
+                  }}
                   onSubmit={(e) => {
                     e.preventDefault();
                     let data = Object.fromEntries(
