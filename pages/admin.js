@@ -186,12 +186,17 @@ export default function Admin() {
           <br>${companyInfo.email || ""}
         </div>
         <div>
-          <div class="inv-title">INVOICE</div>
-          <div class="inv-bold">
-            <br>${companyInfo.companyName || ""}
-            <br>${companyInfo.phone || ""}
-            <br>${companyInfo.address.map((addr) => addr.long_name).join(", ")}
-          </div>
+           <div class="inv-title">INVOICE</div>
+              <div class="inv-bold">
+                <br>${companyInfo.companyName || ""}
+                <br>${companyInfo.phone || ""}
+                <br>${companyInfo.address[0].long_name || ""}, ${
+      companyInfo.address[1].long_name || ""
+    }
+                <br>${companyInfo.address[2].long_name || ""}
+                <br>${companyInfo.address[3].long_name || ""}
+                ${companyInfo.address[4].long_name || ""}
+              </div>
         </div>
       </div>
       <div class="inv-bill-row">
