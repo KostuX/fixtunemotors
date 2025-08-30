@@ -453,6 +453,7 @@ export default function Admin() {
                         name={`price_${index}`}
                         placeholder="€"
                         type="number"
+                        step="0.01"
                         className="col-span-2"
                         value={job.price}
                         onChange={(e) => {
