@@ -100,6 +100,7 @@ export default function Admin() {
   }
   async function handlePrintInvoice(invoiceData, companyInfo) {
     console.log("Generating invoice on server");
+
     try {
       const response = await fetch("/api/generateInvoice", {
         method: "POST",
@@ -128,6 +129,7 @@ export default function Admin() {
   }
 
   function handlePrintInvoiceClient(invoiceData, companyInfo) {
+    console.log(invoiceData);
     console.log("Generating invoice on client");
     // Ensure invoiceData is initialized
     if (!invoiceData) {

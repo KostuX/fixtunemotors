@@ -29,6 +29,9 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const data = req.body;
+    const clientName = data.invoiceData.clientName || "Valued Customer";
+    const reg = data.invoiceData.reg || "";
+
     let invoiceData = parseJobs(data.invoiceData);
     const companyInfo = data.companyInfo;
     const jobs = data.jobs;
@@ -99,21 +102,19 @@ export default async function handler(req, res) {
           <div class="inv-bill-row">
             <div class="inv-bill-col">
               ${
-                invoiceData.clientName
+                clientName
                   ? `<div class="inv-label">BILL TO</div>
                      <div class="inv-bold">${capitalizeAllWords(
-                       invoiceData.clientName
+                       clientName
                      )}</div>`
                   : ""
               }
             </div>
             <div class="inv-bill-col">
               ${
-                invoiceData.reg
+                reg
                   ? `<div class="inv-label">REG</div>
-                     <div class="inv-bold">${String(
-                       invoiceData.reg
-                     ).toUpperCase()}</div>`
+                     <div class="inv-bold">${String(reg).toUpperCase()}</div>`
                   : ""
               }
             </div>
