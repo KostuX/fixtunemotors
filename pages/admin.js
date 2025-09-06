@@ -31,6 +31,7 @@ export default function Admin() {
   const [siteData, setSiteData] = useState(defaultData);
   const [tableData, setTableData] = useState([]);
   const [action, setAction] = useState(null);
+
   const [invoiceData, setInvoiceData] = useState(null);
   const [showInvoice, setShowInvoice] = useState(false);
   const [jobs, setJobs] = useState([{ job: "", price: "" }]);
@@ -128,8 +129,7 @@ export default function Admin() {
     }
   }
 
-  function handlePrintInvoiceClient(invoiceData, companyInfo) {
-    console.log(invoiceData);
+  function handlePrintInvoiceClient() {
     console.log("Generating invoice on client");
     // Ensure invoiceData is initialized
     if (!invoiceData) {
@@ -365,6 +365,7 @@ export default function Admin() {
                     let data = Object.fromEntries(
                       new FormData(e.currentTarget)
                     );
+
                     setAction(`submit ${JSON.stringify(data)}`);
                     handlePrintInvoice(data, companyInfo);
                   }}
@@ -429,6 +430,12 @@ export default function Admin() {
                     name="clientName"
                     placeholder="Enter client name"
                     type="text"
+                    onChange={(e) => {
+                      setInvoiceData({
+                        ...invoiceData,
+                        clientName: e.target.value,
+                      });
+                    }}
                   />
                   <Input
                     errorMessage="Please enter Registration Number"
@@ -437,6 +444,9 @@ export default function Admin() {
                     name="reg"
                     placeholder="Enter registration number"
                     type="text"
+                    onChange={(e) =>
+                      setInvoiceData({ ...invoiceData, reg: e.target.value })
+                    }
                   />
                   {jobs.map((job, index) => (
                     <div
@@ -514,9 +524,7 @@ export default function Admin() {
                       type="button"
                       size="sm"
                       className="text-white"
-                      onPress={() =>
-                        handlePrintInvoiceClient(invoiceData, companyInfo)
-                      }
+                      onPress={() => handlePrintInvoiceClient()}
                     >
                       Invoice (Client)
                     </Button>
